@@ -256,29 +256,42 @@
                 <div id="testResult" class="result-box" style="display: none;"></div>
             </div>
 
-            <!-- API 示例卡片 -->
+            <!-- 股票管理卡片 -->
             <div class="card">
-                <h2><span class="icon">🔗</span> API 调用示例</h2>
-                <div class="api-example">
-                    <p style="margin-bottom: 8px; color: #888;">获取所有股票</p>
-                    <code>GET /api/stocks</code>
+                <h2><span class="icon">📈</span> 股票管理</h2>
+
+                <!-- 添加股票表单 -->
+                <div style="margin-bottom: 16px;">
+                    <label style="color: #888; font-size: 0.9rem;">市场类型</label>
+                    <select id="marketSelect"
+                        style="width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                        <option value="hk">🇭🇰 港股</option>
+                        <option value="us">🇺🇸 美股</option>
+                        <option value="a">🇨🇳 A股</option>
+                    </select>
+
+                    <label style="color: #888; font-size: 0.9rem;">股票代码</label>
+                    <input type="text" id="stockCode" placeholder="例如: 09618 (京东)"
+                        style="width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+
+                    <label style="color: #888; font-size: 0.9rem;">自定义关键词 (可选，逗号分隔)</label>
+                    <input type="text" id="customKeywords" placeholder="例如: 刘强东, 京东物流"
+                        style="width: 100%; padding: 12px; margin-top: 8px; margin-bottom: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
                 </div>
-                <div class="api-example">
-                    <p style="margin-bottom: 8px; color: #888;">添加股票</p>
-                    <code>POST /api/stocks</code>
-                    <pre style="color: #888; font-size: 0.8rem; margin-top: 8px;">
-{
-  "market": "hk",
-  "code": "09618",
-  "customMatrix": {
-    "related": ["刘强东", "京东物流"]
-  }
-}</pre>
+
+                <button class="btn btn-success" onclick="addStock()" id="btnAddStock">
+                    ➕ 添加股票
+                </button>
+
+                <!-- 股票列表 -->
+                <div style="margin-top: 16px;">
+                    <label style="color: #888; font-size: 0.9rem;">已添加的股票</label>
+                    <div id="stockList" style="margin-top: 8px; max-height: 200px; overflow-y: auto;">
+                        <p style="color: #666; font-size: 0.9rem;">暂无股票，请添加</p>
+                    </div>
                 </div>
-                <div class="api-example">
-                    <p style="margin-bottom: 8px; color: #888;">发送飞书测试</p>
-                    <code>POST /api/test/feishu</code>
-                </div>
+
+                <div id="stockResult" class="result-box" style="display: none;"></div>
             </div>
 
             <!-- 推送统计卡片 -->
@@ -490,15 +503,110 @@
                 const data = await res.json();
                 if (data.success) {
                     const select = document.getElementById('stockSelect');
+                    select.innerHTML = '<option value="">选择股票...</option>';
                     data.data.forEach(stock => {
                         const option = document.createElement('option');
                         option.value = stock._id;
                         option.textContent = `${stock.name} (${stock.code})`;
                         select.appendChild(option);
                     });
+                    // 同时刷新股票管理列表
+                    refreshStockList(data.data);
                 }
             } catch (error) {
                 console.error('加载股票失败:', error);
+            }
+        }
+
+        // 刷新股票显示列表
+        function refreshStockList(stocks) {
+            const listEl = document.getElementById('stockList');
+            if (!stocks || stocks.length === 0) {
+                listEl.innerHTML = '<p style="color: #666; font-size: 0.9rem;">暂无股票，请添加</p>';
+                return;
+            }
+            const marketFlags = { hk: '🇭🇰', us: '🇺🇸', a: '🇨🇳' };
+            listEl.innerHTML = stocks.map(stock => `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; margin-bottom: 6px; background: rgba(0,0,0,0.2); border-radius: 6px;">
+                    <span>${marketFlags[stock.market] || '📊'} ${stock.name} (${stock.code})</span>
+                    <button onclick="deleteStock('${stock._id}')" style="background: #ff4757; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">删除</button>
+                </div>
+            `).join('');
+        }
+
+        // 添加股票
+        async function addStock() {
+            const market = document.getElementById('marketSelect').value;
+            const code = document.getElementById('stockCode').value.trim();
+            const keywordsInput = document.getElementById('customKeywords').value.trim();
+            const resultBox = document.getElementById('stockResult');
+            const btn = document.getElementById('btnAddStock');
+
+            if (!code) {
+                alert('请输入股票代码');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> 添加中...';
+
+            try {
+                const body = { market, code };
+                if (keywordsInput) {
+                    body.customMatrix = {
+                        related: keywordsInput.split(',').map(k => k.trim()).filter(Boolean)
+                    };
+                }
+
+                const res = await fetch(`${API_BASE}/stocks`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                const data = await res.json();
+
+                resultBox.style.display = 'block';
+                if (data.success) {
+                    resultBox.className = 'result-box success';
+                    resultBox.innerHTML = `✅ 添加成功！${data.data.name} (${data.data.code})`;
+                    // 清空输入
+                    document.getElementById('stockCode').value = '';
+                    document.getElementById('customKeywords').value = '';
+                    // 刷新列表
+                    loadStocks();
+                    refreshStatus();
+                } else {
+                    resultBox.className = 'result-box error';
+                    resultBox.innerHTML = `❌ 添加失败: ${data.error}`;
+                }
+            } catch (error) {
+                resultBox.style.display = 'block';
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = `❌ 请求失败: ${error.message}`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '➕ 添加股票';
+            }
+        }
+
+        // 删除股票
+        async function deleteStock(stockId) {
+            if (!confirm('确定要删除这只股票吗？')) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/stocks/${stockId}`, {
+                    method: 'DELETE'
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    loadStocks();
+                    refreshStatus();
+                } else {
+                    alert('删除失败: ' + data.error);
+                }
+            } catch (error) {
+                alert('请求失败: ' + error.message);
             }
         }
 
