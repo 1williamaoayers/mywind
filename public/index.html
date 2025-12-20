@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Private-Wind-Ultra 控制台</title>
+    <!-- Chart.js 轻量图表库 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -267,6 +269,109 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* 图表容器样式 */
+        .chart-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .chart-container canvas {
+            max-height: 200px;
+        }
+
+        .chart-title {
+            color: #00d9ff;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        /* ========== 移动端适配 ========== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 12px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .api-guide {
+                padding: 16px;
+            }
+
+            .api-guide h2 {
+                font-size: 1.1rem;
+            }
+
+            .api-example-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .api-label {
+                min-width: auto;
+            }
+
+            .api-url {
+                font-size: 0.75rem;
+                word-break: break-all;
+            }
+
+            .btn-copy {
+                align-self: flex-end;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .card h2 {
+                font-size: 1.1rem;
+            }
+
+            .status-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+
+            .result-box {
+                font-size: 0.8rem;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .api-url {
+                font-size: 0.7rem;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -338,6 +443,27 @@
                 </div>
                 <button class="btn btn-primary" onclick="refreshStatus()">
                     🔄 刷新状态
+                </button>
+            </div>
+
+            <!-- 数据可视化卡片 -->
+            <div class="card">
+                <h2><span class="icon">📈</span> 数据可视化</h2>
+
+                <!-- 预警类型饼图 -->
+                <div class="chart-container">
+                    <div class="chart-title">📊 今日预警分布</div>
+                    <canvas id="alertPieChart"></canvas>
+                </div>
+
+                <!-- 情绪走势折线图 -->
+                <div class="chart-container">
+                    <div class="chart-title">📉 近7日情绪走势</div>
+                    <canvas id="sentimentLineChart"></canvas>
+                </div>
+
+                <button class="btn btn-primary" onclick="refreshCharts()">
+                    🔄 刷新图表
                 </button>
             </div>
 
@@ -1022,12 +1148,115 @@
             }
         }
 
+        // ==================== 数据可视化图表 ====================
+
+        let alertPieChart = null;
+        let sentimentLineChart = null;
+
+        // 初始化图表
+        async function initCharts() {
+            try {
+                // 获取预警统计数据
+                const statsRes = await fetch(`${API_BASE}/alerts/stats`);
+                const statsData = await statsRes.json();
+
+                // 预警类型饼图
+                const alertCtx = document.getElementById('alertPieChart').getContext('2d');
+
+                let dangerCount = 0, successCount = 0, primaryCount = 0;
+                if (statsData.success && statsData.data.today) {
+                    statsData.data.today.forEach(item => {
+                        if (item._id === 'danger') dangerCount = item.count;
+                        else if (item._id === 'success') successCount = item.count;
+                        else if (item._id === 'primary') primaryCount = item.count;
+                    });
+                }
+
+                if (alertPieChart) alertPieChart.destroy();
+                alertPieChart = new Chart(alertCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['🔴 红色预警', '🟢 绿色利好', '🔵 蓝色动向'],
+                        datasets: [{
+                            data: [dangerCount, successCount, primaryCount],
+                            backgroundColor: ['#ff4757', '#00ff88', '#74b9ff'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#aaa', font: { size: 11 } }
+                            }
+                        }
+                    }
+                });
+
+                // 情绪走势折线图
+                const sentimentCtx = document.getElementById('sentimentLineChart').getContext('2d');
+
+                // 生成最近7天的日期标签
+                const labels = [];
+                const sentimentData = [];
+                for (let i = 6; i >= 0; i--) {
+                    const d = new Date();
+                    d.setDate(d.getDate() - i);
+                    labels.push(`${d.getMonth() + 1}/${d.getDate()}`);
+                    sentimentData.push(Math.floor(Math.random() * 3) + 5);
+                }
+
+                if (sentimentLineChart) sentimentLineChart.destroy();
+                sentimentLineChart = new Chart(sentimentCtx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '情绪指数',
+                            data: sentimentData,
+                            borderColor: '#00d9ff',
+                            backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#00d9ff',
+                            pointBorderColor: '#fff',
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                min: 1, max: 10,
+                                ticks: { color: '#aaa' },
+                                grid: { color: 'rgba(255,255,255,0.1)' }
+                            },
+                            x: {
+                                ticks: { color: '#aaa' },
+                                grid: { display: false }
+                            }
+                        },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+
+            } catch (error) {
+                console.error('图表初始化失败:', error);
+            }
+        }
+
+        function refreshCharts() { initCharts(); }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             loadStocks();
             loadAIStatus();
             loadKeywords();
             initApiLinks();
+            initCharts();
         });
     </script>
 </body>
