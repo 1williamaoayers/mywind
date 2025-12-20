@@ -417,6 +417,22 @@
                 <button class="btn btn-success" onclick="exportData('json')" style="flex: 1;">📥 导出 JSON</button>
                 <button class="btn btn-primary" onclick="exportData('csv')" style="flex: 1;">📥 导出 CSV</button>
             </div>
+
+            <!-- 开发者 API 说明 -->
+            <div
+                style="margin-top: 20px; padding: 16px; background: rgba(255,215,0,0.1); border-radius: 12px; border: 1px solid rgba(255,215,0,0.3);">
+                <h3 style="color: #ffd700; margin-bottom: 10px; font-size: 1.1rem;">💻 开发者 API</h3>
+                <p style="color: #aaa; font-size: 0.9rem; line-height: 1.6; margin-bottom: 12px;">
+                    你可以通过此接口在 <strong style="color: #00ff88;">Excel</strong> 或 <strong
+                        style="color: #00d9ff;">Python</strong> 中获取已清洗的金融数据。
+                </p>
+                <div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 8px;">
+                    <code style="color: #00d9ff; font-size: 0.85rem; word-break: break-all;" id="apiDevUrl"></code>
+                </div>
+                <p style="color: #666; font-size: 0.75rem; margin-top: 10px;">
+                    📖 返回 JSON 格式，包含 title, sentiment_score, alert_level, source 等字段
+                </p>
+            </div>
         </div>
 
         <div class="card-grid">
@@ -440,6 +456,11 @@
                         <div class="label">今日采集</div>
                         <div class="value" id="newsCount">-</div>
                     </div>
+                </div>
+                <div
+                    style="margin-top: 12px; padding: 10px; background: rgba(0,217,255,0.1); border-radius: 8px; border-left: 3px solid #00d9ff;">
+                    <div style="color: #888; font-size: 0.85rem;">🕐 爬虫最后活跃</div>
+                    <div style="color: #00ff88; font-size: 1rem; font-weight: 600;" id="lastCrawlTime">检测中...</div>
                 </div>
                 <button class="btn btn-primary" onclick="refreshStatus()">
                     🔄 刷新状态
@@ -1084,6 +1105,33 @@
             document.getElementById('apiGreen').textContent = `${baseUrl}/api/news?level=green`;
             document.getElementById('apiKeyword').textContent = `${baseUrl}/api/news?keyword=英伟达`;
             document.getElementById('apiAll').textContent = `${baseUrl}/api/news?limit=100`;
+            // 开发者 API URL
+            document.getElementById('apiDevUrl').textContent = `${baseUrl}/api/news?level=red&limit=50`;
+            // 获取爬虫活跃时间
+            loadLastCrawlTime();
+        }
+
+        // 获取爬虫最后活跃时间
+        async function loadLastCrawlTime() {
+            try {
+                const res = await fetch(`${API_BASE}/news?limit=1`);
+                const data = await res.json();
+                if (data.success && data.data.length > 0) {
+                    const lastTime = new Date(data.data[0].crawl_time || data.data[0].publish_time);
+                    const now = new Date();
+                    const diffSec = Math.floor((now - lastTime) / 1000);
+                    let timeStr;
+                    if (diffSec < 60) timeStr = `${diffSec} 秒前`;
+                    else if (diffSec < 3600) timeStr = `${Math.floor(diffSec / 60)} 分钟前`;
+                    else if (diffSec < 86400) timeStr = `${Math.floor(diffSec / 3600)} 小时前`;
+                    else timeStr = lastTime.toLocaleString('zh-CN');
+                    document.getElementById('lastCrawlTime').textContent = timeStr;
+                } else {
+                    document.getElementById('lastCrawlTime').textContent = '暂无采集记录';
+                }
+            } catch (error) {
+                document.getElementById('lastCrawlTime').textContent = '获取失败';
+            }
         }
 
         // 复制 API 链接
