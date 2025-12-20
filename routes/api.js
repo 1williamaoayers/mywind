@@ -9,6 +9,7 @@ const router = express.Router();
 const stockService = require('../services/stockService');
 const { processPendingAlerts, sendTestMessage, getStats } = require('../services/notificationService');
 const { getKeywords, addKeyword, removeKeyword } = require('../config/filterConfig');
+const { getSearchStatus, clearCache } = require('../services/searchEngineScraper');
 
 // 模型
 const Stock = require('../models/Stock');
@@ -510,6 +511,45 @@ router.delete('/config/keywords/:keyword', (req, res) => {
         } else {
             res.status(400).json({ success: false, error: result.error });
         }
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 搜索引擎增强 ====================
+
+/**
+ * 获取搜索引擎状态
+ */
+router.get('/search/status', (req, res) => {
+    try {
+        const status = getSearchStatus();
+        res.json({ success: true, data: status });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 清理搜索缓存
+ */
+router.post('/search/clear-cache', (req, res) => {
+    try {
+        clearCache();
+        res.json({ success: true, message: '搜索缓存已清理' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 手动触发搜索引擎采集
+ */
+router.post('/search/trigger', async (req, res) => {
+    try {
+        const scheduler = require('../services/schedulerService');
+        const result = await scheduler.triggerTask('searchEngine');
+        res.json({ success: true, data: result });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

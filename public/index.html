@@ -488,6 +488,57 @@
                 </button>
             </div>
 
+            <!-- 搜索引擎增强卡片 -->
+            <div class="card">
+                <h2><span class="icon">🔍</span> 搜索引擎增强</h2>
+                <p style="color: #888; margin-bottom: 16px; font-size: 0.9rem;">
+                    通过百度/Bing搜索增强采集，绕过需要登录的数据源
+                </p>
+
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="label">状态</div>
+                        <div class="value success" id="searchEngineStatus">✅ 已启用</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">总搜索</div>
+                        <div class="value" id="totalSearches">0</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">成功率</div>
+                        <div class="value" id="searchSuccessRate">-</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">缓存</div>
+                        <div class="value" id="searchCacheSize">0</div>
+                    </div>
+                </div>
+
+                <div
+                    style="margin: 12px 0; padding: 10px; background: rgba(0,217,255,0.1); border-radius: 8px; border-left: 3px solid #00d9ff;">
+                    <div style="color: #888; font-size: 0.85rem;">🕐 最近搜索</div>
+                    <div style="color: #00ff88; font-size: 0.9rem;" id="lastSearchInfo">暂无</div>
+                </div>
+
+                <!-- 采集日志 -->
+                <div style="margin-bottom: 12px;">
+                    <label style="color: #888; font-size: 0.85rem;">📜 采集流水线</label>
+                </div>
+                <div id="searchLogs"
+                    style="max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; font-size: 0.75rem; color: #aaa;">
+                    <p>等待采集...</p>
+                </div>
+
+                <div style="margin-top: 12px; display: flex; gap: 8px;">
+                    <button class="btn btn-success" onclick="triggerSearchEngine()" style="flex: 1;">
+                        ⚡ 立即搜索
+                    </button>
+                    <button class="btn btn-primary" onclick="clearSearchCache()" style="flex: 1;">
+                        🗑️ 清理缓存
+                    </button>
+                </div>
+            </div>
+
             <!-- 飞书测试卡片 -->
             <div class="card">
                 <h2><span class="icon">📨</span> 飞书推送测试</h2>
@@ -1298,6 +1349,84 @@
 
         function refreshCharts() { initCharts(); }
 
+        // ==================== 搜索引擎增强 ====================
+
+        // 加载搜索引擎状态
+        async function loadSearchStatus() {
+            try {
+                const res = await fetch(`${API_BASE}/search/status`);
+                const data = await res.json();
+                if (data.success) {
+                    const s = data.data;
+                    document.getElementById('totalSearches').textContent = s.totalSearches || 0;
+                    document.getElementById('searchCacheSize').textContent = s.cacheSize || 0;
+
+                    // 成功率
+                    if (s.totalSearches > 0) {
+                        const rate = Math.round((s.successCount / s.totalSearches) * 100);
+                        document.getElementById('searchSuccessRate').textContent = rate + '%';
+                    }
+
+                    // 最近搜索
+                    if (s.lastKeyword) {
+                        document.getElementById('lastSearchInfo').textContent =
+                            `${s.lastKeyword} (${s.lastSearchTimeStr})`;
+                    }
+
+                    // 日志
+                    if (s.recentLogs && s.recentLogs.length > 0) {
+                        document.getElementById('searchLogs').innerHTML =
+                            s.recentLogs.map(log => `<div>${log}</div>`).join('');
+                    }
+                }
+            } catch (error) {
+                console.error('加载搜索状态失败:', error);
+            }
+        }
+
+        // 触发搜索引擎采集
+        async function triggerSearchEngine() {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> 搜索中...';
+
+            try {
+                const res = await fetch(`${API_BASE}/search/trigger`, { method: 'POST' });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('搜索引擎采集已触发！');
+                    loadSearchStatus();
+                } else {
+                    alert('触发失败: ' + data.error);
+                }
+            } catch (error) {
+                alert('请求失败: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '⚡ 立即搜索';
+            }
+        }
+
+        // 清理搜索缓存
+        async function clearSearchCache() {
+            if (!confirm('确定清理搜索缓存？清理后将重新搜索所有关键词')) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/search/clear-cache`, { method: 'POST' });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('缓存已清理');
+                    loadSearchStatus();
+                } else {
+                    alert('清理失败: ' + data.error);
+                }
+            } catch (error) {
+                alert('请求失败: ' + error.message);
+            }
+        }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             loadStocks();
@@ -1305,6 +1434,9 @@
             loadKeywords();
             initApiLinks();
             initCharts();
+            loadSearchStatus();
+            // 每30秒刷新搜索状态
+            setInterval(loadSearchStatus, 30000);
         });
     </script>
 </body>

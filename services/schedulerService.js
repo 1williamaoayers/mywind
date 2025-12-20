@@ -11,6 +11,7 @@ const cron = require('node-cron');
 const { generateAllReports } = require('./aiService');
 const { runFullScrape, runDimensionScrape, DIMENSIONS } = require('./scraperService');
 const { processPendingAlerts } = require('./notificationService');
+const { enhancedSearch, getSearchStatus } = require('./searchEngineScraper');
 
 // 调度任务存储
 const scheduledTasks = new Map();
@@ -46,6 +47,12 @@ const DEFAULT_SCHEDULES = {
         cron: '0 3 * * *',
         enabled: true,
         description: '每天凌晨 3 点清理 30 天前的旧数据'
+    },
+    // 搜索引擎增强：每 30 分钟
+    searchEngine: {
+        cron: '*/30 * * * *',
+        enabled: true,
+        description: '每 30 分钟通过搜索引擎采集增强数据'
     }
 };
 
@@ -156,6 +163,42 @@ async function executeCleanupTask() {
 }
 
 /**
+ * 任务执行器：搜索引擎增强采集
+ */
+async function executeSearchEngineTask() {
+    console.log('[调度] 开始执行搜索引擎增强采集');
+    try {
+        const { getKeywords } = require('../config/filterConfig');
+        const { processAndSave } = require('./scraperService');
+        const Stock = require('../models/Stock');
+
+        // 获取白名单关键词
+        const keywords = getKeywords().slice(0, 5); // 每次只搜前5个，避免过于频繁
+
+        if (keywords.length === 0) {
+            console.log('[调度] 白名单为空，跳过搜索引擎采集');
+            return { skipped: true };
+        }
+
+        // 执行增强搜索
+        const results = await enhancedSearch(keywords);
+
+        // 入库
+        if (results.length > 0) {
+            const stocks = await Stock.find({ isActive: true });
+            const saveResult = await processAndSave(results, stocks);
+            console.log(`[调度] 搜索引擎采集完成: 新增 ${saveResult.inserted} 条`);
+            return saveResult;
+        }
+
+        return { inserted: 0, results: results.length };
+    } catch (error) {
+        console.error('[调度] 搜索引擎采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
  * 启动单个调度任务
  */
 function startTask(taskId, cronExpr, executor) {
@@ -221,6 +264,11 @@ function initScheduler() {
     // 数据清理
     if (currentConfig.cleanup.enabled) {
         startTask('cleanup', currentConfig.cleanup.cron, executeCleanupTask);
+    }
+
+    // 搜索引擎增强
+    if (currentConfig.searchEngine.enabled) {
+        startTask('searchEngine', currentConfig.searchEngine.cron, executeSearchEngineTask);
     }
 
     console.log(`[调度] 已启动 ${scheduledTasks.size} 个调度任务`);
@@ -329,6 +377,8 @@ async function triggerTask(taskId) {
             return executeAlertTask();
         case 'cleanup':
             return executeCleanupTask();
+        case 'searchEngine':
+            return executeSearchEngineTask();
         default:
             return { error: '未知任务' };
     }
