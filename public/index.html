@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private-Wind-Ultra 控制台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 .icon {
+            font-size: 1.5rem;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .status-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .status-item .label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .status-item .value {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .status-item .value.success {
+            color: #00ff88;
+        }
+
+        .status-item .value.warning {
+            color: #ffcc00;
+        }
+
+        .status-item .value.danger {
+            color: #ff4757;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #00b894, #00d9a5);
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0984e3, #74b9ff);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .result-box.success {
+            border-left: 3px solid #00ff88;
+        }
+
+        .result-box.error {
+            border-left: 3px solid #ff4757;
+        }
+
+        .api-example {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 10px;
+        }
+
+        .api-example code {
+            color: #00d9ff;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🌊 Private-Wind-Ultra</h1>
+            <p class="subtitle">全网矩阵式投研系统控制台</p>
+        </header>
+
+        <div class="card-grid">
+            <!-- 系统状态卡片 -->
+            <div class="card">
+                <h2><span class="icon">📊</span> 系统状态</h2>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="label">MongoDB</div>
+                        <div class="value" id="mongoStatus">检测中...</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">飞书 Webhook</div>
+                        <div class="value" id="feishuStatus">检测中...</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">监控股票</div>
+                        <div class="value" id="stockCount">-</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">今日采集</div>
+                        <div class="value" id="newsCount">-</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="refreshStatus()">
+                    🔄 刷新状态
+                </button>
+            </div>
+
+            <!-- 飞书测试卡片 -->
+            <div class="card">
+                <h2><span class="icon">📨</span> 飞书推送测试</h2>
+                <p style="color: #888; margin-bottom: 16px;">
+                    发送测试消息验证 Webhook 配置是否正确
+                </p>
+
+                <button class="btn btn-danger" onclick="testFeishu('danger')" id="btnDanger">
+                    🚨 发送红色预警测试
+                </button>
+                <button class="btn btn-success" onclick="testFeishu('success')" id="btnSuccess">
+                    📈 发送绿色利好测试
+                </button>
+                <button class="btn btn-primary" onclick="testFeishu('primary')" id="btnPrimary">
+                    📢 发送蓝色动向测试
+                </button>
+
+                <div id="testResult" class="result-box" style="display: none;"></div>
+            </div>
+
+            <!-- API 示例卡片 -->
+            <div class="card">
+                <h2><span class="icon">🔗</span> API 调用示例</h2>
+                <div class="api-example">
+                    <p style="margin-bottom: 8px; color: #888;">获取所有股票</p>
+                    <code>GET /api/stocks</code>
+                </div>
+                <div class="api-example">
+                    <p style="margin-bottom: 8px; color: #888;">添加股票</p>
+                    <code>POST /api/stocks</code>
+                    <pre style="color: #888; font-size: 0.8rem; margin-top: 8px;">
+{
+  "market": "hk",
+  "code": "09618",
+  "customMatrix": {
+    "related": ["刘强东", "京东物流"]
+  }
+}</pre>
+                </div>
+                <div class="api-example">
+                    <p style="margin-bottom: 8px; color: #888;">发送飞书测试</p>
+                    <code>POST /api/test/feishu</code>
+                </div>
+            </div>
+
+            <!-- 推送统计卡片 -->
+            <div class="card">
+                <h2><span class="icon">📈</span> 今日推送统计</h2>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="label">红色预警</div>
+                        <div class="value danger" id="dangerCount">0</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">绿色利好</div>
+                        <div class="value success" id="successCount">0</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">蓝色动向</div>
+                        <div class="value" style="color: #74b9ff;" id="primaryCount">0</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">静默处理</div>
+                        <div class="value warning" id="silencedCount">0</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="processPendingAlerts()">
+                    ⚡ 立即处理待发送预警
+                </button>
+            </div>
+
+            <!-- AI 研报卡片 -->
+            <div class="card">
+                <h2><span class="icon">🤖</span> AI 研报生成</h2>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="label">AI 配置</div>
+                        <div class="value" id="aiStatus">检测中...</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="label">今日研报</div>
+                        <div class="value" id="reportCount">0</div>
+                    </div>
+                </div>
+
+                <select id="stockSelect"
+                    style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                    <option value="">选择股票...</option>
+                </select>
+
+                <button class="btn btn-success" onclick="generateReport()" id="btnGenReport">
+                    ✨ 立即生成 AI 复盘
+                </button>
+                <button class="btn btn-primary" onclick="generateAllReports()" id="btnGenAll">
+                    📊 批量生成所有研报
+                </button>
+
+                <div id="reportResult" class="result-box" style="display: none;"></div>
+            </div>
+
+            <!-- 调度配置卡片 -->
+            <div class="card">
+                <h2><span class="icon">⏰</span> 调度配置</h2>
+                <p style="color: #888; margin-bottom: 16px;">设置研报自动生成时间</p>
+
+                <div style="margin-bottom: 16px;">
+                    <label style="color: #888; font-size: 0.9rem;">生成时间 (多个用逗号分隔)</label>
+                    <input type="text" id="scheduleTime" value="15:30, 21:00"
+                        style="width: 100%; padding: 12px; margin-top: 8px; border-radius: 8px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" id="workdayOnly" checked style="width: 18px; height: 18px;">
+                        <span style="color: #888;">仅工作日执行</span>
+                    </label>
+                </div>
+
+                <button class="btn btn-primary" onclick="updateSchedule()">
+                    💾 保存调度配置
+                </button>
+
+                <div id="scheduleStatus" style="margin-top: 12px; color: #888; font-size: 0.9rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+
+        // 页面加载时刷新状态
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshStatus();
+            refreshAlertStats();
+        });
+
+        // 刷新系统状态
+        async function refreshStatus() {
+            try {
+                const configRes = await fetch(`${API_BASE}/config/status`);
+                const configData = await configRes.json();
+
+                if (configData.success) {
+                    document.getElementById('mongoStatus').textContent =
+                        configData.data.mongoConnected ? '✅ 已连接' : '❌ 未连接';
+                    document.getElementById('mongoStatus').className =
+                        'value ' + (configData.data.mongoConnected ? 'success' : 'danger');
+
+                    document.getElementById('feishuStatus').textContent =
+                        configData.data.feishuWebhook ? '✅ 已配置' : '⚠️ 未配置';
+                    document.getElementById('feishuStatus').className =
+                        'value ' + (configData.data.feishuWebhook ? 'success' : 'warning');
+                }
+
+                // 获取股票数量
+                const stocksRes = await fetch(`${API_BASE}/stocks`);
+                const stocksData = await stocksRes.json();
+                if (stocksData.success) {
+                    document.getElementById('stockCount').textContent = stocksData.data.length;
+                }
+
+                // 获取新闻统计
+                const newsRes = await fetch(`${API_BASE}/news/stats`);
+                const newsData = await newsRes.json();
+                if (newsData.success) {
+                    const total = newsData.data.reduce((sum, d) => sum + d.totalCount, 0);
+                    document.getElementById('newsCount').textContent = total;
+                }
+            } catch (error) {
+                console.error('刷新状态失败:', error);
+            }
+        }
+
+        // 刷新推送统计
+        async function refreshAlertStats() {
+            try {
+                const res = await fetch(`${API_BASE}/alerts/stats`);
+                const data = await res.json();
+
+                if (data.success && data.data.today) {
+                    data.data.today.forEach(item => {
+                        const countEl = document.getElementById(item._id + 'Count');
+                        if (countEl) {
+                            countEl.textContent = item.count;
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('获取统计失败:', error);
+            }
+        }
+
+        // 发送飞书测试
+        async function testFeishu(type) {
+            const btn = document.getElementById('btn' + type.charAt(0).toUpperCase() + type.slice(1));
+            const resultBox = document.getElementById('testResult');
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> 发送中...';
+
+            try {
+                const res = await fetch(`${API_BASE}/test/feishu`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type })
+                });
+
+                const data = await res.json();
+
+                resultBox.style.display = 'block';
+
+                if (data.success) {
+                    resultBox.className = 'result-box success';
+                    resultBox.innerHTML = `✅ ${type} 类型测试消息发送成功！\n请检查飞书是否收到消息。`;
+                } else {
+                    resultBox.className = 'result-box error';
+                    resultBox.innerHTML = `❌ 发送失败: ${data.error || '未知错误'}`;
+                }
+            } catch (error) {
+                resultBox.style.display = 'block';
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = `❌ 请求失败: ${error.message}`;
+            } finally {
+                const icons = { danger: '🚨', success: '📈', primary: '📢' };
+                const texts = { danger: '发送红色预警测试', success: '发送绿色利好测试', primary: '发送蓝色动向测试' };
+                btn.disabled = false;
+                btn.innerHTML = `${icons[type]} ${texts[type]}`;
+            }
+        }
+
+        // 处理待发送预警
+        async function processPendingAlerts() {
+            try {
+                const res = await fetch(`${API_BASE}/alerts/process`, { method: 'POST' });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert(`处理完成！\n发送: ${data.data.sent}\n静默: ${data.data.silenced}\n失败: ${data.data.failed}`);
+                    refreshAlertStats();
+                } else {
+                    alert('处理失败: ' + data.error);
+                }
+            } catch (error) {
+                alert('请求失败: ' + error.message);
+            }
+        }
+
+        // 加载股票列表
+        async function loadStocks() {
+            try {
+                const res = await fetch(`${API_BASE}/stocks`);
+                const data = await res.json();
+                if (data.success) {
+                    const select = document.getElementById('stockSelect');
+                    data.data.forEach(stock => {
+                        const option = document.createElement('option');
+                        option.value = stock._id;
+                        option.textContent = `${stock.name} (${stock.code})`;
+                        select.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('加载股票失败:', error);
+            }
+        }
+
+        // 生成单只股票研报
+        async function generateReport() {
+            const stockId = document.getElementById('stockSelect').value;
+            if (!stockId) { alert('请先选择股票'); return; }
+
+            const btn = document.getElementById('btnGenReport');
+            const resultBox = document.getElementById('reportResult');
+
+            // 禁用按钮，显示 Loading 状态
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> 正在生成研报，请稍候...';
+
+            try {
+                const res = await fetch(`${API_BASE}/reports/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ stockId, forceRefresh: true })
+                });
+                const data = await res.json();
+                resultBox.style.display = 'block';
+
+                if (data.success) {
+                    const report = data.data;
+                    resultBox.className = 'result-box success';
+                    resultBox.innerHTML = `✅ 研报生成成功！\n📊 情绪评分: ${report.sentimentScore}/10\n📝 ${report.summary}`;
+
+                    // 弹窗确认是否推送飞书
+                    const shouldPush = confirm(
+                        `🎉 研报生成成功！\n\n` +
+                        `📊 ${report.stockName} (${report.stockCode})\n` +
+                        `🎯 情绪评分: ${report.sentimentScore}/10 (${report.sentimentLabel})\n` +
+                        `📝 ${report.summary}\n\n` +
+                        `是否立即推送至飞书？`
+                    );
+
+                    if (shouldPush) {
+                        await sendReportToFeishu(report._id);
+                    }
+                } else {
+                    resultBox.className = 'result-box error';
+                    resultBox.innerHTML = `❌ ${data.error}`;
+                }
+            } catch (error) {
+                resultBox.style.display = 'block';
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = `❌ ${error.message}`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '✨ 立即生成 AI 复盘';
+            }
+        }
+
+        // 发送研报到飞书
+        async function sendReportToFeishu(reportId) {
+            try {
+                const res = await fetch(`${API_BASE}/reports/${reportId}/send-feishu`, {
+                    method: 'POST'
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('✅ 研报已成功推送至飞书！');
+                } else {
+                    alert(`❌ 推送失败: ${data.error || '未知错误'}`);
+                }
+            } catch (error) {
+                alert(`❌ 推送请求失败: ${error.message}`);
+            }
+        }
+
+        // 批量生成研报
+        async function generateAllReports() {
+            if (!confirm('确定批量生成所有股票研报？')) return;
+            const btn = document.getElementById('btnGenAll');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span> 生成中...';
+
+            try {
+                const res = await fetch(`${API_BASE}/reports/generate-all`, { method: 'POST' });
+                const data = await res.json();
+                alert(data.success ? `完成！成功:${data.data.success} 缓存:${data.data.cached} 失败:${data.data.failed}` : data.error);
+            } catch (error) {
+                alert(error.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '📊 批量生成所有研报';
+            }
+        }
+
+        // 更新调度配置
+        async function updateSchedule() {
+            const times = document.getElementById('scheduleTime').value.split(',').map(t => t.trim()).filter(Boolean);
+            const workdayOnly = document.getElementById('workdayOnly').checked;
+
+            try {
+                const res = await fetch(`${API_BASE}/scheduler/report`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ times, workdayOnly })
+                });
+                const data = await res.json();
+                document.getElementById('scheduleStatus').innerHTML = data.success ? '✅ 配置已保存' : `❌ ${data.error}`;
+                document.getElementById('scheduleStatus').style.color = data.success ? '#00ff88' : '#ff4757';
+            } catch (error) {
+                document.getElementById('scheduleStatus').innerHTML = `❌ ${error.message}`;
+            }
+        }
+
+        // 加载 AI 状态
+        async function loadAIStatus() {
+            try {
+                const res = await fetch(`${API_BASE}/config/status`);
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('aiStatus').textContent = data.data.aiConfigured ? '✅ 已配置' : '⚠️ 未配置';
+                    document.getElementById('aiStatus').className = 'value ' + (data.data.aiConfigured ? 'success' : 'warning');
+                }
+            } catch (error) { console.error(error); }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => { loadStocks(); loadAIStatus(); });
+    </script>
+</body>
+
+</html>

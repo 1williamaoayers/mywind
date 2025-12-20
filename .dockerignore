@@ -1,0 +1,42 @@
+# 排除不需要进入镜像的文件
+# 减少镜像体积，加快构建速度
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# 依赖 (容器内重新安装)
+node_modules
+
+# 环境配置 (运行时通过 -e 传入)
+.env
+.env.*
+!.env.example
+
+# 文档
+*.md
+docs/
+LICENSE
+
+# Docker 配置 (不需要嵌套)
+docker-compose*.yml
+Dockerfile*
+
+# 开发工具
+.vscode
+.idea
+*.log
+logs/
+
+# 测试
+test/
+tests/
+*.test.js
+coverage/
+
+# 其他
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
