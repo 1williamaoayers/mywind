@@ -40,6 +40,12 @@ const DEFAULT_SCHEDULES = {
         cron: '*/2 * * * *',
         enabled: true,
         description: '每 2 分钟处理待推送预警'
+    },
+    // 数据清理：每天凌晨 3 点
+    cleanup: {
+        cron: '0 3 * * *',
+        enabled: true,
+        description: '每天凌晨 3 点清理 30 天前的旧数据'
     }
 };
 
@@ -126,6 +132,30 @@ async function executeAlertTask() {
 }
 
 /**
+ * 任务执行器：数据清理 (保持硬盘健康)
+ */
+async function executeCleanupTask() {
+    console.log('[调度] 开始执行数据清理任务');
+    try {
+        const News = require('../models/News');
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+        // 只删除非重要新闻 (保留重要预警记录)
+        const result = await News.deleteMany({
+            crawlTime: { $lt: thirtyDaysAgo },
+            isImportant: { $ne: true }
+        });
+
+        console.log(`[调度] 数据清理完成: 删除 ${result.deletedCount} 条旧新闻`);
+        return { deleted: result.deletedCount };
+    } catch (error) {
+        console.error('[调度] 数据清理失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
  * 启动单个调度任务
  */
 function startTask(taskId, cronExpr, executor) {
@@ -186,6 +216,11 @@ function initScheduler() {
     // 预警推送
     if (currentConfig.alerts.enabled) {
         startTask('alerts', currentConfig.alerts.cron, executeAlertTask);
+    }
+
+    // 数据清理
+    if (currentConfig.cleanup.enabled) {
+        startTask('cleanup', currentConfig.cleanup.cron, executeCleanupTask);
     }
 
     console.log(`[调度] 已启动 ${scheduledTasks.size} 个调度任务`);
@@ -292,6 +327,8 @@ async function triggerTask(taskId) {
             return runFullScrape();
         case 'alerts':
             return executeAlertTask();
+        case 'cleanup':
+            return executeCleanupTask();
         default:
             return { error: '未知任务' };
     }

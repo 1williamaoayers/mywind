@@ -22,6 +22,7 @@ const {
     getRandomDelay,
     sleep
 } = require('../utils/browserUtils');
+const { shouldIngest } = require('../config/filterConfig');
 
 // 预警关键词配置
 const ALERT_KEYWORDS = {
@@ -564,14 +565,33 @@ async function scrapeForStock(stock) {
 }
 
 /**
- * 处理并保存采集结果
+ * 处理并保存采集结果 (带白名单过滤)
  */
 async function processAndSave(rawItems, stocks) {
     if (!rawItems || rawItems.length === 0) {
-        return { inserted: 0, duplicates: 0 };
+        return { inserted: 0, duplicates: 0, filtered: 0 };
     }
 
-    const processedItems = rawItems.map(item => {
+    // 🔥 硬核过滤：入库前拦截，只有命中白名单的新闻才入库
+    const filteredItems = rawItems.filter(item => {
+        const result = shouldIngest(item.title, item.content);
+        if (result.shouldIngest) {
+            item._whitelistKeywords = result.matchedKeywords;
+            return true;
+        }
+        return false;
+    });
+
+    const filteredCount = rawItems.length - filteredItems.length;
+    if (filteredCount > 0) {
+        console.log(`[过滤] 丢弃 ${filteredCount} 条不匹配白名单的新闻`);
+    }
+
+    if (filteredItems.length === 0) {
+        return { inserted: 0, duplicates: 0, filtered: filteredCount };
+    }
+
+    const processedItems = filteredItems.map(item => {
         // 确保有发布时间，无则使用当天
         const publishTime = item.publishTime || new Date();
 

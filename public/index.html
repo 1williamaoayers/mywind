@@ -373,6 +373,32 @@
 
                 <div id="scheduleStatus" style="margin-top: 12px; color: #888; font-size: 0.9rem;"></div>
             </div>
+
+            <!-- 关键词管理卡片 -->
+            <div class="card">
+                <h2><span class="icon">🔑</span> 白名单关键词</h2>
+                <p style="color: #888; margin-bottom: 16px;">
+                    只有标题包含这些关键词的新闻才会入库
+                </p>
+
+                <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                    <input type="text" id="newKeyword" placeholder="输入关键词（如：英伟达）"
+                        style="flex: 1; padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                    <button class="btn btn-success" onclick="addKeyword()" id="btnAddKeyword"
+                        style="width: auto; margin-bottom: 0;">
+                        ➕ 添加
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 8px;">
+                    <label style="color: #888; font-size: 0.9rem;">当前白名单</label>
+                </div>
+                <div id="keywordList" style="max-height: 200px; overflow-y: auto;">
+                    <p style="color: #666; font-size: 0.9rem;">加载中...</p>
+                </div>
+
+                <div id="keywordResult" class="result-box" style="display: none;"></div>
+            </div>
         </div>
     </div>
 
@@ -730,8 +756,100 @@
             } catch (error) { console.error(error); }
         }
 
+        // ==================== 关键词管理 ====================
+
+        // 加载关键词列表
+        async function loadKeywords() {
+            try {
+                const res = await fetch(`${API_BASE}/config/keywords`);
+                const data = await res.json();
+                if (data.success) {
+                    renderKeywordList(data.data);
+                }
+            } catch (error) {
+                console.error('加载关键词失败:', error);
+            }
+        }
+
+        // 渲染关键词列表
+        function renderKeywordList(keywords) {
+            const listEl = document.getElementById('keywordList');
+            if (!keywords || keywords.length === 0) {
+                listEl.innerHTML = '<p style="color: #666; font-size: 0.9rem;">暂无关键词，请添加</p>';
+                return;
+            }
+            listEl.innerHTML = keywords.map(kw => `
+                <div style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; margin: 4px; background: rgba(0,217,255,0.15); border-radius: 20px; border: 1px solid rgba(0,217,255,0.3);">
+                    <span style="color: #00d9ff;">${kw}</span>
+                    <button onclick="deleteKeyword('${kw}')" style="background: none; border: none; color: #ff4757; cursor: pointer; font-size: 1rem; line-height: 1;">×</button>
+                </div>
+            `).join('');
+        }
+
+        // 添加关键词
+        async function addKeyword() {
+            const input = document.getElementById('newKeyword');
+            const keyword = input.value.trim();
+            const resultBox = document.getElementById('keywordResult');
+
+            if (!keyword) {
+                alert('请输入关键词');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/config/keywords`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ keyword })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    input.value = '';
+                    loadKeywords();
+                    resultBox.style.display = 'block';
+                    resultBox.className = 'result-box success';
+                    resultBox.innerHTML = `✅ 已添加: ${keyword}`;
+                    setTimeout(() => { resultBox.style.display = 'none'; }, 2000);
+                } else {
+                    resultBox.style.display = 'block';
+                    resultBox.className = 'result-box error';
+                    resultBox.innerHTML = `❌ ${data.error}`;
+                }
+            } catch (error) {
+                resultBox.style.display = 'block';
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = `❌ ${error.message}`;
+            }
+        }
+
+        // 删除关键词
+        async function deleteKeyword(keyword) {
+            if (!confirm(`确定删除关键词 "${keyword}" 吗？`)) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/config/keywords/${encodeURIComponent(keyword)}`, {
+                    method: 'DELETE'
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    loadKeywords();
+                } else {
+                    alert('删除失败: ' + data.error);
+                }
+            } catch (error) {
+                alert('请求失败: ' + error.message);
+            }
+        }
+
         // 初始化
-        document.addEventListener('DOMContentLoaded', () => { loadStocks(); loadAIStatus(); });
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStocks();
+            loadAIStatus();
+            loadKeywords();
+        });
     </script>
 </body>
 
