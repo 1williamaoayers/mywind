@@ -582,6 +582,46 @@
                 </div>
             </div>
 
+            <!-- 视觉采集卡片 -->
+            <div class="card">
+                <h2><span class="icon">👁️</span> 视觉采集 (OCR)</h2>
+                <p style="color: #888; margin-bottom: 12px; font-size: 0.85rem;">
+                    🔍 针对反爬网站（今日头条等），使用 Puppeteer 截图 + Tesseract.js OCR 识别
+                </p>
+
+                <!-- 状态显示 -->
+                <div style="margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="color: #888;">状态</span>
+                        <span id="visualStatus" style="color: #00ff88;">空闲</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="color: #888;">总扫描次数</span>
+                        <span id="visualTotalScans" style="color: #00d9ff;">0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="color: #888;">成功/失败</span>
+                        <span><span id="visualSuccess" style="color: #00ff88;">0</span> / <span id="visualFail"
+                                style="color: #ff4757;">0</span></span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #888;">最后运行</span>
+                        <span id="visualLastRun" style="color: #888;">从未运行</span>
+                    </div>
+                </div>
+
+                <!-- 日志区域 -->
+                <div id="visualLogs"
+                    style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px; max-height: 120px; overflow-y: auto; font-size: 0.8rem; color: #888; margin-bottom: 12px;">
+                    <p style="text-align: center;">无日志</p>
+                </div>
+
+                <!-- 操作按钮 -->
+                <button class="btn btn-primary" onclick="triggerVisualScrape()" style="width: 100%;">
+                    👁️ 立即执行今日头条视觉采集
+                </button>
+            </div>
+
             <!-- 飞书测试卡片 -->
             <div class="card">
                 <h2><span class="icon">📨</span> 飞书推送测试</h2>
@@ -1631,6 +1671,60 @@
                 alert('获取截图失败: ' + error.message);
             }
         }
+
+        // ==================== 视觉采集 ====================
+
+        // 加载视觉采集状态
+        async function loadVisualStatus() {
+            try {
+                const res = await fetch(`${API_BASE}/visual/status`);
+                const data = await res.json();
+                if (data.success) {
+                    const s = data.data;
+                    document.getElementById('visualStatus').textContent = s.isRunning ? '🔄 运行中...' : '✅ 空闲';
+                    document.getElementById('visualStatus').style.color = s.isRunning ? '#ffd700' : '#00ff88';
+                    document.getElementById('visualTotalScans').textContent = s.totalScans;
+                    document.getElementById('visualSuccess').textContent = s.successCount;
+                    document.getElementById('visualFail').textContent = s.failCount;
+                    document.getElementById('visualLastRun').textContent = s.lastRunTimeStr;
+
+                    // 日志
+                    const logsDiv = document.getElementById('visualLogs');
+                    if (s.recentLogs && s.recentLogs.length > 0) {
+                        logsDiv.innerHTML = s.recentLogs.map(log => `<div>${log}</div>`).join('');
+                    }
+                }
+            } catch (error) {
+                console.error('加载视觉采集状态失败:', error);
+            }
+        }
+
+        // 触发视觉采集
+        async function triggerVisualScrape() {
+            if (!confirm('确定执行今日头条视觉采集？（可能需要 1-2 分钟）')) return;
+
+            try {
+                document.getElementById('visualStatus').textContent = '🔄 运行中...';
+                document.getElementById('visualStatus').style.color = '#ffd700';
+
+                const res = await fetch(`${API_BASE}/visual/toutiao`, { method: 'POST' });
+                const data = await res.json();
+
+                loadVisualStatus();
+
+                if (data.success) {
+                    alert(`视觉采集完成！识别 ${data.data.count} 条新闻`);
+                } else {
+                    alert('视觉采集失败: ' + data.error);
+                }
+            } catch (error) {
+                alert('请求失败: ' + error.message);
+            }
+        }
+
+        // 初始化时加载视觉采集状态
+        loadVisualStatus();
+        setInterval(loadVisualStatus, 30000);
     </script>
 </body>
 

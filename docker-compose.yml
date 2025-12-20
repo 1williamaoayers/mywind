@@ -16,6 +16,7 @@ services:
     environment:
       - NODE_ENV=production
       - APP_PORT=8088
+      - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
       - MONGO_URI=mongodb://127.0.0.1:27017/private_wind
       - AI_API_KEY=sk-a1c794ab1969492aa06f7d1177af0451
       - AI_API_BASE=https://api.deepseek.com/v1

@@ -21,6 +21,9 @@ const { PLATFORMS } = require('../models/Account');
 // 认证服务
 const authService = require('../services/authService');
 
+// 视觉采集服务
+const { scrapeToutiao, getVisualStatus } = require('../services/visualScraper');
+
 // ==================== 健康检查 ====================
 
 router.get('/health', (req, res) => {
@@ -665,6 +668,56 @@ router.post('/accounts/:id/clear-session', async (req, res) => {
         authService.clearSession(account.platform);
         await account.updateStatus('idle', 'Session 已清除');
         res.json({ success: true, message: 'Session 已清除' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 视觉采集 ====================
+
+/**
+ * 获取视觉采集状态
+ */
+router.get('/visual/status', (req, res) => {
+    try {
+        const status = getVisualStatus();
+        res.json({ success: true, data: status });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 触发今日头条视觉采集
+ */
+router.post('/visual/toutiao', async (req, res) => {
+    try {
+        const { maxItems = 5 } = req.body;
+        const results = await scrapeToutiao({ maxItems });
+
+        // 入库
+        if (results.length > 0) {
+            const News = require('../models/News');
+            for (const item of results) {
+                try {
+                    await News.findOneAndUpdate(
+                        { title: item.title },
+                        { $setOnInsert: item },
+                        { upsert: true }
+                    );
+                } catch (e) {
+                    // 忽略重复
+                }
+            }
+        }
+
+        res.json({
+            success: true,
+            data: {
+                count: results.length,
+                items: results.map(r => ({ title: r.title, confidence: r.ocrConfidence }))
+            }
+        });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
