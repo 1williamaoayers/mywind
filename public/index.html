@@ -539,6 +539,49 @@
                 </div>
             </div>
 
+            <!-- 账号保险箱卡片 -->
+            <div class="card">
+                <h2><span class="icon">🔐</span> 账号保险箱</h2>
+                <p style="color: #888; margin-bottom: 12px; font-size: 0.85rem;">
+                    🔒 密码使用 AES-256 加密，仅存储于您的私有 VPS 数据库
+                </p>
+
+                <!-- 添加账号表单 -->
+                <div style="margin-bottom: 16px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+                    <select id="accountPlatform"
+                        style="width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                        <option value="">选择平台...</option>
+                        <option value="xueqiu">雪球</option>
+                        <option value="toutiao">今日头条</option>
+                        <option value="eastmoney">东方财富</option>
+                        <option value="futu">富途</option>
+                        <option value="ths">同花顺</option>
+                    </select>
+                    <input type="text" id="accountUsername" placeholder="账号（手机号/邮箱）"
+                        style="width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                    <input type="password" id="accountPassword" placeholder="密码"
+                        style="width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
+                    <button class="btn btn-success" onclick="addAccount()" style="width: 100%;">
+                        ➕ 添加账号
+                    </button>
+                </div>
+
+                <!-- 账号列表 -->
+                <div id="accountList" style="margin-bottom: 12px;">
+                    <p style="color: #666; text-align: center;">暂无托管账号</p>
+                </div>
+
+                <!-- 截图预览 -->
+                <div id="screenshotPreview" style="display: none; margin-top: 12px;">
+                    <label style="color: #888; font-size: 0.85rem;">🖼️ 浏览器实时截图</label>
+                    <img id="screenshotImg"
+                        style="width: 100%; border-radius: 8px; margin-top: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                    <button class="btn btn-primary" onclick="refreshScreenshot()" style="width: 100%; margin-top: 8px;">
+                        🔄 刷新截图
+                    </button>
+                </div>
+            </div>
+
             <!-- 飞书测试卡片 -->
             <div class="card">
                 <h2><span class="icon">📨</span> 飞书推送测试</h2>
@@ -1437,7 +1480,157 @@
             loadSearchStatus();
             // 每30秒刷新搜索状态
             setInterval(loadSearchStatus, 30000);
+            loadAccounts();
         });
+
+        // ==================== 账号保险箱 ====================
+
+        // 加载账号列表
+        async function loadAccounts() {
+            try {
+                const res = await fetch(`${API_BASE}/accounts`);
+                const data = await res.json();
+                if (data.success) {
+                    renderAccountList(data.data);
+                }
+            } catch (error) {
+                console.error('加载账号失败:', error);
+            }
+        }
+
+        // 渲染账号列表
+        function renderAccountList(accounts) {
+            const container = document.getElementById('accountList');
+            if (!accounts || accounts.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center;">暂无托管账号</p>';
+                return;
+            }
+
+            const statusColors = {
+                'idle': '#888',
+                'logging_in': '#ffd700',
+                'logged_in': '#00ff88',
+                'need_captcha': '#ff9500',
+                'need_verify': '#ff9500',
+                'failed': '#ff4757'
+            };
+
+            const statusLabels = {
+                'idle': '未登录',
+                'logging_in': '登录中...',
+                'logged_in': '已登录',
+                'need_captcha': '需要验证码',
+                'need_verify': '需要验证',
+                'failed': '登录失败'
+            };
+
+            container.innerHTML = accounts.map(acc => `
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; margin-bottom: 8px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; color: #fff;">${acc.displayName}</div>
+                        <div style="font-size: 0.8rem; color: #888;">${acc.platform} · ${acc.username}</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; background: ${statusColors[acc.status]}20; color: ${statusColors[acc.status]};">
+                            ${statusLabels[acc.status] || acc.status}
+                        </span>
+                        <button onclick="loginAccount('${acc._id}')" style="padding: 6px 12px; border: none; border-radius: 4px; background: #00d9ff; color: #000; cursor: pointer; font-size: 0.8rem;">
+                            🔑 登录
+                        </button>
+                        <button onclick="deleteAccount('${acc._id}')" style="padding: 6px 10px; border: none; border-radius: 4px; background: #ff4757; color: #fff; cursor: pointer; font-size: 0.8rem;">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 添加账号
+        async function addAccount() {
+            const platform = document.getElementById('accountPlatform').value;
+            const username = document.getElementById('accountUsername').value;
+            const password = document.getElementById('accountPassword').value;
+
+            if (!platform || !username || !password) {
+                alert('请填写完整信息');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/accounts`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ platform, username, password })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('账号添加成功');
+                    document.getElementById('accountUsername').value = '';
+                    document.getElementById('accountPassword').value = '';
+                    loadAccounts();
+                } else {
+                    alert('添加失败: ' + data.error);
+                }
+            } catch (error) {
+                alert('请求失败: ' + error.message);
+            }
+        }
+
+        // 删除账号
+        async function deleteAccount(id) {
+            if (!confirm('确定删除该账号？')) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/accounts/${id}`, { method: 'DELETE' });
+                const data = await res.json();
+                if (data.success) {
+                    loadAccounts();
+                } else {
+                    alert('删除失败: ' + data.error);
+                }
+            } catch (error) {
+                alert('请求失败: ' + error.message);
+            }
+        }
+
+        // 触发登录
+        async function loginAccount(id) {
+            try {
+                const res = await fetch(`${API_BASE}/accounts/${id}/login`, { method: 'POST' });
+                const data = await res.json();
+
+                loadAccounts();
+
+                if (data.data && data.data.needCaptcha) {
+                    alert('需要验证码，请查看截图');
+                    refreshScreenshot();
+                } else if (data.success) {
+                    alert('登录成功');
+                } else {
+                    alert('登录失败: ' + (data.data?.message || data.error));
+                }
+            } catch (error) {
+                alert('请求失败: ' + error.message);
+            }
+        }
+
+        // 刷新截图
+        async function refreshScreenshot() {
+            try {
+                const res = await fetch(`${API_BASE}/accounts/screenshot`);
+                const data = await res.json();
+
+                if (data.success && data.data) {
+                    document.getElementById('screenshotImg').src = data.data;
+                    document.getElementById('screenshotPreview').style.display = 'block';
+                } else {
+                    alert('暂无截图');
+                }
+            } catch (error) {
+                alert('获取截图失败: ' + error.message);
+            }
+        }
     </script>
 </body>
 
