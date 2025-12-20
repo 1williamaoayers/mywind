@@ -297,11 +297,168 @@ function clearCache() {
     addLog('搜索缓存已清理');
 }
 
+/**
+ * Puppeteer 智能翻页搜索（深度模式）
+ * 使用真实浏览器 + 自动翻页
+ */
+async function puppeteerSearch(keyword, options = {}) {
+    const maxPages = options.maxPages || 3;
+
+    // 检查缓存
+    if (isCached(keyword, 'puppeteer')) {
+        addLog(`跳过 Puppeteer 搜索（缓存中）: ${keyword}`);
+        return [];
+    }
+
+    addLog(`启动 Puppeteer 深度搜索: ${keyword} (最多${maxPages}页)...`);
+    searchStatus.lastSearchTime = new Date();
+    searchStatus.lastKeyword = keyword;
+    searchStatus.totalSearches++;
+
+    let page = null;
+    const allResults = [];
+    const seenUrls = new Set();
+
+    try {
+        const browserService = require('./browserService');
+
+        // 创建页面（极轻量模式 + 环境仿真）
+        page = await browserService.createPage({ lightMode: true });
+
+        // 构建搜索 URL
+        let query = keyword;
+        if (options.news) query += ' 资讯';
+        if (options.site) query = `site:${options.site} ${query}`;
+
+        const url = `https://www.baidu.com/s?wd=${encodeURIComponent(query)}&rn=10`;
+
+        // 导航
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+        addLog(`[Puppeteer] 已打开百度搜索页面`);
+
+        // 智能翻页
+        for (let pageNum = 1; pageNum <= maxPages; pageNum++) {
+            addLog(`[Puppeteer] 正在处理第 ${pageNum} 页...`);
+
+            // 模拟人类滚动
+            await browserService.humanScroll(page);
+
+            // 提取当前页结果
+            const pageResults = await page.evaluate(() => {
+                const items = [];
+                document.querySelectorAll('.result, .c-container').forEach((elem, i) => {
+                    if (i >= 10) return;
+
+                    const titleElem = elem.querySelector('h3 a, .t a');
+                    const snippetElem = elem.querySelector('.c-abstract, .content-right_8Zs40');
+
+                    if (titleElem && snippetElem) {
+                        items.push({
+                            title: titleElem.textContent.trim().substring(0, 100),
+                            snippet: snippetElem.textContent.trim().substring(0, 500),
+                            url: titleElem.href || ''
+                        });
+                    }
+                });
+                return items;
+            });
+
+            // 白名单过滤 + 去重
+            for (const item of pageResults) {
+                if (seenUrls.has(item.url)) continue;
+
+                const filterResult = shouldIngest(item.title, item.snippet);
+                if (filterResult.shouldIngest) {
+                    seenUrls.add(item.url);
+                    allResults.push({
+                        source: 'search_puppeteer',
+                        sourceName: 'Puppeteer深度搜索',
+                        dimension: 'search_engine',
+                        title: item.title,
+                        content: item.snippet,
+                        url: item.url,
+                        publishTime: new Date(),
+                        searchKeyword: keyword,
+                        matchedKeywords: filterResult.matchedKeywords
+                    });
+                }
+            }
+
+            addLog(`[Puppeteer] 第 ${pageNum} 页: ${pageResults.length} 条，命中 ${allResults.length} 条`);
+
+            // 如果当前页有结果且需要翻页
+            if (pageNum < maxPages) {
+                // 查找"下一页"按钮
+                const hasNext = await browserService.humanClick(page, 'a.n');
+                if (!hasNext) {
+                    addLog(`[Puppeteer] 没有更多页面`);
+                    break;
+                }
+
+                // 等待页面加载
+                await browserService.sleep(2000 + Math.random() * 1000);
+            }
+        }
+
+        setCache(keyword, 'puppeteer');
+        searchStatus.successCount++;
+        addLog(`Puppeteer 搜索完成: 共发现 ${allResults.length} 条匹配结果`);
+
+        return allResults;
+
+    } catch (error) {
+        searchStatus.failCount++;
+        addLog(`Puppeteer 搜索失败: ${error.message}`);
+        return [];
+    } finally {
+        if (page) {
+            const browserService = require('./browserService');
+            await browserService.closePage(page);
+        }
+    }
+}
+
+/**
+ * 增强版综合搜索（包含 Puppeteer 深度搜索）
+ */
+async function enhancedSearchWithPuppeteer(keywords, options = {}) {
+    addLog(`启动增强搜索模式 (含Puppeteer): ${keywords.length} 个关键词`);
+
+    const allResults = [];
+
+    for (const keyword of keywords) {
+        // 1. 先尝试快速 HTTP 搜索
+        const httpResults = await searchBaidu(keyword, { news: true });
+        allResults.push(...httpResults);
+
+        // 2. 如果 HTTP 搜索结果少于 3 条，启用 Puppeteer 深度搜索
+        if (httpResults.length < 3 && options.usePuppeteer !== false) {
+            addLog(`HTTP 结果不足，启用 Puppeteer 深度搜索: ${keyword}`);
+            const puppeteerResults = await puppeteerSearch(keyword, { news: true, maxPages: 2 });
+            allResults.push(...puppeteerResults);
+        }
+
+        // 3. 影子抓取
+        if (options.shadowScrape !== false) {
+            const shadowResults = await shadowScrape(keyword);
+            allResults.push(...shadowResults);
+        }
+
+        // 控制频率
+        await sleep(getRandomDelay(15, 30) * 1000);
+    }
+
+    addLog(`增强搜索完成: 共采集 ${allResults.length} 条有效数据`);
+    return allResults;
+}
+
 module.exports = {
     searchBaidu,
     searchBing,
     shadowScrape,
     enhancedSearch,
+    puppeteerSearch,
+    enhancedSearchWithPuppeteer,
     getSearchStatus,
     clearCache,
     addLog
