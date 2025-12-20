@@ -9,7 +9,7 @@ const cors = require('cors');
 const { connectDatabase } = require('./config/database');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.APP_PORT || process.env.PORT || 8088;
 
 // 中间件
 app.use(cors());
