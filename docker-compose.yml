@@ -9,7 +9,9 @@ services:
       - "27017:27017"
 
   app:
-    image: ghcr.io/1williamaoayers/mywind:latest
+    build: .
+    # 如果想用 GitHub Actions 构建的镜像，取消下面注释并注释上面的 build:
+    # image: ghcr.io/1williamaoayers/mywind:latest
     container_name: mywind-app
     restart: always
     network_mode: host
