@@ -1,7 +1,7 @@
 # =====================================================
 # Private-Wind-Ultra / MyWind AI 投研助手
-# 生产级多架构 Dockerfile
-# 支持: linux/amd64, linux/arm64, linux/arm/v7
+# 生产级多架构 Dockerfile (含 Puppeteer/Chromium)
+# 支持: linux/amd64, linux/arm64
 # =====================================================
 
 FROM node:20-alpine
@@ -10,6 +10,21 @@ FROM node:20-alpine
 LABEL org.opencontainers.image.source="https://github.com/1williamaoayers/mywind"
 LABEL org.opencontainers.image.description="MyWind AI 投研助手 - 全架构版"
 LABEL org.opencontainers.image.licenses="MIT"
+
+# 安装 Chromium 和 Puppeteer 依赖
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    font-noto-cjk \
+    && rm -rf /var/cache/apk/*
+
+# 设置 Puppeteer 使用系统 Chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # 设置工作目录
 WORKDIR /app
@@ -29,7 +44,7 @@ RUN npm install --production --no-optional \
 COPY . .
 
 # 4. 创建必要目录
-RUN mkdir -p /app/logs
+RUN mkdir -p /app/logs /tmp/puppeteer-cookies
 
 # 5. 设置环境变量默认值
 ENV NODE_ENV=production \
@@ -45,3 +60,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
 
 # 8. 启动命令
 CMD ["node", "server.js"]
+

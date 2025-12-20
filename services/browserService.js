@@ -74,8 +74,12 @@ async function launchBrowser() {
 
     console.log('[浏览器] 启动 Puppeteer (Stealth 模式)...');
 
+    // 使用系统 Chromium（Docker 环境）
+    const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
+
     browserInstance = await puppeteer.launch({
         headless: 'new',
+        executablePath,
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
