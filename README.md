@@ -1,4 +1,4 @@
-# 🚀 MyWind AI 投研助手 (全架构版)
+# 🚀 MyWind AI 投研助手
 
 > 你的私人"万得"终端。**自动抓取金融资讯** → **DeepSeek AI 深度分析** → **飞书彩色卡片实时预警**。
 
@@ -7,37 +7,91 @@
 
 ---
 
-## 🛠️ 1. 一键启动 (支持 Windows/Mac/树莓派/玩客云)
+## 🛠️ 部署方式对比
 
-只需安装 [Docker](https://docs.docker.com/get-docker/)，复制并运行这行命令（**记得替换你的 KEY**）：
+| 方式 | 数据持久化 | 适合场景 | 命令复杂度 |
+|------|-----------|---------|-----------|
+| **方式一：体验版** | ❌ 容器删除后丢失 | 快速体验、临时测试 | 一行命令 |
+| **方式二：正式版** | ✅ 永久保存 | 正式使用、长期运行 | 一键脚本 |
+
+---
+
+## ⚡ 方式一：体验版（不保存数据）
 
 ```bash
-docker run -d \
-  --name mywind-ai \
-  -p 8088:8088 \
+docker run -d --name mywind-ai -p 8088:8088 \
   -e AI_API_KEY=你的DeepSeek_Key \
-  -e FEISHU_WEBHOOK=你的飞书Webhook_地址 \
+  -e FEISHU_WEBHOOK=你的飞书Webhook \
   --restart always \
   ghcr.io/1williamaoayers/mywind:latest
 ```
 
-> **树莓派/玩客云用户**：建议添加内存限制 `--memory=512m`
-
-启动后在浏览器打开：**http://localhost:8088** 即可看到控制台。
+> ⚠️ 容器删除后，股票列表、研报等数据会丢失
 
 ---
 
-## 🧹 2. 一键彻底卸载 (不占硬盘 1KB 空间)
+## 🏆 方式二：正式版（带 MongoDB，推荐）
 
-不想用了？运行下面这行命令，镜像、容器和缓存将全部抹除：
+**SSH 终端直接复制运行：**
 
 ```bash
-docker rm -f mywind-ai && docker rmi ghcr.io/1williamaoayers/mywind:latest && docker image prune -a -f
+mkdir -p ~/mywind && cd ~/mywind && cat > docker-compose.yml << 'COMPOSE'
+version: '3.8'
+services:
+  mongo:
+    image: mongo:7
+    container_name: mywind-mongo
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+
+  app:
+    image: ghcr.io/1williamaoayers/mywind:latest
+    container_name: mywind-app
+    restart: always
+    ports:
+      - "8088:8088"
+    environment:
+      - NODE_ENV=production
+      - APP_PORT=8088
+      - MONGO_URI=mongodb://mongo:27017/private_wind
+      - AI_API_KEY=你的DeepSeek_Key
+      - AI_API_BASE=https://api.deepseek.com/v1
+      - AI_MODEL=deepseek-chat
+      - FEISHU_WEBHOOK=你的飞书Webhook
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:
+COMPOSE
+
+docker-compose up -d && echo "✅ 启动成功！打开 http://localhost:8088"
 ```
 
 ---
 
-## 📋 3. 环境变量说明
+## 🌐 访问控制台
+
+启动后打开浏览器：**http://localhost:8088**
+
+如果是服务器部署：**http://服务器IP:8088**
+
+---
+
+## 🧹 一键卸载
+
+```bash
+# 停止并删除容器
+docker-compose -f ~/mywind/docker-compose.yml down -v
+
+# 删除镜像（可选）
+docker rmi ghcr.io/1williamaoayers/mywind:latest mongo:7
+```
+
+---
+
+## 📋 环境变量说明
 
 | 变量名 | 必填 | 说明 |
 |--------|------|------|
@@ -45,69 +99,25 @@ docker rm -f mywind-ai && docker rmi ghcr.io/1williamaoayers/mywind:latest && do
 | `FEISHU_WEBHOOK` | ✅ | 飞书 Flow Webhook 地址 |
 | `AI_API_BASE` | ❌ | API 地址 (默认: https://api.deepseek.com/v1) |
 | `AI_MODEL` | ❌ | 模型名称 (默认: deepseek-chat) |
-| `MONGO_URI` | ❌ | MongoDB 地址 (默认: 内置) |
 
 ---
 
-## 🐳 4. 带 MongoDB 的完整部署 (可选)
-
-如需持久化数据，使用 docker-compose：
-
-```yaml
-# docker-compose.yml
-version: '3.8'
-services:
-  mongo:
-    image: mongo:7
-    volumes:
-      - mongo_data:/data/db
-  
-  app:
-    image: ghcr.io/1williamaoayers/mywind:latest
-    ports:
-      - "8088:8088"
-    environment:
-      - AI_API_KEY=你的Key
-      - FEISHU_WEBHOOK=你的Webhook
-      - MONGO_URI=mongodb://mongo:27017/private_wind
-    depends_on:
-      - mongo
-
-volumes:
-  mongo_data:
-```
-
-运行：`docker-compose up -d`
-
----
-
-## 📱 5. 飞书推送效果
-
-系统会向飞书群发送如下格式的消息：
-
-- 🚨 **红色高危预警** - 立案/调查/退市等
-- 📈 **绿色利好预警** - 重组/并购/涨停等
-- 📢 **蓝色动向提醒** - 减持/异动/解禁等
-
----
-
-## 🔧 6. 常见问题
-
-**Q: 镜像拉取失败？**
-```bash
-# 登录 GitHub Container Registry
-docker login ghcr.io -u 1williamaoayers
-```
+## 🔧 常见问题
 
 **Q: 端口被占用？**
 ```bash
-# 换一个端口，如 9088
-docker run -d -p 9088:8088 ...
+# 改用其他端口，如 9088
+-p 9088:8088
 ```
 
 **Q: 查看日志？**
 ```bash
-docker logs -f mywind-ai
+docker logs -f mywind-app
+```
+
+**Q: 拉取镜像失败？**
+```bash
+docker login ghcr.io
 ```
 
 ---
