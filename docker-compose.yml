@@ -1,6 +1,6 @@
 services:
   mongo:
-    image: mongo:4.4
+    image: mongo:7
     container_name: mywind-mongo
     restart: always
     volumes:

@@ -27,7 +27,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
         }
 
         h1 {
@@ -41,6 +41,74 @@
         .subtitle {
             color: #888;
             font-size: 1.1rem;
+        }
+
+        /* API 使用指南样式 */
+        .api-guide {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(0, 255, 136, 0.1));
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .api-guide h2 {
+            color: #00d9ff;
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+        }
+
+        .api-guide-intro {
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .api-example-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .api-label {
+            min-width: 100px;
+            font-weight: 600;
+            color: #00ff88;
+        }
+
+        .api-url {
+            flex: 1;
+            font-family: 'Fira Code', monospace;
+            color: #00d9ff;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .btn-copy {
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: transform 0.2s;
+        }
+
+        .btn-copy:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-copy.copied {
+            background: #00ff88;
         }
 
         .card-grid {
@@ -208,6 +276,43 @@
             <h1>🌊 Private-Wind-Ultra</h1>
             <p class="subtitle">全网矩阵式投研系统控制台</p>
         </header>
+
+        <!-- API 使用指南 -->
+        <div class="api-guide">
+            <h2>📡 API 使用指南 - 让你的数据无处不在</h2>
+            <p class="api-guide-intro">
+                你的 VPS 现在是一个"万得级"金融数据源。复制下面的链接，在任何地方（Excel、Python、APP）一键获取实时数据！
+            </p>
+
+            <div class="api-example-row">
+                <span class="api-label">🔴 红色预警</span>
+                <code class="api-url" id="apiRed"></code>
+                <button class="btn-copy" onclick="copyApi('apiRed')">📋 复制</button>
+            </div>
+
+            <div class="api-example-row">
+                <span class="api-label">🟢 绿色利好</span>
+                <code class="api-url" id="apiGreen"></code>
+                <button class="btn-copy" onclick="copyApi('apiGreen')">📋 复制</button>
+            </div>
+
+            <div class="api-example-row">
+                <span class="api-label">🔍 关键词搜索</span>
+                <code class="api-url" id="apiKeyword"></code>
+                <button class="btn-copy" onclick="copyApi('apiKeyword')">📋 复制</button>
+            </div>
+
+            <div class="api-example-row">
+                <span class="api-label">📊 全部数据</span>
+                <code class="api-url" id="apiAll"></code>
+                <button class="btn-copy" onclick="copyApi('apiAll')">📋 复制</button>
+            </div>
+
+            <div style="margin-top: 16px; display: flex; gap: 12px;">
+                <button class="btn btn-success" onclick="exportData('json')" style="flex: 1;">📥 导出 JSON</button>
+                <button class="btn btn-primary" onclick="exportData('csv')" style="flex: 1;">📥 导出 CSV</button>
+            </div>
+        </div>
 
         <div class="card-grid">
             <!-- 系统状态卡片 -->
@@ -844,11 +949,85 @@
             }
         }
 
+        // ==================== API 使用指南功能 ====================
+
+        // 初始化 API 链接 (自动检测当前 VPS 地址)
+        function initApiLinks() {
+            const baseUrl = window.location.origin;
+            document.getElementById('apiRed').textContent = `${baseUrl}/api/news?level=red`;
+            document.getElementById('apiGreen').textContent = `${baseUrl}/api/news?level=green`;
+            document.getElementById('apiKeyword').textContent = `${baseUrl}/api/news?keyword=英伟达`;
+            document.getElementById('apiAll').textContent = `${baseUrl}/api/news?limit=100`;
+        }
+
+        // 复制 API 链接
+        function copyApi(elemId) {
+            const text = document.getElementById(elemId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                btn.textContent = '✅ 已复制';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 复制';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                alert('复制失败: ' + err.message);
+            });
+        }
+
+        // 导出数据
+        async function exportData(format) {
+            try {
+                const res = await fetch(`${API_BASE}/news?limit=500`);
+                const data = await res.json();
+
+                if (!data.success || !data.data.length) {
+                    alert('暂无数据可导出');
+                    return;
+                }
+
+                let content, filename, mimeType;
+
+                if (format === 'json') {
+                    content = JSON.stringify(data.data, null, 2);
+                    filename = `news_export_${new Date().toISOString().split('T')[0]}.json`;
+                    mimeType = 'application/json';
+                } else {
+                    // CSV 格式
+                    const headers = ['标题', '来源', '预警等级', '情绪评分', '发布时间', '原文链接'];
+                    const rows = data.data.map(item => [
+                        `"${(item.title || '').replace(/"/g, '""')}"`,
+                        item.source || '',
+                        item.alert_level || '',
+                        item.sentiment_score || '',
+                        item.publish_time || '',
+                        item.original_url || ''
+                    ]);
+                    content = '\ufeff' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+                    filename = `news_export_${new Date().toISOString().split('T')[0]}.csv`;
+                    mimeType = 'text/csv;charset=utf-8';
+                }
+
+                // 下载文件
+                const blob = new Blob([content], { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                alert('导出失败: ' + error.message);
+            }
+        }
+
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             loadStocks();
             loadAIStatus();
             loadKeywords();
+            initApiLinks();
         });
     </script>
 </body>
