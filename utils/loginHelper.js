@@ -291,51 +291,26 @@ class LoginHelper {
             const imageBuffer = fs.readFileSync(screenshotPath);
             const base64Image = imageBuffer.toString('base64');
 
-            // 发送图片消息
+            // 发送富文本消息
             const response = await axios.post(this.feishuWebhook, {
-                msg_type: 'interactive',
-                card: {
-                    header: {
-                        title: {
-                            tag: 'plain_text',
-                            content: `🔐 ${this.config.name || this.siteName} 需要扫码登录`
-                        },
-                        template: 'orange'
-                    },
-                    elements: [
-                        {
-                            tag: 'div',
-                            text: {
-                                tag: 'lark_md',
-                                content: `**请用手机扫描下方二维码完成登录**\n\n登录成功后系统会自动保存状态，下次无需重复扫码。`
-                            }
-                        },
-                        {
-                            tag: 'img',
-                            img_key: '', // 飞书需要先上传图片获取 key
-                            alt: {
-                                tag: 'plain_text',
-                                content: '二维码'
-                            }
-                        },
-                        {
-                            tag: 'note',
-                            elements: [
-                                {
-                                    tag: 'plain_text',
-                                    content: `截图时间: ${new Date().toLocaleString('zh-CN')}`
-                                }
+                msg_type: 'post',
+                content: {
+                    post: {
+                        zh_cn: {
+                            title: `🔐 ${this.config.name || this.siteName} 需要扫码登录`,
+                            content: [
+                                [{ tag: 'text', text: '📱 请使用手机扫描二维码完成登录
+' }],
+                                [{ tag: 'text', text: `⏰ 时间: ${new Date().toLocaleString('zh-CN')}
+` }],
+                                [{ tag: 'text', text: `📁 截图: ${screenshotPath}
+` }],
+                                [{ tag: 'text', text: '⚠️ 请在 120 秒内完成扫码
+' }],
+                                [{ tag: 'text', text: '💡 登录成功后 Cookie 自动保存' }]
                             ]
                         }
-                    ]
-                }
-            });
-
-            // 由于飞书图片需要先上传，这里改用文本提醒
-            const textResponse = await axios.post(this.feishuWebhook, {
-                msg_type: 'text',
-                content: {
-                    text: `🔐 ${this.config.name || this.siteName} 需要扫码登录\n\n请打开浏览器截图查看二维码，或等待 60 秒后检查登录状态。\n\n截图路径: ${screenshotPath}\n时间: ${new Date().toLocaleString('zh-CN')}`
+                    }
                 }
             });
 
