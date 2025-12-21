@@ -52,7 +52,12 @@ const SITE_CONFIGS = {
         loginDetectors: ['立即登录', '扫码登录', '微信登录'],
         successDetectors: ['我的主页', '我的自选', '退出登录'],
         qrcodeSelector: '.qr-code img, #qrcode, .wechat-qrcode img, [class*="qrcode"] img',
-        cookieExpireDays: 30
+        cookieExpireDays: 30,
+        // 准备二维码的步骤：点击"二维码登录"标签
+        prepareQRCode: [
+            { action: 'click', selector: 'a[href*="二维码"], span:contains("二维码登录"), div:contains("二维码登录")' },
+            { action: 'wait', time: 1000 }
+        ]
     },
     eastmoney: {
         name: '东方财富',
@@ -261,6 +266,36 @@ class LoginHelper {
             
             // 保存文件名用于生成 URL
             this.lastScreenshotFilename = filename;
+
+            // 尝试点击"二维码登录"标签（特别针对雪球）
+            try {
+                // 尝试多个可能的选择器
+                const qrcodeTabSelectors = [
+                    'a:has-text("二维码登录")',
+                    'span:has-text("二维码登录")',
+                    'div:has-text("二维码登录")',
+                    '[data-tab="qrcode"]',
+                    '.qrcode-tab',
+                    // 雪球特定：包含"二维码"文本的元素
+                    'text=二维码登录'
+                ];
+                
+                for (const selector of qrcodeTabSelectors) {
+                    try {
+                        const elements = await this.page.$$('xpath=//a[contains(text(), "二维码登录")] | //span[contains(text(), "二维码登录")] | //div[contains(text(), "二维码登录")]');
+                        if (elements.length > 0) {
+                            await elements[0].click();
+                            console.log(`[登录助手] 已点击二维码登录标签`);
+                            await new Promise(r => setTimeout(r, 1500));
+                            break;
+                        }
+                    } catch (e) {
+                        // 继续尝试下一个选择器
+                    }
+                }
+            } catch (e) {
+                console.log(`[登录助手] 未找到二维码登录标签，使用当前页面`);
+            }
 
             // 尝试找到二维码元素
             const qrcodeSelector = this.config.qrcodeSelector || 'img[src*="qr"], .qrcode img';
