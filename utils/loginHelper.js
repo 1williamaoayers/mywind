@@ -43,9 +43,10 @@ const SITE_CONFIGS = {
         name: '雪球',
         loginUrl: 'https://xueqiu.com/',
         homeUrl: 'https://xueqiu.com/',
-        loginDetectors: ['登录', '注册'],
-        successDetectors: ['退出', '我的主页'],
-        qrcodeSelector: '.qr-code img, #qrcode',
+        // 雪球登录后页面会有用户头像和我的主页链接
+        loginDetectors: ['立即登录', '扫码登录', '微信登录'],
+        successDetectors: ['我的主页', '我的自选', '退出登录'],
+        qrcodeSelector: '.qr-code img, #qrcode, .wechat-qrcode img, [class*="qrcode"] img',
         cookieExpireDays: 30
     },
     eastmoney: {
@@ -369,13 +370,8 @@ class LoginHelper {
                     }
                 }
 
-                // 检查 URL 变化（某些网站登录后会跳转）
-                const currentUrl = this.page.url();
-                if (this.config.homeUrl && currentUrl.includes(this.config.homeUrl) &&
-                    !currentUrl.includes('login')) {
-                    console.log(`[登录助手] ✅ 登录成功！URL 已跳转`);
-                    return true;
-                }
+                // 注意：不使用 URL 跳转检测，因为很多网站首页本身就能访问
+                // 只依赖 successDetectors 来判断是否真正登录成功
 
             } catch (error) {
                 // 页面可能正在刷新
