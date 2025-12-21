@@ -24,6 +24,7 @@ services:
       - AI_API_BASE=https://api.deepseek.com/v1
       - AI_MODEL=deepseek-chat
       - FEISHU_WEBHOOK=https://www.feishu.cn/flow/api/trigger-webhook/4df825f0441914a0ce4a8eb3eda24604
+      - APP_URL=http://54.238.79.45:8088
     depends_on:
       - mongo
 
