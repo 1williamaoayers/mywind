@@ -286,7 +286,15 @@ class LoginHelper {
                         if (elements.length > 0) {
                             await elements[0].click();
                             console.log(`[登录助手] 已点击二维码登录标签`);
-                            await new Promise(r => setTimeout(r, 1500));
+                            // 等待更长时间让二维码加载
+                            await new Promise(r => setTimeout(r, 3000));
+                            // 尝试等待二维码图片出现
+                            try {
+                                await this.page.waitForSelector('img[src*="qr"], img[alt*="二维码"], canvas', { timeout: 5000 });
+                                console.log(`[登录助手] 检测到二维码元素`);
+                            } catch (e) {
+                                console.log(`[登录助手] 等待二维码元素超时，继续截图`);
+                            }
                             break;
                         }
                     } catch (e) {
