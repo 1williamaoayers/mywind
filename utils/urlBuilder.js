@@ -19,7 +19,11 @@ const DIMENSIONS = {
     REALTIME: 'realtime',        // 实时资讯
     SOCIAL: 'social',            // 社交情绪
     COMPLIANCE: 'compliance',    // 合规风险
-    GLOBAL: 'global'             // 全球影响
+    GLOBAL: 'global',            // 全球影响
+    POLICY: 'policy',            // 政策哨兵
+    VERTICAL: 'vertical',        // 行业垂直
+    ALTERNATIVE: 'alternative',  // 另类数据
+    VISUAL: 'visual'             // 视觉采集
 };
 
 /**
@@ -51,7 +55,30 @@ const SOURCES = {
     TIANYANCHA: 'tianyancha',  // 天眼查
 
     // 全球影响
-    INVESTING: 'investing'     // 英为财情
+    INVESTING: 'investing',    // 英为财情
+
+    // 政策哨兵 (新增)
+    PBC: 'pbc',                // 中国人民银行
+    NDRC: 'ndrc',              // 国家发改委
+    CSRC: 'csrc',              // 证监会
+    MOF: 'mof',                // 财政部
+    SCIO: 'scio',              // 国务院新闻办
+
+    // 行业垂直 (新增)
+    KECHUANG: 'kechuang',      // 科创板日报
+    ZHITONG: 'zhitong',        // 智通财经
+    MYSTEEL: 'mysteel',        // 我的钢铁网
+    SCI99: 'sci99',            // 卓创资讯
+
+    // 社交视觉 (新增)
+    TOUTIAO: 'toutiao',        // 今日头条
+    WECHAT: 'wechat',          // 微信公众号
+    XIAOHONGSHU: 'xhs',        // 小红书
+
+    // 另类数据 (新增)
+    USD_CNH: 'usd_cnh',        // 离岸人民币汇率
+    US_10Y: 'us_10y',          // 美国10年期国债
+    VIX: 'vix'                 // VIX 恐慌指数
 };
 
 /**

@@ -22,7 +22,14 @@ const { PLATFORMS } = require('../models/Account');
 const authService = require('../services/authService');
 
 // 视觉采集服务
-const { scrapeToutiao, getVisualStatus } = require('../services/visualScraper');
+const { scrapeToutiao, scrapeWechat, scrapeXiaohongshu, getVisualStatus } = require('../services/visualScraper');
+
+// 政策哨兵服务
+const { runPolicySentinel, getSentinelStatus } = require('../services/policySentinel');
+
+// 另类数据服务
+const { runAlternativeDataFetch, getAltDataStatus, getChartData } = require('../services/alternativeData');
+const MarketStats = require('../models/MarketStats');
 
 // ==================== 健康检查 ====================
 
@@ -718,6 +725,118 @@ router.post('/visual/toutiao', async (req, res) => {
                 items: results.map(r => ({ title: r.title, confidence: r.ocrConfidence }))
             }
         });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 政策哨兵 ====================
+
+/**
+ * 获取政策哨兵状态
+ */
+router.get('/policy/status', (req, res) => {
+    try {
+        const status = getSentinelStatus();
+        res.json({ success: true, data: status });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 触发政策巡检
+ */
+router.post('/policy/check', async (req, res) => {
+    try {
+        const result = await runPolicySentinel();
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 另类数据 ====================
+
+/**
+ * 获取另类数据状态
+ */
+router.get('/altdata/status', (req, res) => {
+    try {
+        const status = getAltDataStatus();
+        res.json({ success: true, data: status });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 触发另类数据采集
+ */
+router.post('/altdata/fetch', async (req, res) => {
+    try {
+        const result = await runAlternativeDataFetch();
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 获取市场指标最新值
+ */
+router.get('/altdata/latest', async (req, res) => {
+    try {
+        const data = await MarketStats.getAllLatest();
+        res.json({ success: true, data });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 获取指标图表数据
+ */
+router.get('/altdata/chart/:indicator', async (req, res) => {
+    try {
+        const { indicator } = req.params;
+        const hours = parseInt(req.query.hours) || 24;
+        const data = await getChartData(indicator, hours);
+        res.json({ success: true, data });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 社交视觉采集 ====================
+
+/**
+ * 微信公众号 OCR 搜索
+ */
+router.post('/visual/wechat', async (req, res) => {
+    try {
+        const { keyword, maxItems = 3 } = req.body;
+        if (!keyword) {
+            return res.status(400).json({ success: false, error: '缺少 keyword 参数' });
+        }
+        const results = await scrapeWechat(keyword, { maxItems });
+        res.json({ success: true, data: { count: results.length, items: results } });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 小红书 OCR 搜索
+ */
+router.post('/visual/xiaohongshu', async (req, res) => {
+    try {
+        const { keyword, maxItems = 3 } = req.body;
+        if (!keyword) {
+            return res.status(400).json({ success: false, error: '缺少 keyword 参数' });
+        }
+        const results = await scrapeXiaohongshu(keyword, { maxItems });
+        res.json({ success: true, data: { count: results.length, items: results } });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

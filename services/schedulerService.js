@@ -13,6 +13,8 @@ const { runFullScrape, runDimensionScrape, DIMENSIONS } = require('./scraperServ
 const { processPendingAlerts } = require('./notificationService');
 const { enhancedSearch, getSearchStatus } = require('./searchEngineScraper');
 const { scrapeToutiao } = require('./visualScraper');
+const { runPolicySentinel } = require('./policySentinel');
+const { runAlternativeDataFetch } = require('./alternativeData');
 
 // 调度任务存储
 const scheduledTasks = new Map();
@@ -60,6 +62,18 @@ const DEFAULT_SCHEDULES = {
         cron: '0 0,6,12,18 * * *',
         enabled: true,
         description: '每天 4 次视觉采集（OCR 识别今日头条）'
+    },
+    // 政策哨兵：每 2 小时巡检一次
+    policySentinel: {
+        cron: '0 */2 * * *',
+        enabled: true,
+        description: '每 2 小时巡检央行、发改委等政府官网'
+    },
+    // 另类数据：每小时采集一次
+    alternativeData: {
+        cron: '0 * * * *',
+        enabled: true,
+        description: '每小时采集汇率、美债收益率、VIX'
     }
 };
 
@@ -240,6 +254,36 @@ async function executeVisualScrapeTask() {
 }
 
 /**
+ * 任务执行器：政策哨兵
+ */
+async function executePolicySentinelTask() {
+    console.log('[调度] 开始执行政策哨兵巡检');
+    try {
+        const result = await runPolicySentinel();
+        console.log(`[调度] 政策哨兵巡检完成: ${result.changedCount || 0} 个变动`);
+        return result;
+    } catch (error) {
+        console.error('[调度] 政策哨兵失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
+ * 任务执行器：另类数据采集
+ */
+async function executeAlternativeDataTask() {
+    console.log('[调度] 开始执行另类数据采集');
+    try {
+        const result = await runAlternativeDataFetch();
+        console.log(`[调度] 另类数据采集完成: ${result.successCount || 0} 个指标`);
+        return result;
+    } catch (error) {
+        console.error('[调度] 另类数据采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
  * 启动单个调度任务
  */
 function startTask(taskId, cronExpr, executor) {
@@ -315,6 +359,16 @@ function initScheduler() {
     // 视觉采集（OCR）
     if (currentConfig.visualScrape.enabled) {
         startTask('visualScrape', currentConfig.visualScrape.cron, executeVisualScrapeTask);
+    }
+
+    // 政策哨兵
+    if (currentConfig.policySentinel.enabled) {
+        startTask('policySentinel', currentConfig.policySentinel.cron, executePolicySentinelTask);
+    }
+
+    // 另类数据
+    if (currentConfig.alternativeData.enabled) {
+        startTask('alternativeData', currentConfig.alternativeData.cron, executeAlternativeDataTask);
     }
 
     console.log(`[调度] 已启动 ${scheduledTasks.size} 个调度任务`);
@@ -427,6 +481,10 @@ async function triggerTask(taskId) {
             return executeSearchEngineTask();
         case 'visualScrape':
             return executeVisualScrapeTask();
+        case 'policySentinel':
+            return executePolicySentinelTask();
+        case 'alternativeData':
+            return executeAlternativeDataTask();
         default:
             return { error: '未知任务' };
     }

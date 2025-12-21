@@ -314,9 +314,202 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * 微信公众号搜索 OCR 采集
+ * 使用搜狗微信搜索（公开入口）
+ */
+async function scrapeWechat(keyword, options = {}) {
+    const maxItems = options.maxItems || 3;
+
+    addLog(`启动微信公众号搜索: ${keyword}`);
+    visualStatus.isRunning = true;
+    visualStatus.totalScans++;
+
+    let browser = null;
+    const results = [];
+
+    try {
+        const puppeteer = require('puppeteer-extra');
+        const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+        puppeteer.use(StealthPlugin());
+
+        const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
+
+        browser = await puppeteer.launch({
+            headless: 'new',
+            executablePath,
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+        });
+
+        const page = await browser.newPage();
+        await page.setViewport({ width: 1920, height: 1080 });
+        await page.setExtraHTTPHeaders({ 'Accept-Language': 'zh-CN,zh;q=0.9' });
+
+        // 搜狗微信搜索
+        const searchUrl = `https://weixin.sogou.com/weixin?type=2&query=${encodeURIComponent(keyword)}`;
+        addLog(`打开搜狗微信搜索: ${searchUrl}`);
+
+        await page.goto(searchUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await sleep(3000);
+
+        // 查找文章列表
+        const articles = await page.$$('.news-box .news-list li');
+        addLog(`找到 ${articles.length} 篇文章`);
+
+        const processCount = Math.min(articles.length, maxItems);
+        for (let i = 0; i < processCount; i++) {
+            try {
+                const article = articles[i];
+                const screenshotPath = path.join(OCR_DIR, `wechat_${Date.now()}_${i}.png`);
+
+                await article.screenshot({ path: screenshotPath });
+
+                const ocrResult = await recognizeImage(screenshotPath);
+
+                if (ocrResult.text && ocrResult.confidence > 50) {
+                    const newsItem = extractNewsFromOCR(ocrResult.text, 'wechat');
+                    if (newsItem) {
+                        newsItem.ocrConfidence = ocrResult.confidence;
+                        results.push(newsItem);
+                        addLog(`✅ 微信文章: ${newsItem.title.substring(0, 30)}...`);
+                    }
+                }
+
+                fs.unlinkSync(screenshotPath);
+            } catch (error) {
+                addLog(`处理微信文章 ${i + 1} 失败: ${error.message}`);
+            }
+        }
+
+        visualStatus.successCount++;
+        addLog(`微信采集完成: ${results.length} 篇文章`);
+
+    } catch (error) {
+        visualStatus.failCount++;
+        addLog(`微信采集失败: ${error.message}`);
+    } finally {
+        if (browser) await browser.close();
+        visualStatus.isRunning = false;
+        visualStatus.lastRunTime = new Date();
+    }
+
+    return results;
+}
+
+/**
+ * 小红书搜索 OCR 采集
+ */
+async function scrapeXiaohongshu(keyword, options = {}) {
+    const maxItems = options.maxItems || 3;
+
+    addLog(`启动小红书搜索: ${keyword}`);
+    visualStatus.isRunning = true;
+    visualStatus.totalScans++;
+
+    let browser = null;
+    const results = [];
+
+    try {
+        const puppeteer = require('puppeteer-extra');
+        const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+        puppeteer.use(StealthPlugin());
+
+        const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
+
+        browser = await puppeteer.launch({
+            headless: 'new',
+            executablePath,
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+        });
+
+        const page = await browser.newPage();
+        await page.setViewport({ width: 1920, height: 1080 });
+        await page.setExtraHTTPHeaders({ 'Accept-Language': 'zh-CN,zh;q=0.9' });
+
+        // 小红书搜索
+        const searchUrl = `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(keyword)}`;
+        addLog(`打开小红书搜索: ${searchUrl}`);
+
+        await page.goto(searchUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await sleep(5000);
+
+        // 滚动加载
+        await page.evaluate(() => window.scrollBy(0, 500));
+        await sleep(2000);
+
+        // 截取整个搜索结果区域
+        const screenshotPath = path.join(OCR_DIR, `xhs_${Date.now()}.png`);
+        await page.screenshot({
+            path: screenshotPath,
+            clip: { x: 200, y: 100, width: 1000, height: 800 }
+        });
+
+        const ocrResult = await recognizeImage(screenshotPath);
+
+        if (ocrResult.text && ocrResult.confidence > 40) {
+            // 小红书内容通常比较短，按段落分割
+            const paragraphs = ocrResult.text.split('\n\n').filter(p => p.trim().length > 20);
+
+            for (const para of paragraphs.slice(0, maxItems)) {
+                const newsItem = extractNewsFromOCR(para, 'xiaohongshu');
+                if (newsItem) {
+                    newsItem.ocrConfidence = ocrResult.confidence;
+                    results.push(newsItem);
+                }
+            }
+        }
+
+        fs.unlinkSync(screenshotPath);
+        visualStatus.successCount++;
+        addLog(`小红书采集完成: ${results.length} 条内容`);
+
+    } catch (error) {
+        visualStatus.failCount++;
+        addLog(`小红书采集失败: ${error.message}`);
+    } finally {
+        if (browser) await browser.close();
+        visualStatus.isRunning = false;
+        visualStatus.lastRunTime = new Date();
+    }
+
+    return results;
+}
+
+/**
+ * 行业垂直网站 OCR 采集
+ */
+async function scrapeVertical(source, options = {}) {
+    const VERTICAL_SOURCES = {
+        // 科创板日报
+        kechuang: {
+            name: '科创板日报',
+            url: 'https://www.chinastarmarket.cn/',
+            contentSelector: '.news-list'
+        },
+        // 智通财经
+        zhitong: {
+            name: '智通财经',
+            url: 'https://www.zhitongcaijing.com/content/meigu.html',
+            contentSelector: '.news-box'
+        }
+    };
+
+    const config = VERTICAL_SOURCES[source];
+    if (!config) {
+        addLog(`未知的垂直源: ${source}`);
+        return [];
+    }
+
+    addLog(`启动 ${config.name} 采集...`);
+    return await scrapeVisual(config.url, { selector: config.contentSelector, ...options });
+}
+
 module.exports = {
     scrapeToutiao,
     scrapeVisual,
+    scrapeWechat,
+    scrapeXiaohongshu,
+    scrapeVertical,
     recognizeImage,
     extractNewsFromOCR,
     getVisualStatus,
