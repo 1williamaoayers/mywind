@@ -43,6 +43,27 @@ const { crossValidate, getValidatorStatus } = require('../services/crossValidato
 // 雪球情绪分析
 const { scrapeXueqiuSentiment } = require('../services/visualScraper');
 
+// 金十数据
+const { scrapeJin10, getJin10Status } = require('../services/scrapers/jin10');
+
+// 国家统计局
+const { scrapeNationalStats, getStatsStatus } = require('../services/scrapers/stats');
+
+// 36氪
+const { scrape36Kr, get36KrStatus } = require('../services/scrapers/kr36');
+
+// 集微网
+const { scrapeJimei, getJimeiStatus } = require('../services/scrapers/jimei');
+
+// 富途牛牛
+const { scrapeFutu, getFutuStatus } = require('../services/scrapers/futu');
+
+// 知乎财经
+const { scrapeZhihuFinance, getZhihuStatus } = require('../services/scrapers/zhihu');
+
+// 全球媒体
+const { scrapeGlobalMedia, getGlobalMediaStatus } = require('../services/scrapers/globalMedia');
+
 // ==================== 健康检查 ====================
 
 router.get('/health', (req, res) => {
@@ -957,6 +978,140 @@ router.post('/xueqiu/sentiment', async (req, res) => {
         }
         const result = await scrapeXueqiuSentiment(stockCode);
         res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 金十数据 ====================
+
+router.get('/jin10/status', (req, res) => {
+    try {
+        res.json({ success: true, data: getJin10Status() });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+router.post('/jin10/fetch', async (req, res) => {
+    try {
+        const results = await scrapeJin10({ maxItems: req.body.maxItems || 30 });
+        const criticals = crossValidate(results, 'cls'); // 作为财联社类别校验
+        res.json({ success: true, data: { count: results.length, criticalAlerts: criticals.length } });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 国家统计局 ====================
+
+router.get('/stats/status', (req, res) => {
+    try {
+        res.json({ success: true, data: getStatsStatus() });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+router.post('/stats/fetch', async (req, res) => {
+    try {
+        const results = await scrapeNationalStats({ maxItems: req.body.maxItems || 15 });
+        res.json({ success: true, data: { count: results.length, items: results.slice(0, 5) } });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 36氪 ====================
+
+router.get('/36kr/status', (req, res) => {
+    try {
+        res.json({ success: true, data: get36KrStatus() });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+router.post('/36kr/fetch', async (req, res) => {
+    try {
+        const results = await scrape36Kr({ maxItems: req.body.maxItems || 20 });
+        res.json({ success: true, data: { count: results.length } });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 集微网 ====================
+
+router.get('/jimei/status', (req, res) => {
+    try {
+        res.json({ success: true, data: getJimeiStatus() });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+router.post('/jimei/fetch', async (req, res) => {
+    try {
+        const results = await scrapeJimei({ maxItems: req.body.maxItems || 15 });
+        res.json({ success: true, data: { count: results.length } });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 富途牛牛 ====================
+
+router.get('/futu/status', (req, res) => {
+    try {
+        res.json({ success: true, data: getFutuStatus() });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+router.post('/futu/fetch', async (req, res) => {
+    try {
+        const results = await scrapeFutu({ maxItems: req.body.maxItems || 15, market: req.body.market || 'US' });
+        res.json({ success: true, data: { count: results.length } });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 知乎财经 ====================
+
+router.get('/zhihu/status', (req, res) => {
+    try {
+        res.json({ success: true, data: getZhihuStatus() });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+router.post('/zhihu/fetch', async (req, res) => {
+    try {
+        const results = await scrapeZhihuFinance({ maxItems: req.body.maxItems || 5 });
+        res.json({ success: true, data: { count: results.length } });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 全球媒体 ====================
+
+router.get('/global/status', (req, res) => {
+    try {
+        res.json({ success: true, data: getGlobalMediaStatus() });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+router.post('/global/fetch', async (req, res) => {
+    try {
+        const results = await scrapeGlobalMedia({ maxItems: req.body.maxItems || 10 });
+        res.json({ success: true, data: { count: results.length } });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
