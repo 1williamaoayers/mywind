@@ -488,7 +488,7 @@ class LoginHelper {
         if (this.config.homeUrl) {
             await this.page.goto(this.config.homeUrl, {
                 waitUntil: 'domcontentloaded',
-                timeout: 30000
+                timeout: 60000
             });
             await new Promise(r => setTimeout(r, 2000));
         }
@@ -508,7 +508,7 @@ class LoginHelper {
         if (this.config.loginUrl) {
             await this.page.goto(this.config.loginUrl, {
                 waitUntil: 'domcontentloaded',
-                timeout: 30000
+                timeout: 60000
             });
             await new Promise(r => setTimeout(r, 3000));
         }
