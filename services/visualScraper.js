@@ -16,6 +16,15 @@ const path = require('path');
 const fs = require('fs');
 const { shouldIngest } = require('../config/filterConfig');
 const { generateHashId } = require('../utils/hashUtils');
+const {
+    createStealthPage,
+    humanScroll,
+    randomDelay,
+    simulateReading,
+    throttler,
+    getRandomUA,
+    getRandomViewport
+} = require('../utils/humanBehavior');
 
 // OCR 临时目录
 const OCR_DIR = '/tmp/ocr-scrape';
