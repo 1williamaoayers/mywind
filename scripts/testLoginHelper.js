@@ -16,8 +16,8 @@ const fs = require('fs');
 // 确保当前目录正确
 process.chdir(path.join(__dirname, '..'));
 
-const { LoginHelper, createPersistentBrowser, getAllLoginStatus, COOKIE_DIR } = require('./utils/loginHelper');
-const { createStealthPage, humanScroll, randomDelay } = require('./utils/humanBehavior');
+const { LoginHelper, createPersistentBrowser, getAllLoginStatus, COOKIE_DIR } = require('../utils/loginHelper');
+const { createStealthPage, humanScroll, randomDelay } = require('../utils/humanBehavior');
 
 async function testFxbaogaoLogin() {
     console.log('\n========================================');
