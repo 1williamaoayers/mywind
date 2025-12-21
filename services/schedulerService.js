@@ -12,6 +12,7 @@ const { generateAllReports } = require('./aiService');
 const { runFullScrape, runDimensionScrape, DIMENSIONS } = require('./scraperService');
 const { processPendingAlerts } = require('./notificationService');
 const { enhancedSearch, getSearchStatus } = require('./searchEngineScraper');
+const { scrapeToutiao } = require('./visualScraper');
 
 // 调度任务存储
 const scheduledTasks = new Map();
@@ -53,6 +54,12 @@ const DEFAULT_SCHEDULES = {
         cron: '*/30 * * * *',
         enabled: true,
         description: '每 30 分钟通过搜索引擎采集增强数据'
+    },
+    // 视觉采集：每天 4 次（06:00、12:00、18:00、00:00）
+    visualScrape: {
+        cron: '0 0,6,12,18 * * *',
+        enabled: true,
+        description: '每天 4 次视觉采集（OCR 识别今日头条）'
     }
 };
 
@@ -199,6 +206,40 @@ async function executeSearchEngineTask() {
 }
 
 /**
+ * 任务执行器：视觉采集（OCR）
+ */
+async function executeVisualScrapeTask() {
+    console.log('[调度] 开始执行视觉采集（今日头条 OCR）');
+    try {
+        const News = require('../models/News');
+
+        // 执行今日头条视觉采集（1核1G机器建议只抓 3 条）
+        const results = await scrapeToutiao({ maxItems: 3 });
+
+        // 入库
+        if (results.length > 0) {
+            for (const item of results) {
+                try {
+                    await News.findOneAndUpdate(
+                        { title: item.title },
+                        { $setOnInsert: item },
+                        { upsert: true }
+                    );
+                } catch (e) {
+                    // 忽略重复
+                }
+            }
+            console.log(`[调度] 视觉采集完成: 识别 ${results.length} 条新闻`);
+        }
+
+        return { count: results.length };
+    } catch (error) {
+        console.error('[调度] 视觉采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
  * 启动单个调度任务
  */
 function startTask(taskId, cronExpr, executor) {
@@ -269,6 +310,11 @@ function initScheduler() {
     // 搜索引擎增强
     if (currentConfig.searchEngine.enabled) {
         startTask('searchEngine', currentConfig.searchEngine.cron, executeSearchEngineTask);
+    }
+
+    // 视觉采集（OCR）
+    if (currentConfig.visualScrape.enabled) {
+        startTask('visualScrape', currentConfig.visualScrape.cron, executeVisualScrapeTask);
     }
 
     console.log(`[调度] 已启动 ${scheduledTasks.size} 个调度任务`);
@@ -379,6 +425,8 @@ async function triggerTask(taskId) {
             return executeCleanupTask();
         case 'searchEngine':
             return executeSearchEngineTask();
+        case 'visualScrape':
+            return executeVisualScrapeTask();
         default:
             return { error: '未知任务' };
     }
