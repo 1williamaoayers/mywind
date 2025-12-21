@@ -74,6 +74,18 @@ const DEFAULT_SCHEDULES = {
         cron: '0 * * * *',
         enabled: true,
         description: '每小时采集汇率、美债收益率、VIX'
+    },
+    // 腾讯财经：每 2 分钟（稳定兜底源）
+    tencentNews: {
+        cron: '*/2 * * * *',
+        enabled: true,
+        description: '每 2 分钟抓取腾讯财经快讯'
+    },
+    // 格隆汇：每 10 分钟
+    gelonghui: {
+        cron: '*/10 * * * *',
+        enabled: true,
+        description: '每 10 分钟抓取格隆汇港美股快讯'
     }
 };
 

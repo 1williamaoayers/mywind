@@ -31,6 +31,18 @@ const { runPolicySentinel, getSentinelStatus } = require('../services/policySent
 const { runAlternativeDataFetch, getAltDataStatus, getChartData } = require('../services/alternativeData');
 const MarketStats = require('../models/MarketStats');
 
+// 腾讯财经抓取器
+const { scrapeTencentNews, getTencentStatus } = require('../services/scrapers/tencent');
+
+// 格隆汇抓取器
+const { scrapeGelonghui, getGelonghuiStatus } = require('../services/scrapers/gelonghui');
+
+// 多源校验引擎
+const { crossValidate, getValidatorStatus } = require('../services/crossValidator');
+
+// 雪球情绪分析
+const { scrapeXueqiuSentiment } = require('../services/visualScraper');
+
 // ==================== 健康检查 ====================
 
 router.get('/health', (req, res) => {
@@ -837,6 +849,114 @@ router.post('/visual/xiaohongshu', async (req, res) => {
         }
         const results = await scrapeXiaohongshu(keyword, { maxItems });
         res.json({ success: true, data: { count: results.length, items: results } });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 腾讯财经 ====================
+
+/**
+ * 获取腾讯财经状态
+ */
+router.get('/tencent/status', (req, res) => {
+    try {
+        const status = getTencentStatus();
+        res.json({ success: true, data: status });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 触发腾讯财经抓取
+ */
+router.post('/tencent/fetch', async (req, res) => {
+    try {
+        const { maxItems = 20 } = req.body;
+        const results = await scrapeTencentNews({ maxItems });
+
+        // 多源校验
+        const criticals = crossValidate(results, 'tencent');
+
+        res.json({
+            success: true,
+            data: {
+                count: results.length,
+                criticalAlerts: criticals.length,
+                items: results.slice(0, 5).map(r => ({ title: r.title }))
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 格隆汇 ====================
+
+/**
+ * 获取格隆汇状态
+ */
+router.get('/gelonghui/status', (req, res) => {
+    try {
+        const status = getGelonghuiStatus();
+        res.json({ success: true, data: status });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 触发格隆汇抓取
+ */
+router.post('/gelonghui/fetch', async (req, res) => {
+    try {
+        const { maxItems = 15, type = 'all' } = req.body;
+        const results = await scrapeGelonghui({ maxItems, type });
+
+        // 多源校验
+        const criticals = crossValidate(results, 'gelonghui');
+
+        res.json({
+            success: true,
+            data: {
+                count: results.length,
+                criticalAlerts: criticals.length,
+                items: results.slice(0, 5).map(r => ({ title: r.title, category: r.category }))
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 多源校验 ====================
+
+/**
+ * 获取多源校验状态
+ */
+router.get('/validator/status', (req, res) => {
+    try {
+        const status = getValidatorStatus();
+        res.json({ success: true, data: status });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 雪球情绪分析 ====================
+
+/**
+ * 雪球个股情绪分析
+ */
+router.post('/xueqiu/sentiment', async (req, res) => {
+    try {
+        const { stockCode } = req.body;
+        if (!stockCode) {
+            return res.status(400).json({ success: false, error: '缺少 stockCode 参数' });
+        }
+        const result = await scrapeXueqiuSentiment(stockCode);
+        res.json({ success: true, data: result });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

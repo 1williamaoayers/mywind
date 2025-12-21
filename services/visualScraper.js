@@ -504,12 +504,134 @@ async function scrapeVertical(source, options = {}) {
     return await scrapeVisual(config.url, { selector: config.contentSelector, ...options });
 }
 
+/**
+ * 雪球热议榜 OCR + AI 情绪分析
+ */
+async function scrapeXueqiuSentiment(stockCode, options = {}) {
+    const maxItems = options.maxItems || 5;
+
+    addLog(`启动雪球情绪分析: ${stockCode}...`);
+    visualStatus.isRunning = true;
+    visualStatus.totalScans++;
+
+    let browser = null;
+    const result = {
+        stockCode,
+        hotTopics: [],
+        sentiment: null,
+        analysis: null
+    };
+
+    try {
+        const puppeteer = require('puppeteer-extra');
+        const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+        puppeteer.use(StealthPlugin());
+
+        const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
+
+        browser = await puppeteer.launch({
+            headless: 'new',
+            executablePath,
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+        });
+
+        const page = await browser.newPage();
+        await page.setViewport({ width: 1920, height: 1080 });
+        await page.setExtraHTTPHeaders({ 'Accept-Language': 'zh-CN,zh;q=0.9' });
+
+        // 雪球个股讨论页
+        const stockUrl = `https://xueqiu.com/S/${stockCode}`;
+        addLog(`打开雪球: ${stockUrl}`);
+
+        await page.goto(stockUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await sleep(5000);
+
+        // 滚动加载评论
+        for (let i = 0; i < 3; i++) {
+            await page.evaluate(() => window.scrollBy(0, 500));
+            await sleep(1000);
+        }
+
+        // 截取讨论区
+        const screenshotPath = path.join(OCR_DIR, `xueqiu_${stockCode}_${Date.now()}.png`);
+        await page.screenshot({
+            path: screenshotPath,
+            clip: { x: 600, y: 200, width: 800, height: 800 }
+        });
+
+        // OCR 识别
+        const ocrResult = await recognizeImage(screenshotPath);
+
+        if (ocrResult.text && ocrResult.confidence > 40) {
+            // 提取热门话题
+            const lines = ocrResult.text.split('\n').filter(line => line.trim().length > 10);
+            result.hotTopics = lines.slice(0, maxItems);
+
+            // 简单情绪分析（关键词统计）
+            const text = ocrResult.text;
+            const bullishWords = ['涨', '看多', '抄底', '加仓', '利好', '突破', '新高', '牛', '冲'];
+            const bearishWords = ['跌', '看空', '割肉', '清仓', '利空', '破位', '新低', '熊', '跑'];
+
+            let bullishCount = 0;
+            let bearishCount = 0;
+
+            for (const word of bullishWords) {
+                const regex = new RegExp(word, 'g');
+                bullishCount += (text.match(regex) || []).length;
+            }
+            for (const word of bearishWords) {
+                const regex = new RegExp(word, 'g');
+                bearishCount += (text.match(regex) || []).length;
+            }
+
+            const total = bullishCount + bearishCount;
+            if (total > 0) {
+                const bullishRatio = bullishCount / total;
+                if (bullishRatio > 0.6) {
+                    result.sentiment = 'bullish';
+                    result.analysis = `看多情绪 (${Math.round(bullishRatio * 100)}%)：股民倾向于"抄底"`;
+                } else if (bullishRatio < 0.4) {
+                    result.sentiment = 'bearish';
+                    result.analysis = `看空情绪 (${Math.round((1 - bullishRatio) * 100)}%)：股民倾向于"割肉"`;
+                } else {
+                    result.sentiment = 'neutral';
+                    result.analysis = '情绪分歧：多空博弈激烈';
+                }
+            } else {
+                result.sentiment = 'unknown';
+                result.analysis = '样本不足，无法判断情绪';
+            }
+
+            result.bullishCount = bullishCount;
+            result.bearishCount = bearishCount;
+            result.ocrConfidence = ocrResult.confidence;
+
+            addLog(`✅ 雪球情绪分析: ${result.sentiment} (多${bullishCount}/空${bearishCount})`);
+        }
+
+        fs.unlinkSync(screenshotPath);
+        visualStatus.successCount++;
+
+    } catch (error) {
+        visualStatus.failCount++;
+        addLog(`雪球情绪分析失败: ${error.message}`);
+        result.error = error.message;
+    } finally {
+        if (browser) await browser.close();
+        visualStatus.isRunning = false;
+        visualStatus.lastRunTime = new Date();
+    }
+
+    return result;
+}
+
 module.exports = {
     scrapeToutiao,
     scrapeVisual,
     scrapeWechat,
     scrapeXiaohongshu,
     scrapeVertical,
+    scrapeXueqiuSentiment,
     recognizeImage,
     extractNewsFromOCR,
     getVisualStatus,
