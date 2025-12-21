@@ -28,6 +28,9 @@ app.get('/health', (req, res) => {
 // 静态文件服务 (前端)
 app.use(express.static('public'));
 
+// 截图目录服务 (登录助手二维码)
+app.use('/screenshots', express.static('data/screenshots'));
+
 // API 路由
 app.use('/api', require('./routes/api'));
 

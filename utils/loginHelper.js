@@ -15,6 +15,8 @@ const path = require('path');
 // Cookie 存储目录
 const COOKIE_DIR = process.env.COOKIE_DIR || './data/cookies';
 const USER_DATA_DIR = process.env.USER_DATA_DIR || './data/user_data';
+const SCREENSHOT_DIR = process.env.SCREENSHOT_DIR || './data/screenshots';
+const APP_URL = process.env.APP_URL || 'http://localhost:8088';
 
 // 确保目录存在
 function ensureDirs() {
@@ -23,6 +25,9 @@ function ensureDirs() {
     }
     if (!fs.existsSync(USER_DATA_DIR)) {
         fs.mkdirSync(USER_DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(SCREENSHOT_DIR)) {
+        fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
     }
 }
 
@@ -186,7 +191,7 @@ class LoginHelper {
         this.config = SITE_CONFIGS[siteName] || {};
         this.session = new SessionManager(siteName);
         this.feishuWebhook = options.feishuWebhook || process.env.FEISHU_WEBHOOK;
-        this.screenshotDir = options.screenshotDir || '/tmp/login-helper';
+        this.screenshotDir = options.screenshotDir || SCREENSHOT_DIR;
 
         // 确保截图目录存在
         if (!fs.existsSync(this.screenshotDir)) {
@@ -253,6 +258,9 @@ class LoginHelper {
             const timestamp = Date.now();
             const filename = `qrcode_${this.siteName}_${timestamp}.png`;
             const filepath = path.join(this.screenshotDir, filename);
+            
+            // 保存文件名用于生成 URL
+            this.lastScreenshotFilename = filename;
 
             // 尝试找到二维码元素
             const qrcodeSelector = this.config.qrcodeSelector || 'img[src*="qr"], .qrcode img';
@@ -291,27 +299,30 @@ class LoginHelper {
             const imageBuffer = fs.readFileSync(screenshotPath);
             const base64Image = imageBuffer.toString('base64');
 
-            // 发送富文本消息
+            // 发送 Flow Webhook 格式（6 字段 JSON）
+            const timestamp = new Date().toLocaleString('zh-CN', {
+                timeZone: 'Asia/Shanghai',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            }).replace(/\//g, '-');
+
             const response = await axios.post(this.feishuWebhook, {
-                msg_type: 'post',
-                content: {
-                    post: {
-                        zh_cn: {
-                            title: `🔐 ${this.config.name || this.siteName} 需要扫码登录`,
-                            content: [
-                                [{ tag: 'text', text: '📱 请使用手机扫描二维码完成登录
-' }],
-                                [{ tag: 'text', text: `⏰ 时间: ${new Date().toLocaleString('zh-CN')}
-` }],
-                                [{ tag: 'text', text: `📁 截图: ${screenshotPath}
-` }],
-                                [{ tag: 'text', text: '⚠️ 请在 120 秒内完成扫码
-' }],
-                                [{ tag: 'text', text: '💡 登录成功后 Cookie 自动保存' }]
-                            ]
-                        }
-                    }
-                }
+                report_type: `🔐 ${this.config.name || this.siteName} 需要扫码登录`,
+                timestamp: timestamp,
+                total_titles: 1,
+                text: `📱 请使用手机扫描二维码完成登录
+
+📁 点击查看详情查看二维码
+
+⚠️ 请在 120 秒内完成扫码
+
+💡 登录成功后 Cookie 自动保存，下次无需重复扫码`,
+                card_color: 'orange',
+                source_url: `${APP_URL}/screenshots/${path.basename(screenshotPath)}`
             });
 
             console.log(`[登录助手] 飞书通知已发送`);
