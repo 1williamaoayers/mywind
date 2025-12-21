@@ -73,6 +73,9 @@ const {
     getReportStats
 } = require('../services/researchAggregator');
 
+// 登录助手
+const { getAllLoginStatus, clearSiteSession } = require('../utils/loginHelper');
+
 // ==================== 健康检查 ====================
 
 router.get('/health', (req, res) => {
@@ -1189,6 +1192,33 @@ router.get('/research/stats', async (req, res) => {
     try {
         const stats = await getReportStats();
         res.json({ success: true, data: stats });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 登录助手 ====================
+
+/**
+ * 获取所有站点登录状态
+ */
+router.get('/login/status', (req, res) => {
+    try {
+        const status = getAllLoginStatus();
+        res.json({ success: true, data: status });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 清除指定站点登录状态
+ */
+router.delete('/login/:site', (req, res) => {
+    try {
+        const { site } = req.params;
+        const result = clearSiteSession(site);
+        res.json({ success: result, message: result ? '已清除' : '清除失败' });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

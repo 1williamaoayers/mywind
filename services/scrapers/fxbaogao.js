@@ -26,7 +26,7 @@ const OCR_DIR = '/tmp/ocr-scrape';
  * 抓取发现报告
  */
 async function scrapeFxbaogao(options = {}) {
-    const { keyword = '', maxItems = 10, category = '' } = options;
+    const { keyword = '', maxItems = 10, category = '', useLogin = false } = options;
 
     console.log('[发现报告] 开始采集研报...');
     fxbaogaoStatus.isRunning = true;
@@ -41,17 +41,29 @@ async function scrapeFxbaogao(options = {}) {
         const StealthPlugin = require('puppeteer-extra-plugin-stealth');
         puppeteer.use(StealthPlugin());
 
-        const { createStealthPage, humanScroll, randomDelay } = require('../utils/humanBehavior');
+        const { createStealthPage, humanScroll, randomDelay } = require('../../utils/humanBehavior');
+        const { LoginHelper, createPersistentBrowser } = require('../../utils/loginHelper');
 
-        const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
-
-        browser = await puppeteer.launch({
-            headless: 'new',
-            executablePath,
-            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
-        });
+        // 如果需要登录，使用持久化浏览器
+        if (useLogin) {
+            browser = await createPersistentBrowser('fxbaogao');
+        } else {
+            const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
+            browser = await puppeteer.launch({
+                headless: 'new',
+                executablePath,
+                args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+            });
+        }
 
         const page = await createStealthPage(browser);
+
+        // 如果需要登录，执行登录流程
+        if (useLogin) {
+            const loginHelper = new LoginHelper(page, 'fxbaogao');
+            const loginResult = await loginHelper.ensureLoggedIn();
+            console.log(`[发现报告] 登录结果: ${loginResult.success ? '成功' : '失败'} (${loginResult.method})`);
+        }
 
         // 构建 URL
         let url = 'https://www.fxbaogao.com/';
