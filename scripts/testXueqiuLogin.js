@@ -30,9 +30,7 @@ async function testXueqiuLogin() {
         const page = await createStealthPage(browser);
         console.log('[测试] ✅ 增强页面创建成功');
 
-        const loginHelper = new LoginHelper(page, 'xueqiu', {
-            screenshotDir: '/tmp/login-test'
-        });
+        const loginHelper = new LoginHelper(page, 'xueqiu');
 
         console.log('\n[测试] 开始登录流程...');
         const loginResult = await loginHelper.ensureLoggedIn();
