@@ -64,6 +64,15 @@ const { scrapeZhihuFinance, getZhihuStatus } = require('../services/scrapers/zhi
 // 全球媒体
 const { scrapeGlobalMedia, getGlobalMediaStatus } = require('../services/scrapers/globalMedia');
 
+// 研报聚合服务
+const {
+    runFullResearchScrape,
+    getAllSourceStatus: getResearchSourceStatus,
+    searchReports,
+    getLatestReports,
+    getReportStats
+} = require('../services/researchAggregator');
+
 // ==================== 健康检查 ====================
 
 router.get('/health', (req, res) => {
@@ -1112,6 +1121,74 @@ router.post('/global/fetch', async (req, res) => {
     try {
         const results = await scrapeGlobalMedia({ maxItems: req.body.maxItems || 10 });
         res.json({ success: true, data: { count: results.length } });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== 研报采集 ====================
+
+/**
+ * 获取研报源状态
+ */
+router.get('/research/status', (req, res) => {
+    try {
+        const status = getResearchSourceStatus();
+        res.json({ success: true, data: status });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 触发多源研报采集
+ */
+router.post('/research/scrape', async (req, res) => {
+    try {
+        const { keyword = '', stockCode = '', maxItemsPerSource = 10 } = req.body;
+        const result = await runFullResearchScrape({ keyword, stockCode, maxItemsPerSource });
+        res.json({ success: true, data: result });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 搜索研报
+ */
+router.get('/research/search', async (req, res) => {
+    try {
+        const { keyword, limit = 20 } = req.query;
+        if (!keyword) {
+            return res.status(400).json({ success: false, error: '缺少 keyword 参数' });
+        }
+        const reports = await searchReports(keyword, parseInt(limit));
+        res.json({ success: true, data: reports });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 获取最新研报
+ */
+router.get('/research/latest', async (req, res) => {
+    try {
+        const { limit = 20, source } = req.query;
+        const reports = await getLatestReports(parseInt(limit), source || null);
+        res.json({ success: true, data: reports });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+/**
+ * 获取研报统计
+ */
+router.get('/research/stats', async (req, res) => {
+    try {
+        const stats = await getReportStats();
+        res.json({ success: true, data: stats });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
