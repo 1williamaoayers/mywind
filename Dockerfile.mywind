@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 LABEL maintainer="William Aoayers"
 LABEL description="MyWind AKTools - AkShare HTTP API Service"
-LABEL version="1.0.1"
+LABEL version="1.0.2"
 
 WORKDIR /app
 
@@ -11,15 +11,15 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends curl && \
     rm -rf /var/lib/apt/lists/*
 
-# 安装Python包（使用官方推荐方式）
+# 安装Python包
 RUN pip install --no-cache-dir aktools --upgrade -i https://pypi.org/simple
 
-# 暴露端口（aktools默认8080）
+# 暴露端口
 EXPOSE 8080
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
   CMD curl -f http://localhost:8080/ || exit 1
 
-# 启动命令（官方推荐方式）
-CMD ["python", "-m", "aktools"]
+# 启动命令 - 绑定0.0.0.0允许外部访问
+CMD ["python", "-m", "aktools", "--host", "0.0.0.0", "--port", "8080"]

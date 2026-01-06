@@ -1,21 +1,16 @@
 #!/usr/bin/env python
 """
-MyWind AKTools 自定义启动脚本
-修改默认端口为8888，绑定0.0.0.0允许外部访问
+MyWind AKTools 启动脚本
+强制绑定 0.0.0.0 以允许外部访问
 """
-import uvicorn
-from aktools.main import app
+import subprocess
+import sys
 
-if __name__ == "__main__":
-    print("🚀 启动MyWind AKTools服务...")
-    print("📡 监听地址: 0.0.0.0:8888")
-    print("📖 API文档: http://localhost:8888/docs")
-    print("")
-    
-    uvicorn.run(
-        app,
-        host="0.0.0.0",  # 允许外部访问
-        port=8888,       # MyWind专用端口
-        log_level="info",
-        access_log=True
-    )
+# 使用环境变量覆盖aktools默认的127.0.0.1绑定
+# aktools内部使用uvicorn，可以通过环境变量控制
+import os
+os.environ['HOST'] = '0.0.0.0'
+os.environ['PORT'] = '8080'
+
+# 直接运行aktools模块
+subprocess.run([sys.executable, '-m', 'aktools', '--host', '0.0.0.0', '--port', '8080'])
