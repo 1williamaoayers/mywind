@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'Dockerfile.mywind'
+      - 'run_aktools.py'
+      - 'requirements*.txt'
+      - '.github/workflows/build-mywind.yml'
   workflow_dispatch:  # 允许手动触发
 
 env:
