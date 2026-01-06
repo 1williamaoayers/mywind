@@ -1,643 +1,94 @@
 /**
- * Login Helper - 半自动登录助手
+ * 登录助手模块
  * 
  * 功能：
- * 1. Cookie/LocalStorage 持久化
- * 2. 二维码截图转发飞书
- * 3. 等待手动扫码完成
- * 4. 自动关闭弹窗
- * 5. 登录状态检测
+ * 1. 管理网站登录状态
+ * 2. Cookie 持久化
+ * 3. 登录流程自动化
+ * 
+ * @author MyWind AI
+ * @date 2025-12-27
  */
 
 const fs = require('fs');
 const path = require('path');
+const { createPersistentBrowser } = require('./humanBehavior');
 
 // Cookie 存储目录
-const COOKIE_DIR = process.env.COOKIE_DIR || './data/cookies';
-const USER_DATA_DIR = process.env.USER_DATA_DIR || './data/user_data';
-const SCREENSHOT_DIR = process.env.SCREENSHOT_DIR || './data/screenshots';
-const APP_URL = process.env.APP_URL || 'http://localhost:8088';
-
-// 确保目录存在
-function ensureDirs() {
-    if (!fs.existsSync(COOKIE_DIR)) {
-        fs.mkdirSync(COOKIE_DIR, { recursive: true });
-    }
-    if (!fs.existsSync(USER_DATA_DIR)) {
-        fs.mkdirSync(USER_DATA_DIR, { recursive: true });
-    }
-    if (!fs.existsSync(SCREENSHOT_DIR)) {
-        fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
-    }
-}
-
-ensureDirs();
-
-// 网站登录配置
-const SITE_CONFIGS = {
-    fxbaogao: {
-        name: '发现报告',
-        loginUrl: 'https://www.fxbaogao.com/login',
-        homeUrl: 'https://www.fxbaogao.com/',
-        loginDetectors: ['请登录', '登录/注册', '扫码登录'],
-        successDetectors: ['我的收藏', '退出', '个人中心'],
-        qrcodeSelector: '.qrcode img, #qrcode img, img[alt*="二维码"]',
-        cookieExpireDays: 7
-    },
-    xueqiu: {
-        name: '雪球',
-        loginUrl: 'https://xueqiu.com/',
-        homeUrl: 'https://xueqiu.com/',
-        // 雪球登录后页面会有用户头像和我的主页链接
-        loginDetectors: ['立即登录', '扫码登录', '微信登录'],
-        successDetectors: ['我的主页', '我的自选', '退出登录'],
-        qrcodeSelector: '.qr-code img, #qrcode, .wechat-qrcode img, [class*="qrcode"] img',
-        cookieExpireDays: 30,
-        // 准备二维码的步骤：点击"二维码登录"标签
-        prepareQRCode: [
-            { action: 'click', selector: 'a[href*="二维码"], span:contains("二维码登录"), div:contains("二维码登录")' },
-            { action: 'wait', time: 1000 }
-        ]
-    },
-    eastmoney: {
-        name: '东方财富',
-        loginUrl: 'https://passport.eastmoney.com/pub/login',
-        homeUrl: 'https://www.eastmoney.com/',
-        loginDetectors: ['请登录', '立即登录'],
-        successDetectors: ['退出', '我的'],
-        qrcodeSelector: '.qrcode-img, #qrcode-img',
-        cookieExpireDays: 30
-    },
-    hibor: {
-        name: '慧博投研',
-        loginUrl: 'https://www.hibor.com.cn/login',
-        homeUrl: 'https://www.hibor.com.cn/',
-        loginDetectors: ['登录', '请先登录'],
-        successDetectors: ['退出', '个人中心'],
-        qrcodeSelector: '#qrcode img',
-        cookieExpireDays: 3
-    }
-};
+const COOKIE_DIR = '/tmp/puppeteer-cookies';
 
 /**
- * SessionManager - 会话管理器
- */
-class SessionManager {
-    constructor(siteName) {
-        this.siteName = siteName;
-        this.config = SITE_CONFIGS[siteName] || {};
-        this.cookiePath = path.join(COOKIE_DIR, `${siteName}.json`);
-        this.localStoragePath = path.join(COOKIE_DIR, `${siteName}_localStorage.json`);
-    }
-
-    /**
-     * 加载保存的 Cookie
-     */
-    loadCookies() {
-        try {
-            if (fs.existsSync(this.cookiePath)) {
-                const data = JSON.parse(fs.readFileSync(this.cookiePath, 'utf-8'));
-
-                // 检查是否过期
-                if (data.savedAt) {
-                    const savedDate = new Date(data.savedAt);
-                    const expireDays = this.config.cookieExpireDays || 7;
-                    const expireDate = new Date(savedDate.getTime() + expireDays * 24 * 60 * 60 * 1000);
-
-                    if (new Date() > expireDate) {
-                        console.log(`[登录助手] ${this.siteName} Cookie 已过期`);
-                        return null;
-                    }
-                }
-
-                console.log(`[登录助手] 加载 ${this.siteName} Cookie: ${data.cookies?.length || 0} 条`);
-                return data.cookies || [];
-            }
-        } catch (error) {
-            console.error(`[登录助手] 加载 Cookie 失败:`, error.message);
-        }
-        return null;
-    }
-
-    /**
-     * 保存 Cookie
-     */
-    saveCookies(cookies) {
-        try {
-            const data = {
-                siteName: this.siteName,
-                savedAt: new Date().toISOString(),
-                cookies
-            };
-            fs.writeFileSync(this.cookiePath, JSON.stringify(data, null, 2));
-            console.log(`[登录助手] 保存 ${this.siteName} Cookie: ${cookies.length} 条`);
-            return true;
-        } catch (error) {
-            console.error(`[登录助手] 保存 Cookie 失败:`, error.message);
-            return false;
-        }
-    }
-
-    /**
-     * 加载 LocalStorage
-     */
-    loadLocalStorage() {
-        try {
-            if (fs.existsSync(this.localStoragePath)) {
-                return JSON.parse(fs.readFileSync(this.localStoragePath, 'utf-8'));
-            }
-        } catch (error) {
-            console.error(`[登录助手] 加载 LocalStorage 失败:`, error.message);
-        }
-        return null;
-    }
-
-    /**
-     * 保存 LocalStorage
-     */
-    saveLocalStorage(data) {
-        try {
-            fs.writeFileSync(this.localStoragePath, JSON.stringify(data, null, 2));
-            console.log(`[登录助手] 保存 ${this.siteName} LocalStorage`);
-            return true;
-        } catch (error) {
-            console.error(`[登录助手] 保存 LocalStorage 失败:`, error.message);
-            return false;
-        }
-    }
-
-    /**
-     * 清除会话
-     */
-    clearSession() {
-        try {
-            if (fs.existsSync(this.cookiePath)) {
-                fs.unlinkSync(this.cookiePath);
-            }
-            if (fs.existsSync(this.localStoragePath)) {
-                fs.unlinkSync(this.localStoragePath);
-            }
-            console.log(`[登录助手] 已清除 ${this.siteName} 会话`);
-            return true;
-        } catch (error) {
-            console.error(`[登录助手] 清除会话失败:`, error.message);
-            return false;
-        }
-    }
-}
-
-/**
- * LoginHelper - 登录助手
+ * 登录助手类
  */
 class LoginHelper {
-    constructor(page, siteName, options = {}) {
+    constructor(page, siteName) {
         this.page = page;
         this.siteName = siteName;
-        this.config = SITE_CONFIGS[siteName] || {};
-        this.session = new SessionManager(siteName);
-        this.feishuWebhook = options.feishuWebhook || process.env.FEISHU_WEBHOOK;
-        this.screenshotDir = options.screenshotDir || SCREENSHOT_DIR;
-
-        // 确保截图目录存在
-        if (!fs.existsSync(this.screenshotDir)) {
-            fs.mkdirSync(this.screenshotDir, { recursive: true });
-        }
+        this.cookiePath = path.join(COOKIE_DIR, `${siteName}.json`);
     }
 
     /**
-     * 初始化：加载已保存的 Cookie
+     * 检查是否已登录
      */
-    async initSession() {
-        const cookies = this.session.loadCookies();
+    async isLoggedIn() {
+        // 子类可以覆盖此方法
+        return false;
+    }
 
-        if (cookies && cookies.length > 0) {
-            try {
+    /**
+     * 加载保存的 cookies
+     */
+    async loadCookies() {
+        try {
+            if (fs.existsSync(this.cookiePath)) {
+                const cookies = JSON.parse(fs.readFileSync(this.cookiePath, 'utf-8'));
                 await this.page.setCookie(...cookies);
-                console.log(`[登录助手] 已注入 ${this.siteName} Cookie`);
+                console.log(`[LoginHelper] 已加载 ${this.siteName} 的 cookies`);
                 return true;
-            } catch (error) {
-                console.error(`[登录助手] 注入 Cookie 失败:`, error.message);
             }
+        } catch (error) {
+            console.error(`[LoginHelper] 加载 cookies 失败:`, error.message);
         }
-
         return false;
     }
 
     /**
-     * 检测是否需要登录
+     * 保存当前 cookies
      */
-    async needsLogin() {
+    async saveCookies() {
         try {
-            const pageContent = await this.page.content();
-            const pageText = await this.page.evaluate(() => document.body.innerText);
-
-            // 检查是否有登录标志
-            for (const detector of (this.config.loginDetectors || [])) {
-                if (pageText.includes(detector) || pageContent.includes(detector)) {
-                    console.log(`[登录助手] 检测到登录标志: "${detector}"`);
-                    return true;
-                }
+            if (!fs.existsSync(COOKIE_DIR)) {
+                fs.mkdirSync(COOKIE_DIR, { recursive: true });
             }
-
-            // 检查是否已登录
-            for (const detector of (this.config.successDetectors || [])) {
-                if (pageText.includes(detector) || pageContent.includes(detector)) {
-                    console.log(`[登录助手] 检测到已登录标志: "${detector}"`);
-                    return false;
-                }
-            }
-
-            // 默认不需要登录
-            return false;
-        } catch (error) {
-            console.error(`[登录助手] 检测登录状态失败:`, error.message);
-            return false;
-        }
-    }
-
-    /**
-     * 截取二维码
-     */
-    async captureQRCode() {
-        try {
-            const timestamp = Date.now();
-            const filename = `qrcode_${this.siteName}_${timestamp}.png`;
-            const filepath = path.join(this.screenshotDir, filename);
-            
-            // 保存文件名用于生成 URL
-            this.lastScreenshotFilename = filename;
-
-            // 尝试点击"二维码登录"标签（特别针对雪球）
-            try {
-                // 尝试多个可能的选择器
-                const qrcodeTabSelectors = [
-                    'a:has-text("二维码登录")',
-                    'span:has-text("二维码登录")',
-                    'div:has-text("二维码登录")',
-                    '[data-tab="qrcode"]',
-                    '.qrcode-tab',
-                    // 雪球特定：包含"二维码"文本的元素
-                    'text=二维码登录'
-                ];
-                
-                for (const selector of qrcodeTabSelectors) {
-                    try {
-                        const elements = await this.page.$$('xpath=//a[contains(text(), "二维码登录")] | //span[contains(text(), "二维码登录")] | //div[contains(text(), "二维码登录")]');
-                        if (elements.length > 0) {
-                            await elements[0].click();
-                            console.log(`[登录助手] 已点击二维码登录标签`);
-                            // 等待更长时间让二维码加载
-                            await new Promise(r => setTimeout(r, 3000));
-                            // 尝试等待二维码图片出现
-                            try {
-                                await this.page.waitForSelector('img[src*="qr"], img[alt*="二维码"], canvas', { timeout: 5000 });
-                                console.log(`[登录助手] 检测到二维码元素`);
-                            } catch (e) {
-                                console.log(`[登录助手] 等待二维码元素超时，继续截图`);
-                            }
-                            break;
-                        }
-                    } catch (e) {
-                        // 继续尝试下一个选择器
-                    }
-                }
-            } catch (e) {
-                console.log(`[登录助手] 未找到二维码登录标签，使用当前页面`);
-            }
-
-            // 尝试找到二维码元素
-            const qrcodeSelector = this.config.qrcodeSelector || 'img[src*="qr"], .qrcode img';
-            const qrcodeElement = await this.page.$(qrcodeSelector);
-
-            if (qrcodeElement) {
-                // 截取二维码区域
-                await qrcodeElement.screenshot({ path: filepath });
-                console.log(`[登录助手] 二维码截图: ${filepath}`);
-            } else {
-                // 截取整个页面
-                await this.page.screenshot({ path: filepath, fullPage: false });
-                console.log(`[登录助手] 页面截图（未找到二维码）: ${filepath}`);
-            }
-
-            return filepath;
-        } catch (error) {
-            console.error(`[登录助手] 截取二维码失败:`, error.message);
-            return null;
-        }
-    }
-
-    /**
-     * 发送二维码到飞书
-     */
-    async sendQRCodeToFeishu(screenshotPath) {
-        if (!this.feishuWebhook) {
-            console.log(`[登录助手] 未配置飞书 Webhook，跳过通知`);
-            return false;
-        }
-
-        try {
-            const axios = require('axios');
-
-            // 读取图片并转换为 base64
-            const imageBuffer = fs.readFileSync(screenshotPath);
-            const base64Image = imageBuffer.toString('base64');
-
-            // 发送 Flow Webhook 格式（6 字段 JSON）
-            const timestamp = new Date().toLocaleString('zh-CN', {
-                timeZone: 'Asia/Shanghai',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false
-            }).replace(/\//g, '-');
-
-            const response = await axios.post(this.feishuWebhook, {
-                report_type: `🔐 ${this.config.name || this.siteName} 需要扫码登录`,
-                timestamp: timestamp,
-                total_titles: 1,
-                text: `📱 请使用手机扫描二维码完成登录
-
-📁 点击查看详情查看二维码
-
-⚠️ 请在 120 秒内完成扫码
-
-💡 登录成功后 Cookie 自动保存，下次无需重复扫码`,
-                card_color: 'orange',
-                source_url: `${APP_URL}/screenshots/${path.basename(screenshotPath)}`
-            });
-
-            console.log(`[登录助手] 飞书通知已发送`);
-            return true;
-        } catch (error) {
-            console.error(`[登录助手] 发送飞书通知失败:`, error.message);
-            return false;
-        }
-    }
-
-    /**
-     * 等待登录完成
-     */
-    async waitForLoginComplete(timeoutMs = 120000) {
-        console.log(`[登录助手] 等待扫码登录... (超时: ${timeoutMs / 1000}秒)`);
-
-        const startTime = Date.now();
-        const checkInterval = 3000; // 每 3 秒检查一次
-
-        while (Date.now() - startTime < timeoutMs) {
-            await new Promise(r => setTimeout(r, checkInterval));
-
-            try {
-                const pageText = await this.page.evaluate(() => document.body.innerText);
-
-                // 检查是否已登录
-                for (const detector of (this.config.successDetectors || [])) {
-                    if (pageText.includes(detector)) {
-                        console.log(`[登录助手] ✅ 登录成功！检测到: "${detector}"`);
-                        return true;
-                    }
-                }
-
-                // 注意：不使用 URL 跳转检测，因为很多网站首页本身就能访问
-                // 只依赖 successDetectors 来判断是否真正登录成功
-
-            } catch (error) {
-                // 页面可能正在刷新
-            }
-
-            const elapsed = Math.round((Date.now() - startTime) / 1000);
-            console.log(`[登录助手] 等待中... ${elapsed}秒`);
-        }
-
-        console.log(`[登录助手] ⚠️ 等待超时`);
-        return false;
-    }
-
-    /**
-     * 保存当前会话
-     */
-    async saveCurrentSession() {
-        try {
-            // 保存 Cookie
             const cookies = await this.page.cookies();
-            this.session.saveCookies(cookies);
-
-            // 保存 LocalStorage
-            const localStorage = await this.page.evaluate(() => {
-                const data = {};
-                for (let i = 0; i < window.localStorage.length; i++) {
-                    const key = window.localStorage.key(i);
-                    data[key] = window.localStorage.getItem(key);
-                }
-                return data;
-            });
-            this.session.saveLocalStorage(localStorage);
-
-            console.log(`[登录助手] 会话已保存`);
+            fs.writeFileSync(this.cookiePath, JSON.stringify(cookies, null, 2));
+            console.log(`[LoginHelper] 已保存 ${this.siteName} 的 cookies`);
             return true;
         } catch (error) {
-            console.error(`[登录助手] 保存会话失败:`, error.message);
+            console.error(`[LoginHelper] 保存 cookies 失败:`, error.message);
             return false;
         }
     }
 
     /**
-     * 自动关闭弹窗
-     */
-    async closePopups() {
-        try {
-            // 常见关闭按钮选择器
-            const closeSelectors = [
-                '.close',
-                '.close-btn',
-                '.modal-close',
-                '[aria-label="Close"]',
-                '[aria-label="关闭"]',
-                '.popup-close',
-                'button[class*="close"]',
-                '.dialog-close',
-                '.ant-modal-close',
-                '.el-dialog__close',
-                '[class*="close-icon"]',
-                'a:contains("关闭")',
-                'button:contains("我知道了")',
-                'button:contains("知道了")',
-                'button:contains("确定")',
-                'button:contains("跳过")',
-                '[class*="skip"]'
-            ];
-
-            let closedCount = 0;
-
-            for (const selector of closeSelectors) {
-                try {
-                    const elements = await this.page.$$(selector);
-                    for (const el of elements) {
-                        const isVisible = await el.isIntersectingViewport();
-                        if (isVisible) {
-                            await el.click();
-                            closedCount++;
-                            await new Promise(r => setTimeout(r, 300));
-                        }
-                    }
-                } catch (e) {
-                    // 忽略选择器错误
-                }
-            }
-
-            // 按 ESC 键
-            await this.page.keyboard.press('Escape');
-
-            if (closedCount > 0) {
-                console.log(`[登录助手] 关闭了 ${closedCount} 个弹窗`);
-            }
-
-            return closedCount;
-        } catch (error) {
-            console.error(`[登录助手] 关闭弹窗失败:`, error.message);
-            return 0;
-        }
-    }
-
-    /**
-     * 完整的登录流程
+     * 确保已登录
      */
     async ensureLoggedIn() {
-        console.log(`[登录助手] 开始处理 ${this.config.name || this.siteName} 登录...`);
+        // 先尝试加载 cookies
+        await this.loadCookies();
 
-        // 1. 尝试加载已保存的 Cookie
-        const hasSession = await this.initSession();
-
-        // 2. 导航到目标页面
-        if (this.config.homeUrl) {
-            await this.page.goto(this.config.homeUrl, {
-                waitUntil: 'domcontentloaded',
-                timeout: 60000
-            });
-            await new Promise(r => setTimeout(r, 2000));
+        // 检查是否已登录
+        if (await this.isLoggedIn()) {
+            return { success: true, method: 'cookie' };
         }
 
-        // 3. 检测是否需要登录
-        const needsLogin = await this.needsLogin();
-
-        if (!needsLogin) {
-            console.log(`[登录助手] ✅ ${this.config.name} 已登录`);
-            await this.closePopups();
-            return { success: true, method: 'cached' };
-        }
-
-        console.log(`[登录助手] 需要扫码登录...`);
-
-        // 4. 导航到登录页
-        if (this.config.loginUrl) {
-            await this.page.goto(this.config.loginUrl, {
-                waitUntil: 'domcontentloaded',
-                timeout: 60000
-            });
-            await new Promise(r => setTimeout(r, 3000));
-        }
-
-        // 5. 截取二维码
-        const qrcodePath = await this.captureQRCode();
-
-        // 6. 发送飞书通知
-        if (qrcodePath) {
-            await this.sendQRCodeToFeishu(qrcodePath);
-        }
-
-        // 7. 等待用户扫码
-        const loginSuccess = await this.waitForLoginComplete();
-
-        if (loginSuccess) {
-            // 8. 关闭可能的弹窗
-            await this.closePopups();
-            await new Promise(r => setTimeout(r, 1000));
-
-            // 9. 保存会话
-            await this.saveCurrentSession();
-
-            // 10. 清理截图
-            if (qrcodePath && fs.existsSync(qrcodePath)) {
-                fs.unlinkSync(qrcodePath);
-            }
-
-            return { success: true, method: 'scanned' };
-        }
-
-        return { success: false, method: 'timeout' };
+        // 需要手动登录
+        return { success: false, method: 'none' };
     }
-}
-
-/**
- * 创建带持久化会话的浏览器
- */
-async function createPersistentBrowser(siteName, options = {}) {
-    const puppeteer = require('puppeteer-extra');
-    const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-    puppeteer.use(StealthPlugin());
-
-    const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
-    const siteUserDataDir = path.join(USER_DATA_DIR, siteName);
-
-    // 确保目录存在
-    if (!fs.existsSync(siteUserDataDir)) {
-        fs.mkdirSync(siteUserDataDir, { recursive: true });
-    }
-
-    const browser = await puppeteer.launch({
-        headless: options.headless !== false ? 'new' : false,
-        executablePath,
-        userDataDir: siteUserDataDir, // 关键：使用固定的用户数据目录
-        args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-dev-shm-usage',
-            '--disable-blink-features=AutomationControlled'
-        ]
-    });
-
-    console.log(`[登录助手] 使用持久化目录: ${siteUserDataDir}`);
-
-    return browser;
-}
-
-/**
- * 获取所有站点的登录状态
- */
-function getAllLoginStatus() {
-    const status = {};
-
-    for (const [siteName, config] of Object.entries(SITE_CONFIGS)) {
-        const session = new SessionManager(siteName);
-        const cookies = session.loadCookies();
-
-        status[siteName] = {
-            name: config.name,
-            hasSession: !!cookies,
-            cookieCount: cookies?.length || 0,
-            expireDays: config.cookieExpireDays
-        };
-    }
-
-    return status;
-}
-
-/**
- * 清除指定站点的登录状态
- */
-function clearSiteSession(siteName) {
-    const session = new SessionManager(siteName);
-    return session.clearSession();
 }
 
 module.exports = {
     LoginHelper,
-    SessionManager,
     createPersistentBrowser,
-    getAllLoginStatus,
-    clearSiteSession,
-    SITE_CONFIGS,
-    COOKIE_DIR,
-    USER_DATA_DIR
+    COOKIE_DIR
 };

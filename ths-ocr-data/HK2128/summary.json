@@ -1,0 +1,104 @@
+{
+  "stockCode": "02128",
+  "stockName": "中国联塑",
+  "thsCode": "HK2128",
+  "crawlTime": "2026-01-02T02:39:21.576Z",
+  "pages": {
+    "overview": {
+      "name": "首页概览",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/",
+      "textLength": 3659,
+      "confidence": 64,
+      "success": true,
+      "textPreview": "同花顺 网 经 港股 四 © © © © 四 四 T m 加 男 m omv\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word w"
+    },
+    "company": {
+      "name": "公司概况",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/company/",
+      "textLength": 2152,
+      "confidence": 74,
+      "success": true,
+      "textPreview": "同花顺 网 经 港股 四 © © © © 四 四 T m 加 四 m amv\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word w"
+    },
+    "equity": {
+      "name": "股本结构",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/equity/",
+      "textLength": 2474,
+      "confidence": 76,
+      "success": true,
+      "textPreview": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word "
+    },
+    "business": {
+      "name": "业务概要",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/business/",
+      "textLength": 2852,
+      "confidence": 74,
+      "success": true,
+      "textPreview": "同花顺 网 经 港股 四 © © © © 四 四 T m 加 男 m omv\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word w"
+    },
+    "bonus": {
+      "name": "分红派息",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/bonus/",
+      "textLength": 3171,
+      "confidence": 76,
+      "success": true,
+      "textPreview": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word "
+    },
+    "manager": {
+      "name": "高管介绍",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/manager/",
+      "textLength": 3547,
+      "confidence": 70,
+      "success": true,
+      "textPreview": "同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word wo"
+    },
+    "news": {
+      "name": "新闻公告",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/news/",
+      "textLength": 1843,
+      "confidence": 76,
+      "success": true,
+      "textPreview": "从 同花顺 网 经 港股 © © © 四 四 四 四 加 m m m m omv\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word"
+    },
+    "finance": {
+      "name": "财务分析",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/finance/",
+      "textLength": 2620,
+      "confidence": 74,
+      "success": true,
+      "textPreview": "同花顺 网 经 港股 四 © © © © 四 四 T m 加 男 m omv\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word w"
+    },
+    "holder": {
+      "name": "股东持股",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/holder/",
+      "textLength": 2388,
+      "confidence": 73,
+      "success": true,
+      "textPreview": "同花顺 网 经 港股 四 © © © © 四 四 T m 加 加 m omv\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word w"
+    },
+    "operate": {
+      "name": "经营分析",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/operate/",
+      "textLength": 2091,
+      "confidence": 74,
+      "success": true,
+      "textPreview": "同花顺 网 经 港股 四 © © © © 四 四 T m 加 四 m amv\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word w"
+    },
+    "warrant": {
+      "name": "关联权证",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/warrant/",
+      "textLength": 1956,
+      "confidence": 74,
+      "success": true,
+      "textPreview": "同花顺 网 经 港股 四 © © © © 四 四 T m 加 加 m omv\nword word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word w"
+    },
+    "rating": {
+      "name": "投资评级",
+      "url": "https://stockpage.10jqka.com.cn/HK2128/rating/",
+      "textLength": 2193,
+      "confidence": 71,
+      "success": true,
+      "textPreview": "@arem [\nmm ， mm om om om om mm ， mm om com mm om\nom DDORTs0D01114.13 -0.11% 0DD0Dl1000009931.38 -0.09% 癌 同\n[0 457 是， 时 2 于 村 m\nHK2128\nDon 。 onn0141.780  (OOO041780 。 DD0O)06.153 。 00000.532\n|\nmm\ny 0000\nm mm on ni] om oo\n2025-10-20 0000 m o 5.30 m\n2025-09-07 oo 四 四 - -\n2025-09-04 0000 m 一 一 -\n2025-09-03 0000 m o 7.80 m\n2025-09-02 DODOO(HK) m o 6.35 m\n2025-09-02 0000 m o 6.35 m\n2025-04-13 oo 四 四 - -\n2025-04-03 0000 m o 4.86 m\n2024-09-09 oo 四 四 - -\n2024-04-26 oo 四 四 - -\n2024-04-21 0000 m o 3.97 m\n2"
+    }
+  }
+}

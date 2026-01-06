@@ -1,271 +1,262 @@
-#!/usr/bin/env node
 /**
- * Private-Wind-Ultra 系统健康检查脚本
+ * 爬虫健康监控脚本
  * 
- * 检查项：
- * 1. MongoDB 连通性
- * 2. Puppeteer 浏览器启动能力
- * 3. 飞书 Webhook 有效性
+ * 功能：
+ * 1. 定期检查所有爬虫状态
+ * 2. 记录历史数据
+ * 3. 生成健康报告
  * 
- * 使用方法: node scripts/healthCheck.js
+ * 用法：node scripts/healthCheck.js
  */
 
-require('dotenv').config();
-const mongoose = require('mongoose');
-const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
-// 颜色输出
-const colors = {
-    green: (text) => `\x1b[32m${text}\x1b[0m`,
-    red: (text) => `\x1b[31m${text}\x1b[0m`,
-    yellow: (text) => `\x1b[33m${text}\x1b[0m`,
-    cyan: (text) => `\x1b[36m${text}\x1b[0m`,
-    bold: (text) => `\x1b[1m${text}\x1b[0m`
-};
+// 爬虫配置
+const SCRAPERS = [
+    { name: 'AAStocks', file: 'aastocks', func: 'scrapeAAStocksNews' },
+    { name: '东财研报', file: 'eastmoneyReport', func: 'scrapeEastmoneyReports' },
+    { name: '经济通', file: 'etnet', func: 'scrapeETNetNews' },
+    { name: '富途', file: 'futu', func: 'scrapeFutu' },
+    { name: '发现报告', file: 'fxbaogao', func: 'scrapeFxbaogao' },
+    { name: '格隆汇', file: 'gelonghui', func: 'scrapeGelonghui' },
+    { name: '全球媒体', file: 'globalMedia', func: 'scrapeGlobalMedia' },
+    { name: '信报财经', file: 'hkej', func: 'scrapeHKEJNews' },
+    { name: '香港经济日报', file: 'hket', func: 'scrapeHKETNews' },
+    { name: '港交所', file: 'hkex', func: 'scrapeHKEXNews' },
+    { name: '互动易', file: 'interactive', func: 'scrapeSSEInteractive' },
+    { name: '界面新闻', file: 'jiemian', func: 'scrapeJiemian' },
+    { name: '集微网', file: 'jimei', func: 'scrapeJimei' },
+    { name: '金十数据', file: 'jin10', func: 'scrapeJin10' },
+    { name: '36氪', file: 'kr36', func: 'scrape36Kr' },
+    { name: '每日经济新闻', file: 'nbd', func: 'scrapeNBDNews' },
+    { name: '港股通', file: 'northbound', func: 'scrapeNorthboundFlow' },
+    { name: 'SEC', file: 'sec', func: 'scrapeSECFilings' },
+    { name: 'SeekingAlpha', file: 'seekingalpha', func: 'scrapeSeekingAlpha' },
+    { name: '国家统计局', file: 'stats', func: 'scrapeNationalStats' },
+    { name: '证券时报', file: 'stcn', func: 'scrapeSTCN' },
+    { name: '淘股吧', file: 'taoguba', func: 'scrapeTaoguba' },
+    { name: '腾讯财经', file: 'tencent', func: 'scrapeTencentNews' },
+    { name: '同花顺', file: 'ths', func: 'scrapeTHSNews' },
+    { name: '微信搜索', file: 'wechatSearch', func: 'scrapeWechatSearch' },
+    { name: '微博', file: 'weibo', func: 'scrapeWeiboHot' },
+    { name: 'Yahoo Finance', file: 'yahoo', func: 'scrapeYahooNews' },
+    { name: '研报客', file: 'yanbaoke', func: 'scrapeYanbaoke' },
+    { name: '第一财经', file: 'yicai', func: 'scrapeYicaiNews' },
+    { name: '知乎', file: 'zhihu', func: 'scrapeZhihuFinance' },
+    { name: '智通财经', file: 'zhitong', func: 'scrapeZhitongNews' },
+];
 
-// 检查结果收集
-const results = [];
+const HISTORY_FILE = path.join(__dirname, '../data/health-history.json');
+const REPORT_FILE = path.join(__dirname, '../data/health-report.json');
+
+// 告警管理器
+const alertManager = require('../utils/alertManager');
 
 /**
- * 1. 检查 MongoDB 连通性
+ * 测试单个爬虫
  */
-async function checkMongo() {
-    const name = 'MongoDB';
-    console.log(colors.cyan(`\n🔍 检查 ${name}...`));
-
-    const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/private_wind';
+async function testScraper(config, timeout = 60000) {
+    const startTime = Date.now();
 
     try {
-        await mongoose.connect(uri, {
-            serverSelectionTimeoutMS: 5000,
-            connectTimeoutMS: 5000
-        });
+        const module = require(`../services/scrapers/${config.file}`);
+        const func = module[config.func];
 
-        // 执行简单查询测试
-        await mongoose.connection.db.admin().ping();
-
-        console.log(colors.green(`   ✅ ${name} 连接成功`));
-        console.log(`   📍 URI: ${uri.replace(/\/\/.*:.*@/, '//***:***@')}`);
-
-        results.push({ name, status: 'ok', message: '连接成功' });
-
-        await mongoose.disconnect();
-        return true;
-    } catch (error) {
-        console.log(colors.red(`   ❌ ${name} 连接失败`));
-        console.log(`   💥 错误: ${error.message}`);
-
-        results.push({ name, status: 'fail', message: error.message });
-        return false;
-    }
-}
-
-/**
- * 2. 检查 Puppeteer 浏览器启动能力
- */
-async function checkPuppeteer() {
-    const name = 'Puppeteer';
-    console.log(colors.cyan(`\n🔍 检查 ${name}...`));
-
-    try {
-        const puppeteer = require('puppeteer');
-
-        const browser = await puppeteer.launch({
-            headless: 'new',
-            args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage'
-            ],
-            timeout: 15000
-        });
-
-        const version = await browser.version();
-
-        // 测试打开页面
-        const page = await browser.newPage();
-        await page.goto('about:blank');
-
-        await browser.close();
-
-        console.log(colors.green(`   ✅ ${name} 启动成功`));
-        console.log(`   📍 版本: ${version}`);
-
-        results.push({ name, status: 'ok', message: `版本 ${version}` });
-        return true;
-    } catch (error) {
-        console.log(colors.red(`   ❌ ${name} 启动失败`));
-        console.log(`   💥 错误: ${error.message}`);
-
-        results.push({ name, status: 'fail', message: error.message });
-        return false;
-    }
-}
-
-/**
- * 3. 检查飞书 Webhook 有效性
- */
-async function checkFeishu() {
-    const name = '飞书 Webhook';
-    console.log(colors.cyan(`\n🔍 检查 ${name}...`));
-
-    const webhook = process.env.FEISHU_WEBHOOK;
-
-    if (!webhook || webhook.includes('xxxxxxxxx')) {
-        console.log(colors.yellow(`   ⚠️ ${name} 未配置`));
-        console.log(`   💡 请在 .env 中配置 FEISHU_WEBHOOK`);
-
-        results.push({ name, status: 'warn', message: '未配置' });
-        return false;
-    }
-
-    try {
-        // 发送健康检查消息
-        const response = await axios.post(webhook, {
-            msg_type: 'interactive',
-            card: {
-                config: { wide_screen_mode: true },
-                header: {
-                    template: 'blue',
-                    title: { tag: 'plain_text', content: '🏥 系统健康检查' }
-                },
-                elements: [{
-                    tag: 'markdown',
-                    content: `**Private-Wind-Ultra 系统健康检查**\n\n` +
-                        `✅ 飞书 Webhook 连通性测试成功\n` +
-                        `🕐 检查时间: ${new Date().toLocaleString('zh-CN')}`
-                }]
-            }
-        }, { timeout: 10000 });
-
-        if (response.data?.code === 0 || response.data?.StatusCode === 0) {
-            console.log(colors.green(`   ✅ ${name} 有效`));
-            console.log(`   📍 已发送测试消息到飞书`);
-
-            results.push({ name, status: 'ok', message: 'Webhook 有效' });
-            return true;
-        } else {
-            throw new Error(response.data?.msg || '未知错误');
-        }
-    } catch (error) {
-        console.log(colors.red(`   ❌ ${name} 无效`));
-        console.log(`   💥 错误: ${error.message}`);
-
-        results.push({ name, status: 'fail', message: error.message });
-        return false;
-    }
-}
-
-/**
- * 4. 检查 AI API 配置
- */
-async function checkAI() {
-    const name = 'AI API (DeepSeek)';
-    console.log(colors.cyan(`\n🔍 检查 ${name}...`));
-
-    const apiKey = process.env.AI_API_KEY;
-    const apiBase = process.env.AI_API_BASE || 'https://api.deepseek.com/v1';
-
-    if (!apiKey || apiKey.includes('xxxxxxx')) {
-        console.log(colors.yellow(`   ⚠️ ${name} 未配置`));
-        console.log(`   💡 请在 .env 中配置 AI_API_KEY`);
-
-        results.push({ name, status: 'warn', message: '未配置' });
-        return false;
-    }
-
-    try {
-        // 验证 API Key（通过获取模型列表）
-        const response = await axios.get(`${apiBase}/models`, {
-            headers: { 'Authorization': `Bearer ${apiKey}` },
-            timeout: 10000
-        });
-
-        console.log(colors.green(`   ✅ ${name} 配置有效`));
-        console.log(`   📍 API Base: ${apiBase}`);
-
-        results.push({ name, status: 'ok', message: 'API Key 有效' });
-        return true;
-    } catch (error) {
-        // DeepSeek 可能不支持 /models，尝试简单请求
-        if (error.response?.status === 404) {
-            console.log(colors.green(`   ✅ ${name} 配置已验证`));
-            results.push({ name, status: 'ok', message: '已配置' });
-            return true;
+        if (!func) {
+            return { success: false, error: 'Function not found', duration: 0 };
         }
 
-        console.log(colors.red(`   ❌ ${name} 验证失败`));
-        console.log(`   💥 错误: ${error.message}`);
+        // 设置超时
+        const result = await Promise.race([
+            func({ maxItems: 3 }),
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Timeout')), timeout)
+            )
+        ]);
 
-        results.push({ name, status: 'fail', message: error.message });
-        return false;
+        const duration = Date.now() - startTime;
+        const itemCount = Array.isArray(result) ? result.length : (result ? 1 : 0);
+
+        return {
+            success: itemCount > 0,
+            itemCount,
+            duration,
+            error: null
+        };
+    } catch (error) {
+        return {
+            success: false,
+            itemCount: 0,
+            duration: Date.now() - startTime,
+            error: error.message
+        };
     }
 }
 
 /**
- * 输出检查报告
+ * 运行健康检查
  */
-function printReport() {
-    console.log('\n' + '═'.repeat(50));
-    console.log(colors.bold('📋 健康检查报告'));
-    console.log('═'.repeat(50));
+async function runHealthCheck(options = {}) {
+    const { parallel = 3, timeout = 60000 } = options;
 
-    let okCount = 0;
-    let warnCount = 0;
-    let failCount = 0;
+    console.log('=== 开始健康检查 ===');
+    console.log(`时间: ${new Date().toLocaleString('zh-CN')}`);
+    console.log(`爬虫数: ${SCRAPERS.length}`);
+    console.log('');
 
-    results.forEach(r => {
-        let icon, color;
-        switch (r.status) {
-            case 'ok':
-                icon = '✅';
-                color = colors.green;
-                okCount++;
-                break;
-            case 'warn':
-                icon = '⚠️';
-                color = colors.yellow;
-                warnCount++;
-                break;
-            default:
-                icon = '❌';
-                color = colors.red;
-                failCount++;
-        }
-        console.log(`${icon} ${r.name}: ${color(r.message)}`);
+    const results = [];
+
+    // 分批测试
+    for (let i = 0; i < SCRAPERS.length; i += parallel) {
+        const batch = SCRAPERS.slice(i, i + parallel);
+        const batchResults = await Promise.all(
+            batch.map(async (config) => {
+                console.log(`[${config.name}] 测试中...`);
+                const result = await testScraper(config, timeout);
+                const status = result.success ? '✅' : '❌';
+                console.log(`[${config.name}] ${status} ${result.itemCount}条 ${result.duration}ms`);
+                return { ...config, ...result };
+            })
+        );
+        results.push(...batchResults);
+
+        // 清理浏览器
+        try {
+            const puppeteer = require('../utils/puppeteerBase');
+            await puppeteer.closeBrowser();
+        } catch (e) { }
+    }
+
+    // 统计结果
+    const summary = {
+        total: results.length,
+        success: results.filter(r => r.success).length,
+        failed: results.filter(r => !r.success).length,
+        successRate: (results.filter(r => r.success).length / results.length * 100).toFixed(1) + '%'
+    };
+
+    // 生成报告
+    const report = {
+        checkTime: new Date().toISOString(),
+        summary,
+        details: results.map(r => ({
+            name: r.name,
+            success: r.success,
+            itemCount: r.itemCount,
+            duration: r.duration,
+            error: r.error
+        }))
+    };
+
+    // 保存报告
+    fs.writeFileSync(REPORT_FILE, JSON.stringify(report, null, 2));
+
+    // 保存历史
+    saveHistory(report);
+
+    // 触发告警
+    await checkAlerts(report);
+
+    // 打印总结
+    console.log('');
+    console.log('=== 健康检查完成 ===');
+    console.log(`成功: ${summary.success}/${summary.total} (${summary.successRate})`);
+    console.log(`报告: ${REPORT_FILE}`);
+
+    return report;
+}
+
+/**
+ * 保存历史记录
+ */
+function saveHistory(report) {
+    let history = [];
+
+    if (fs.existsSync(HISTORY_FILE)) {
+        try {
+            history = JSON.parse(fs.readFileSync(HISTORY_FILE, 'utf8'));
+        } catch (e) { }
+    }
+
+    // 只保留最近30条记录
+    history.push({
+        time: report.checkTime,
+        successRate: report.summary.successRate,
+        success: report.summary.success,
+        total: report.summary.total
     });
 
-    console.log('\n' + '-'.repeat(50));
-    console.log(`总计: ${colors.green(okCount + ' 通过')} | ${colors.yellow(warnCount + ' 警告')} | ${colors.red(failCount + ' 失败')}`);
-    console.log('═'.repeat(50) + '\n');
+    if (history.length > 30) {
+        history = history.slice(-30);
+    }
 
-    // 返回状态码
-    return failCount === 0 ? 0 : 1;
+    fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2));
 }
 
 /**
- * 主函数
+ * 检查告警
  */
-async function runHealthCheck() {
-    console.log('\n' + '═'.repeat(50));
-    console.log(colors.bold('🏥 Private-Wind-Ultra 系统健康检查'));
-    console.log(`🕐 ${new Date().toLocaleString('zh-CN')}`);
-    console.log('═'.repeat(50));
+async function checkAlerts(report) {
+    const failedScrapers = report.details.filter(d => !d.success);
 
-    // 执行各项检查
-    await checkMongo();
-    await checkPuppeteer();
-    await checkFeishu();
-    await checkAI();
+    // 规则1: 成功率低于50%
+    if (report.summary.success < report.summary.total * 0.5) {
+        await alertManager.alert({
+            level: 'critical',
+            title: '爬虫成功率过低',
+            message: `当前成功率: ${report.summary.successRate}`,
+            scrapers: failedScrapers.map(s => s.name)
+        });
+    }
 
-    // 输出报告
-    const exitCode = printReport();
-
-    process.exit(exitCode);
+    // 规则2: 失败数超过5个
+    if (failedScrapers.length > 5) {
+        await alertManager.alert({
+            level: 'warning',
+            title: '多个爬虫失败',
+            message: `${failedScrapers.length}个爬虫失败`,
+            scrapers: failedScrapers.map(s => s.name)
+        });
+    }
 }
 
-// 运行
-runHealthCheck().catch(error => {
-    console.error(colors.red('健康检查脚本异常:'), error);
-    process.exit(1);
-});
+/**
+ * 快速检查（只测试关键爬虫）
+ */
+async function quickCheck() {
+    const keyScrapers = SCRAPERS.filter(s =>
+        ['金十数据', '同花顺', '第一财经', '富途', '港股通'].includes(s.name)
+    );
+
+    console.log('=== 快速健康检查 ===');
+
+    for (const config of keyScrapers) {
+        const result = await testScraper(config, 30000);
+        const status = result.success ? '✅' : '❌';
+        console.log(`[${config.name}] ${status}`);
+    }
+
+    try {
+        const puppeteer = require('../utils/puppeteerBase');
+        await puppeteer.closeBrowser();
+    } catch (e) { }
+}
+
+// 命令行入口
+if (require.main === module) {
+    const args = process.argv.slice(2);
+
+    if (args.includes('--quick')) {
+        quickCheck().then(() => process.exit(0));
+    } else {
+        runHealthCheck().then(() => process.exit(0));
+    }
+}
+
+module.exports = {
+    runHealthCheck,
+    quickCheck,
+    testScraper,
+    SCRAPERS
+};

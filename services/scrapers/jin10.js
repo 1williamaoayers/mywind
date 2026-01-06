@@ -6,7 +6,7 @@
  * - 非农、美联储决议第一梯队
  */
 
-const axios = require('axios');
+const http = require('../../utils/httpClient');
 
 // 抓取状态
 const jin10Status = {
@@ -35,7 +35,7 @@ async function scrapeJin10(options = {}) {
         const timestamp = Date.now();
         const apiUrl = `https://flash-api.jin10.com/get_flash_list?max_time=${timestamp}&channel=-8200`;
 
-        const response = await axios.get(apiUrl, {
+        const response = await http.get(apiUrl, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
                 'Referer': 'https://www.jin10.com/',

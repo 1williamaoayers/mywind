@@ -565,30 +565,40 @@ async function scrapeForStock(stock) {
 }
 
 /**
- * 处理并保存采集结果 (带白名单过滤)
+ * 处理并保存采集结果 (带白名单过滤 + 向量索引)
+ * @param {Array} rawItems - 采集结果
+ * @param {Array} stocks - 订阅股票
+ * @param {Object} options - 选项
+ * @param {boolean} options.skipWhitelist - 跳过白名单过滤（定向采集使用）
  */
-async function processAndSave(rawItems, stocks) {
+async function processAndSave(rawItems, stocks, options = {}) {
     if (!rawItems || rawItems.length === 0) {
-        return { inserted: 0, duplicates: 0, filtered: 0 };
+        return { inserted: 0, duplicates: 0, filtered: 0, indexed: 0 };
     }
 
-    // 🔥 硬核过滤：入库前拦截，只有命中白名单的新闻才入库
-    const filteredItems = rawItems.filter(item => {
-        const result = shouldIngest(item.title, item.content);
-        if (result.shouldIngest) {
-            item._whitelistKeywords = result.matchedKeywords;
-            return true;
-        }
-        return false;
-    });
+    let filteredItems = rawItems;
+    let filteredCount = 0;
 
-    const filteredCount = rawItems.length - filteredItems.length;
-    if (filteredCount > 0) {
-        console.log(`[过滤] 丢弃 ${filteredCount} 条不匹配白名单的新闻`);
+    // 🔥 硬核过滤：入库前拦截，只有命中白名单的新闻才入库
+    // 定向采集可以跳过此过滤（因为已经是针对订阅股票的）
+    if (!options.skipWhitelist) {
+        filteredItems = rawItems.filter(item => {
+            const result = shouldIngest(item.title, item.content);
+            if (result.shouldIngest) {
+                item._whitelistKeywords = result.matchedKeywords;
+                return true;
+            }
+            return false;
+        });
+
+        filteredCount = rawItems.length - filteredItems.length;
+        if (filteredCount > 0) {
+            console.log(`[过滤] 丢弃 ${filteredCount} 条不匹配白名单的新闻`);
+        }
     }
 
     if (filteredItems.length === 0) {
-        return { inserted: 0, duplicates: 0, filtered: filteredCount };
+        return { inserted: 0, duplicates: 0, filtered: filteredCount, indexed: 0 };
     }
 
     const processedItems = filteredItems.map(item => {
@@ -626,7 +636,23 @@ async function processAndSave(rawItems, stocks) {
 
     console.log(`[保存] 插入 ${result.inserted} 条，去重 ${result.duplicates} 条`);
 
-    return result;
+    // 🔴 P0修复：同步到向量库 (异步执行，不阻塞采集流程)
+    let indexedCount = 0;
+    if (result.inserted > 0) {
+        // 延迟加载向量索引服务 (避免循环依赖)
+        try {
+            const { indexBatch } = require('./vectorIndexService');
+            // 只索引新插入的数据
+            const newItems = processedItems.slice(0, result.inserted);
+            const indexResult = await indexBatch(newItems, 'news');
+            indexedCount = indexResult.indexed || 0;
+        } catch (indexError) {
+            // 向量索引失败不影响主流程
+            console.warn(`[向量索引] 同步失败 (非致命): ${indexError.message}`);
+        }
+    }
+
+    return { ...result, indexed: indexedCount };
 }
 
 /**

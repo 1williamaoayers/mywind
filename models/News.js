@@ -34,11 +34,12 @@ const NewsSchema = new mongoose.Schema({
         default: ''
     },
 
-    // 维度分类
+    // 维度分类 (可选，默认realtime)
     dimension: {
         type: String,
-        required: true,
-        enum: ['official', 'deep_search', 'realtime', 'social', 'compliance', 'global'],
+        required: false,  // 改为非必填，避免采集数据缺失此字段导致入库失败
+        enum: ['official', 'deep_search', 'realtime', 'social', 'compliance', 'global', 'targeted'],
+        default: 'realtime',  // 默认值
         index: true
     },
 

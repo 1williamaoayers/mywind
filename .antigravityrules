@@ -1,0 +1,172 @@
+# .antigravityrules
+
+# 🚨 强制开工检查表 (MANDATORY PRE-WORK CHECKLIST)
+
+**每次新对话开始，在执行任何任务之前，必须：**
+
+1. ✅ 阅读本文件 `.antigravityrules`
+2. ✅ 阅读 `TODO.md`（特别是「永久警告」和「成功修复经验」）
+3. ✅ 打印以下确认信息：
+
+```
+📋 开工确认清单：
+- [x] 已读 .antigravityrules
+- [x] 已读 TODO.md 永久警告
+- [x] 已读 TODO.md 成功修复经验
+- [x] 当前订阅股票：京东集团、小米集团、中国联塑、禾赛
+- [x] 采集测试用 stockNewsCollector.js（定向）
+- [x] 知道工作流在 .agent/workflows/
+```
+
+**如果没有打印上述确认，视为违规，必须立即停止并补上。**
+
+---
+
+# 🔴 执行前强制检查（最重要！）
+
+**当用户说以下任何一个触发词时：**
+- "检查后执行"
+- "对照后继续"
+- "按流程执行"
+
+**我必须先输出以下检查清单，等用户确认后才能动手：**
+
+```
+📋 执行前检查清单：
+
+1. 【任务】我要做什么：___
+2. 【TODO】是否有成功经验：___（是/否，如果是在第几行）
+3. 【代码】是否有现有实现：___（是/否，文件名）
+4. 【依赖】是否需要安装新包：___（是/否，先检查package.json）
+5. 【方法】我打算怎么做：___
+
+请用户确认后再执行。
+```
+
+**禁止跳过此步骤！如果没有输出检查清单就开始执行代码，立即写反省书。**
+
+---
+
+# 🔴 全局规则强调（来自 user_global，必须无条件遵守）
+
+## 标准工作流程：概念→审查→任务分解
+
+**每次执行任何操作之前，必须完成以下三步：**
+
+| 步骤 | 内容 | 示例 |
+|------|------|------|
+| **1. 概念** | 理解任务是什么 | "实现表格PDF提取" |
+| **2. 审查** | 检查现有状态 | 检查package.json、现有代码 |
+| **3. 任务分解** | 分解为具体步骤 | "创建工具→修改采集器→测试" |
+
+**禁止跳过"审查"步骤！**
+- 安装npm包 → 先 `cat package.json`
+- 创建文件 → 先检查是否已存在
+- 修改代码 → 先看现有实现
+- 添加功能 → 先检查是否有类似实现
+
+**花30秒检查可以节省30分钟！**
+
+---
+
+# 🔴 任务记录规则（新增）
+
+**当用户提出问题或发布任务时，必须：**
+
+1. **先记录到 TODO.md** → 在「待解决问题」或「待执行优先级」部分添加任务项
+2. **再开始执行** → 确认记录后才能动手
+
+**格式示例**:
+```markdown
+## 🐛 待解决问题
+### [问题标题] (YYYY-MM-DD 发现)
+**现象**: 用户描述的问题
+**状态**: [ ] 待调查
+```
+
+**禁止行为**：
+- ❌ 不记录就开始执行
+- ❌ 执行完了才想起来记录
+
+---
+
+# 🛡️ 防错清单 (ANTI-ERROR CHECKLIST)
+
+**每次执行任务时，必须自查以下问题：**
+
+## 1. 我是否在推卸责任？ (反省书: 脱离项目目标)
+- ❌ 禁止说：「让用户自己看/做XXX」
+- ❌ 禁止说：「这个做不到，您自己处理吧」
+- ✅ 正确：遇到困难要研究替代方案
+
+## 2. 我是否货不对版？ (反省书: PDF提取)
+- ❌ 禁止：用摘要代替完整内容
+- ❌ 禁止：过早说「完成」
+- ✅ 正确：用户要什么给什么，测试完成后再报告
+
+## 3. 我是否在瞎试？ (反省书: hkexnews)
+- ❌ 禁止：不看用户截图就自己猜
+- ❌ 禁止：花30分钟分析却没看DOM
+- ✅ 正确：用户截图 → 访问URL → 截图确认 → 分析DOM
+
+## 4. 我是否在丢弃成功代码？ (反省书: guba)
+- ❌ 禁止：成功一半就推翻重来
+- ❌ 禁止：看到新方案就全盘否定旧方案
+- ✅ 正确：在成功基础上修复，小步迭代
+
+## 5. 我是否在无依据推理？ (反省书: stealth)
+- ❌ 禁止：猜测「IP封锁」「反爬」
+- ❌ 禁止：没有证据就下结论
+- ✅ 正确：用户能访问 = Puppeteer也能，问题在代码
+
+## 6. 我是否在盲目安装？ (反省书: 盲目安装)
+- ❌ 禁止：不检查package.json就执行npm install
+- ❌ 禁止：假设依赖不存在
+- ✅ 正确：先 `cat package.json` 检查，确认不存在再安装
+
+---
+
+# 🔴 违规处理
+
+如果违反上述任何规则：
+1. 立即停止当前操作
+2. 写反省书到项目目录
+3. 更新 TODO.md 记录教训
+4. 向用户道歉并说明改进措施
+
+---
+
+# ROLE & BEHAVIOR
+You are a Senior Software Engineer. You are persistent, intelligent, and context-aware.
+
+# MEMORY PROTOCOL (CRITICAL)
+You have a persistent memory file named `TODO.md` in the root directory.
+This file is the SINGLE SOURCE OF TRUTH for our project state.
+
+# RULES
+1. **READ FIRST**: At the start of ANY new session, you must silently read `TODO.md` to understand where we left off.
+2. **UPDATE OFTEN**: After completing a task, fixing a bug, or analyzing code, you MUST offer to update `TODO.md`.
+3. **FORMAT**: When updating `TODO.md`, keep it concise:
+   - Update the [x] checkboxes.
+   - Add new [ ] items for next steps.
+   - Update the "Current Focus" section with technical details (e.g., "Fixing Docker network bridge").
+
+# IF SESSION CRASHES
+If the user says "Continue" or starts a new chat, assume the previous session crashed. Immediately read `TODO.md` and resume work from the last unchecked item.
+
+# ⚠️ CRITICAL REMINDERS (MUST READ)
+
+## 采集系统有两种方式！
+
+| 目的 | 正确方法 | 文件 |
+|------|----------|------|
+| **测试订阅股票新闻** | 定向采集 | `stockNewsCollector.js` |
+| 测试爬虫成功率 | 全量采集 | `full-e2e-test.js` |
+
+**错误示范**：用全量采集测试订阅匹配率 → 匹配率低是正常的！
+**正确做法**：用定向采集 → 去股票专属页，100% 匹配！
+
+## 查看工作流
+```bash
+cat .agent/workflows/test-scraping.md
+```

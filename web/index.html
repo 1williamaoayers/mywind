@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyWind 智能投研终端</title>
+    <meta name="description" content="人人都买得起的万得终端 - AI投研，让专业不再昂贵">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 侧边栏 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <span class="logo-icon">📊</span>
+                <span class="logo-text">MyWind</span>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i class="mdi mdi-view-dashboard"></i>
+                    <span>仪表盘</span>
+                </a>
+                <a href="#" class="nav-item" data-page="subscriptions">
+                    <i class="mdi mdi-star"></i>
+                    <span>我的订阅</span>
+                </a>
+                <a href="#" class="nav-item" data-page="news">
+                    <i class="mdi mdi-newspaper"></i>
+                    <span>资讯中心</span>
+                </a>
+                <a href="#" class="nav-item" data-page="reports">
+                    <i class="mdi mdi-file-document"></i>
+                    <span>研究报告</span>
+                </a>
+                <a href="#" class="nav-item" data-page="daily">
+                    <i class="mdi mdi-calendar-text"></i>
+                    <span>投研日报</span>
+                </a>
+                <a href="#" class="nav-item" data-page="ai">
+                    <i class="mdi mdi-robot"></i>
+                    <span>AI助手</span>
+                </a>
+                <a href="#" class="nav-item" data-page="screener">
+                    <i class="mdi mdi-filter"></i>
+                    <span>股票筛选</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/api-docs.html" class="nav-item" target="_blank">
+                    <i class="mdi mdi-api"></i>
+                    <span>API 文档</span>
+                </a>
+                <a href="#" class="nav-item" data-page="settings">
+                    <i class="mdi mdi-cog"></i>
+                    <span>设置</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 顶部栏 -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                    <div class="search-box">
+                        <i class="mdi mdi-magnify"></i>
+                        <input type="text" placeholder="搜索股票、资讯..." id="searchInput">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn" title="刷新数据">
+                        <i class="mdi mdi-refresh"></i>
+                    </button>
+                    <button class="icon-btn" title="通知">
+                        <i class="mdi mdi-bell-outline"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="user-menu">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=mywind" alt="头像" class="avatar">
+                    </div>
+                </div>
+            </header>
+
+            <!-- 页面内容容器 -->
+            <div class="page-container" id="pageContainer">
+                <!-- 仪表盘页面 -->
+                <div class="page active" id="page-dashboard">
+                    <div class="page-header">
+                        <h1>仪表盘</h1>
+                        <p class="subtitle">欢迎使用 MyWind 智能投研终端</p>
+                    </div>
+
+                    <!-- 市场概览 -->
+                    <div class="widget-grid">
+                        <div class="widget market-card">
+                            <div class="market-name">上证指数</div>
+                            <div class="market-value up">3,265.48</div>
+                            <div class="market-change up">+0.52%</div>
+                        </div>
+                        <div class="widget market-card">
+                            <div class="market-name">深证成指</div>
+                            <div class="market-value up">10,158.32</div>
+                            <div class="market-change up">+0.38%</div>
+                        </div>
+                        <div class="widget market-card">
+                            <div class="market-name">恒生指数</div>
+                            <div class="market-value down">20,123.45</div>
+                            <div class="market-change down">-0.15%</div>
+                        </div>
+                        <div class="widget market-card">
+                            <div class="market-name">纳斯达克</div>
+                            <div class="market-value up">16,825.93</div>
+                            <div class="market-change up">+1.02%</div>
+                        </div>
+                    </div>
+
+                    <!-- 快捷操作 -->
+                    <div class="section">
+                        <h2 class="section-title">快速开始</h2>
+                        <div class="quick-actions">
+                            <button class="action-card" onclick="showPage('subscriptions')">
+                                <i class="mdi mdi-plus-circle"></i>
+                                <span>添加订阅</span>
+                            </button>
+                            <button class="action-card" onclick="showPage('ai')">
+                                <i class="mdi mdi-robot"></i>
+                                <span>AI问答</span>
+                            </button>
+                            <button class="action-card" onclick="showPage('daily')">
+                                <i class="mdi mdi-file-document"></i>
+                                <span>今日日报</span>
+                            </button>
+                            <button class="action-card" onclick="showPage('screener')">
+                                <i class="mdi mdi-filter"></i>
+                                <span>筛选股票</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 我的订阅 -->
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">我的订阅</h2>
+                            <a href="#" onclick="showPage('subscriptions')" class="link">管理订阅 →</a>
+                        </div>
+                        <div class="stock-grid" id="subscriptionList">
+                            <!-- 动态加载 -->
+                        </div>
+                    </div>
+
+                    <!-- 最新资讯 -->
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">最新资讯</h2>
+                            <a href="#" onclick="showPage('news')" class="link">更多 →</a>
+                        </div>
+                        <div class="news-list" id="newsList">
+                            <!-- 动态加载 -->
+                        </div>
+                    </div>
+
+                    <!-- 系统状态与预警统计（新增） -->
+                    <div class="section">
+                        <h2 class="section-title">系统监控</h2>
+                        <div class="widget-grid">
+                            <!-- 系统状态卡片 -->
+                            <div class="widget status-card">
+                                <h3 style="margin-bottom: 16px; color: var(--primary-light);">
+                                    <i class="mdi mdi-server"></i> 系统状态
+                                </h3>
+                                <div class="status-grid">
+                                    <div class="status-item">
+                                        <span class="label">MongoDB</span>
+                                        <span class="value" id="mongoStatus">检测中...</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="label">今日采集</span>
+                                        <span class="value" id="newsCount">-</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="label">最后更新</span>
+                                        <span class="value" id="lastCrawlTime">-</span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="label">订阅股票</span>
+                                        <span class="value" id="stockCount">-</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm" onclick="refreshSystemStatus()" style="margin-top: 12px;">
+                                    <i class="mdi mdi-refresh"></i> 刷新
+                                </button>
+                            </div>
+
+                            <!-- 预警统计卡片 -->
+                            <div class="widget alert-stats-card">
+                                <h3 style="margin-bottom: 16px; color: var(--primary-light);">
+                                    <i class="mdi mdi-alert-circle"></i> 今日预警
+                                </h3>
+                                <div class="alert-grid">
+                                    <div class="alert-item danger">
+                                        <span class="count" id="dangerCount">0</span>
+                                        <span class="label">🔴 红色</span>
+                                    </div>
+                                    <div class="alert-item success">
+                                        <span class="count" id="successCount">0</span>
+                                        <span class="label">🟢 绿色</span>
+                                    </div>
+                                    <div class="alert-item primary">
+                                        <span class="count" id="primaryCount">0</span>
+                                        <span class="label">🔵 蓝色</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 数据可视化（新增） -->
+                    <div class="section">
+                        <h2 class="section-title">数据可视化</h2>
+                        <div class="chart-grid">
+                            <div class="widget chart-card">
+                                <h3 style="margin-bottom: 16px; color: var(--text-secondary);">
+                                    📊 预警分布
+                                </h3>
+                                <canvas id="alertPieChart" width="200" height="200"></canvas>
+                            </div>
+                            <div class="widget chart-card">
+                                <h3 style="margin-bottom: 16px; color: var(--text-secondary);">
+                                    📈 近7日情绪走势
+                                </h3>
+                                <canvas id="sentimentLineChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 订阅页面 -->
+                <div class="page" id="page-subscriptions">
+                    <div class="page-header">
+                        <h1>我的订阅</h1>
+                        <button class="btn btn-primary" onclick="showAddModal()">
+                            <i class="mdi mdi-plus"></i> 添加订阅
+                        </button>
+                    </div>
+
+                    <div class="subscription-grid" id="allSubscriptions">
+                        <!-- 动态加载 -->
+                    </div>
+                </div>
+
+                <!-- AI助手页面 -->
+                <div class="page" id="page-ai">
+                    <div class="page-header">
+                        <h1>AI 智能助手</h1>
+                        <p class="subtitle">问我任何投资相关的问题</p>
+                    </div>
+
+                    <div class="ai-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message bot">
+                                <div class="message-avatar">🤖</div>
+                                <div class="message-content">
+                                    <p>你好！我是 MyWind AI 助手，可以帮你：</p>
+                                    <ul>
+                                        <li>分析股票基本面和技术面</li>
+                                        <li>解读最新的研究报告</li>
+                                        <li>回答投资相关问题</li>
+                                        <li>诊断你的持仓组合</li>
+                                    </ul>
+                                    <p>有什么可以帮你的？</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <div class="quick-prompts">
+                                <button class="prompt-btn" onclick="sendQuickPrompt('茅台最近有什么利好？')">茅台最近有什么利好？</button>
+                                <button class="prompt-btn" onclick="sendQuickPrompt('分析一下新能源板块')">分析新能源板块</button>
+                                <button class="prompt-btn" onclick="sendQuickPrompt('今天北水动向如何？')">今天北水动向</button>
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="aiInput" placeholder="输入你的问题...">
+                                <button class="send-btn" onclick="sendMessage()">
+                                    <i class="mdi mdi-send"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 投研日报页面 -->
+                <div class="page" id="page-daily">
+                    <div class="page-header">
+                        <h1>投研日报</h1>
+                        <p class="subtitle">每日自动生成的投研报告</p>
+                    </div>
+
+                    <div class="daily-report" id="dailyReport">
+                        <div class="report-loading">加载中...</div>
+                    </div>
+                </div>
+
+                <!-- 股票筛选页面 -->
+                <div class="page" id="page-screener">
+                    <div class="page-header">
+                        <h1>股票筛选器</h1>
+                        <p class="subtitle">按条件筛选股票</p>
+                    </div>
+
+                    <div class="screener-container">
+                        <div class="screener-filters">
+                            <div class="filter-group">
+                                <label>市场</label>
+                                <select id="filterMarket">
+                                    <option value="all">全部</option>
+                                    <option value="SH">沪市</option>
+                                    <option value="SZ">深市</option>
+                                    <option value="HK">港股</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>行业</label>
+                                <select id="filterIndustry">
+                                    <option value="all">全部</option>
+                                    <option value="白酒">白酒</option>
+                                    <option value="银行">银行</option>
+                                    <option value="新能源">新能源</option>
+                                    <option value="半导体">半导体</option>
+                                    <option value="医药">医药</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="runScreener()">
+                                <i class="mdi mdi-filter"></i> 筛选
+                            </button>
+                        </div>
+
+                        <div class="screener-results" id="screenerResults">
+                            <p class="empty-state">设置筛选条件后点击"筛选"按钮</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 资讯中心页面 -->
+                <div class="page" id="page-news">
+                    <div class="page-header">
+                        <h1>资讯中心</h1>
+                    </div>
+                    <div class="news-container" id="allNews">
+                        <div class="loading">加载中...</div>
+                    </div>
+                </div>
+
+                <!-- 研究报告页面 -->
+                <div class="page" id="page-reports">
+                    <div class="page-header">
+                        <h1>研究报告</h1>
+                    </div>
+                    <div class="reports-container" id="allReports">
+                        <div class="loading">加载中...</div>
+                    </div>
+                </div>
+
+                <!-- 设置页面（新增） -->
+                <div class="page" id="page-settings">
+                    <div class="page-header">
+                        <h1>设置</h1>
+                        <p class="subtitle">系统配置与管理</p>
+                    </div>
+
+                    <div class="settings-container">
+                        <!-- 调度配置 -->
+                        <div class="settings-section">
+                            <h3><i class="mdi mdi-clock-outline"></i> 调度配置</h3>
+                            <div class="form-group">
+                                <label>研报生成时间（多个用逗号分隔）</label>
+                                <input type="text" id="scheduleTime" value="08:30, 15:30"
+                                    placeholder="例如: 08:30, 15:30">
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="workdayOnly" checked>
+                                    <span>仅工作日执行</span>
+                                </label>
+                            </div>
+                            <button class="btn btn-primary" onclick="saveScheduleConfig()">
+                                <i class="mdi mdi-content-save"></i> 保存配置
+                            </button>
+                            <div id="scheduleResult" class="result-message"></div>
+                        </div>
+
+                        <!-- 飞书推送测试 -->
+                        <div class="settings-section">
+                            <h3><i class="mdi mdi-send"></i> 飞书推送测试</h3>
+                            <p class="hint">发送测试消息验证 Webhook 配置</p>
+                            <div class="btn-group">
+                                <button class="btn btn-danger" onclick="testFeishu('danger')">
+                                    🚨 红色预警
+                                </button>
+                                <button class="btn btn-success" onclick="testFeishu('success')">
+                                    📈 绿色利好
+                                </button>
+                                <button class="btn btn-primary" onclick="testFeishu('primary')">
+                                    📢 蓝色动向
+                                </button>
+                            </div>
+                            <div id="feishuResult" class="result-message"></div>
+                        </div>
+
+                        <!-- 关键词管理 -->
+                        <div class="settings-section">
+                            <h3><i class="mdi mdi-key"></i> 白名单关键词</h3>
+                            <p class="hint">只有标题包含这些关键词的新闻才会入库</p>
+                            <div class="keyword-input-row">
+                                <input type="text" id="newKeyword" placeholder="输入关键词">
+                                <button class="btn btn-success" onclick="addKeyword()">
+                                    <i class="mdi mdi-plus"></i> 添加
+                                </button>
+                            </div>
+                            <div id="keywordList" class="keyword-list">
+                                <!-- 动态加载 -->
+                            </div>
+                        </div>
+
+                        <!-- 数据导出 -->
+                        <div class="settings-section">
+                            <h3><i class="mdi mdi-download"></i> 数据导出</h3>
+                            <p class="hint">导出订阅数据为 JSON 或 CSV 格式</p>
+                            <div class="btn-group">
+                                <button class="btn btn-primary" onclick="exportData('json')">
+                                    📥 导出 JSON
+                                </button>
+                                <button class="btn btn-primary" onclick="exportData('csv')">
+                                    📥 导出 CSV
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 添加订阅弹窗 -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加股票订阅</h3>
+                <button class="close-btn" onclick="hideAddModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>股票代码</label>
+                    <input type="text" id="addStockCode" placeholder="如：600519">
+                </div>
+                <div class="form-group">
+                    <label>股票名称</label>
+                    <input type="text" id="addStockName" placeholder="如：贵州茅台">
+                </div>
+                <div class="form-group">
+                    <label>市场</label>
+                    <select id="addStockMarket">
+                        <option value="SH">沪市</option>
+                        <option value="SZ">深市</option>
+                        <option value="HK">港股</option>
+                        <option value="US">美股</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>行业（可选）</label>
+                    <input type="text" id="addStockIndustry" placeholder="如：白酒">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="hideAddModal()">取消</button>
+                <button class="btn btn-primary" onclick="addSubscription()">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

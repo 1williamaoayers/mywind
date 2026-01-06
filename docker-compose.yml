@@ -24,9 +24,20 @@ services:
       - AI_API_BASE=https://api.deepseek.com/v1
       - AI_MODEL=deepseek-chat
       - FEISHU_WEBHOOK=https://www.feishu.cn/flow/api/trigger-webhook/4df825f0441914a0ce4a8eb3eda24604
-      - APP_URL=http://54.238.79.45:8088
+      - APP_URL=http://192.168.3.134:8088
+      - OCR_SERVICE_URL=http://127.0.0.1:9000
     depends_on:
       - mongo
 
+  ocr-service:
+    build: ./ocr-service
+    container_name: mywind-ocr
+    restart: always
+    network_mode: host
+    environment:
+      - OCR_PORT=9000
+    # 注: 移除内存限制，sentence-transformers初始化需要较多内存
+
 volumes:
   mongo_data:
+

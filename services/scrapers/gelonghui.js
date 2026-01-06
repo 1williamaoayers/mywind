@@ -1,111 +1,73 @@
 /**
- * 格隆汇抓取器 - 港美股研报
- * 
- * 特点：
- * - 高质量港美股分析
- * - 深度研报和快讯
+ * 格隆汇爬虫 (Puppeteer版)
  */
 
-const axios = require('axios');
-const cheerio = require('cheerio');
+const puppeteer = require('../../utils/puppeteerBase');
 
-// 抓取状态
-const gelonghuiStatus = {
-    isRunning: false,
+const status = {
     lastFetchTime: null,
-    totalFetches: 0,
     successCount: 0,
-    failCount: 0,
-    lastNewsCount: 0
+    failCount: 0
 };
 
 /**
- * 抓取格隆汇快讯和研报
+ * 采集格隆汇新闻
  */
 async function scrapeGelonghui(options = {}) {
-    const maxItems = options.maxItems || 15;
-    const type = options.type || 'all'; // 'flash' | 'article' | 'all'
-
-    console.log('[格隆汇] 开始抓取...');
-    gelonghuiStatus.isRunning = true;
-    gelonghuiStatus.totalFetches++;
-
+    const { maxItems = 30 } = options;
     const results = [];
+    const page = await puppeteer.createPage({ timeout: 45000 });
 
     try {
-        // 格隆汇 API
-        const apis = [
-            // 7x24 快讯
-            {
-                url: 'https://www.gelonghui.com/api/v3/live/list?count=20',
-                type: 'flash'
-            },
-            // 深度文章
-            {
-                url: 'https://www.gelonghui.com/api/v3/article/list?count=10&category=0',
-                type: 'article'
-            }
-        ];
+        console.log('[格隆汇] Puppeteer采集...');
 
-        for (const api of apis) {
-            if (type !== 'all' && type !== api.type) continue;
+        await puppeteer.gotoWithRetry(page, 'https://www.gelonghui.com/');
+        await puppeteer.randomDelay(3000, 3000 * 1.5);
 
-            try {
-                const response = await axios.get(api.url, {
-                    headers: {
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                        'Referer': 'https://www.gelonghui.com/'
-                    },
-                    timeout: 15000
-                });
+        // 滚动加载更多
+        await puppeteer.scrollToBottom(page, { times: 2 });
 
-                if (response.data && response.data.data) {
-                    const items = response.data.data.list || response.data.data;
+        const items = await page.$$eval('[class*="article"], .live-item, .news-card', els =>
+            els.map(el => {
+                const link = el.querySelector('a[href*="/live/"], a[href*="/news/"], a[href*="/p/"]') || el.querySelector('a');
+                const title = el.querySelector('h2, h3, h4, .title, .article-title') || link;
+                const time = el.querySelector('.time, .date, time, [class*="time"]');
+                const summary = el.querySelector('.summary, .desc, .content, p');
 
-                    for (const item of items) {
-                        if (results.length >= maxItems) break;
+                const titleText = title?.textContent?.trim() || '';
+                const href = link?.href || '';
 
-                        results.push({
-                            source: 'gelonghui',
-                            sourceName: '格隆汇',
-                            dimension: api.type === 'flash' ? 'realtime' : 'deep_search',
-                            title: item.title || item.content?.substring(0, 50) || '',
-                            content: item.content || item.summary || item.abstract || '',
-                            url: item.id ? `https://www.gelonghui.com/${api.type === 'flash' ? 'live' : 'p'}/${item.id}` : '',
-                            publishTime: item.created_at ? new Date(item.created_at * 1000) : new Date(),
-                            category: api.type === 'flash' ? '快讯' : '深度'
-                        });
-                    }
-                }
-            } catch (apiError) {
-                console.error(`[格隆汇] ${api.type} 接口失败:`, apiError.message);
-            }
-        }
+                return {
+                    title: titleText.substring(0, 100),
+                    url: href,
+                    time: time?.textContent?.trim() || '',
+                    summary: summary?.textContent?.trim()?.substring(0, 200) || '',
+                    source: 'gelonghui',
+                    sourceName: '格隆汇'
+                };
+            }).filter(item => item.title && item.title.length > 5 && item.url && !item.title.includes('下载'))
+        );
 
-        gelonghuiStatus.successCount++;
-        gelonghuiStatus.lastNewsCount = results.length;
-        console.log(`[格隆汇] 抓取完成: ${results.length} 条`);
+        results.push(...items.slice(0, maxItems));
+        status.successCount++;
+        console.log(`[格隆汇] 采集成功: ${results.length} 条`);
 
     } catch (error) {
-        gelonghuiStatus.failCount++;
-        console.error('[格隆汇] 抓取失败:', error.message);
+        status.failCount++;
+        console.error('[格隆汇] 采集失败:', error.message);
     } finally {
-        gelonghuiStatus.isRunning = false;
-        gelonghuiStatus.lastFetchTime = new Date();
+        await puppeteer.closePage(page);
     }
 
+    status.lastFetchTime = new Date();
     return results;
 }
 
-/**
- * 获取状态
- */
 function getGelonghuiStatus() {
     return {
-        ...gelonghuiStatus,
-        lastFetchTimeStr: gelonghuiStatus.lastFetchTime
-            ? gelonghuiStatus.lastFetchTime.toLocaleString('zh-CN')
-            : '从未运行'
+        ...status,
+        lastFetchTimeStr: status.lastFetchTime?.toLocaleString('zh-CN') || '从未运行',
+        method: 'Puppeteer'
     };
 }
 

@@ -9,12 +9,13 @@
 
 const cron = require('node-cron');
 const { generateAllReports } = require('./aiService');
-const { runFullScrape, runDimensionScrape, DIMENSIONS } = require('./scraperService');
+const { runFullScrape, runDimensionScrape, DIMENSIONS, processAndSave } = require('./scraperService');
 const { processPendingAlerts } = require('./notificationService');
 const { enhancedSearch, getSearchStatus } = require('./searchEngineScraper');
 const { scrapeToutiao } = require('./visualScraper');
 const { runPolicySentinel } = require('./policySentinel');
 const { runAlternativeDataFetch } = require('./alternativeData');
+const sourceRegistry = require('../config/sourceRegistry');
 
 // 调度任务存储
 const scheduledTasks = new Map();
@@ -127,13 +128,53 @@ async function executeReportTask() {
 
 /**
  * 任务执行器：实时资讯采集
+ * 使用3个有正文的源：ths, sec, jin10
  */
 async function executeRealtimeScrapeTask() {
-    console.log('[调度] 开始采集实时资讯');
+    console.log('[调度] 开始采集实时资讯（有正文的源）');
     try {
-        const result = await runDimensionScrape(DIMENSIONS.REALTIME);
-        console.log(`[调度] 实时采集完成:`, result);
-        return result;
+        const allResults = [];
+
+        // 同花顺
+        try {
+            const { scrapeTHSNews } = require('./scrapers/ths');
+            const thsItems = await scrapeTHSNews({ maxItems: 20 });
+            allResults.push(...thsItems);
+            console.log(`[实时] 同花顺: ${thsItems.length}条`);
+        } catch (e) {
+            console.error('[实时] 同花顺失败:', e.message);
+        }
+
+        // 金十数据
+        try {
+            const { scrapeJin10 } = require('./scrapers/jin10');
+            const jin10Items = await scrapeJin10({ maxItems: 20 });
+            allResults.push(...jin10Items);
+            console.log(`[实时] 金十数据: ${jin10Items.length}条`);
+        } catch (e) {
+            console.error('[实时] 金十数据失败:', e.message);
+        }
+
+        // SEC（美股，低频）
+        try {
+            const { scrapeSECFilings } = require('./scrapers/sec');
+            const secItems = await scrapeSECFilings({ maxItems: 10 });
+            allResults.push(...secItems);
+            console.log(`[实时] SEC: ${secItems.length}条`);
+        } catch (e) {
+            console.error('[实时] SEC失败:', e.message);
+        }
+
+        // 入库
+        if (allResults.length > 0) {
+            const Stock = require('../models/Stock');
+            const stocks = await Stock.find({ isActive: true });
+            const saveResult = await processAndSave(allResults, stocks);
+            console.log(`[调度] 实时采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库`);
+            return saveResult;
+        }
+
+        return { total: 0, inserted: 0 };
     } catch (error) {
         console.error('[调度] 实时采集失败:', error.message);
         return { error: error.message };
@@ -141,16 +182,526 @@ async function executeRealtimeScrapeTask() {
 }
 
 /**
- * 任务执行器：深度内容采集
+ * 任务执行器：快讯源采集（只有标题）
+ * 使用9个快讯源：aastocks, futu, gelonghui, etnet, yahoo, globalMedia等
  */
 async function executeDeepScrapeTask() {
-    console.log('[调度] 开始采集深度内容');
+    console.log('[调度] 开始采集快讯源（9个）');
     try {
-        const result = await runDimensionScrape(DIMENSIONS.DEEP_SEARCH);
-        console.log(`[调度] 深度采集完成:`, result);
-        return result;
+        const allResults = [];
+
+        // 从sourceRegistry获取快讯源
+        const headlineSources = sourceRegistry.headline.sources.general;
+
+        for (const source of headlineSources) {
+            // 跳过已在实时采集中处理的源
+            if (source.name === 'jin10') continue;
+
+            try {
+                const scraperModule = require(`./${source.module}`);
+                const fn = scraperModule[source.fn];
+                if (fn) {
+                    const items = await fn({ maxItems: 15 });
+                    allResults.push(...items);
+                    console.log(`[快讯] ${source.label}: ${items.length}条`);
+                }
+            } catch (e) {
+                console.error(`[快讯] ${source.label}失败:`, e.message);
+            }
+        }
+
+        // 入库
+        if (allResults.length > 0) {
+            const Stock = require('../models/Stock');
+            const stocks = await Stock.find({ isActive: true });
+            const saveResult = await processAndSave(allResults, stocks);
+            console.log(`[调度] 快讯采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库`);
+            return saveResult;
+        }
+
+        return { total: 0, inserted: 0 };
+    } catch (error) {
+        console.error('[调度] 快讯采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
+ * 任务执行器：快讯类采集（基于源配置）
+ * 只抓标题，用于实时预警
+ */
+async function executeHeadlineScrapeTask() {
+    console.log('[调度] 开始快讯类采集（只抓标题）');
+    try {
+        const headlineConfig = sourceRegistry.headline;
+        const allResults = [];
+
+        // 采集通用模式的源
+        for (const source of headlineConfig.sources.general) {
+            try {
+                const scraperModule = require(`./${source.module}`);
+                const fn = scraperModule[source.fn];
+                if (fn) {
+                    const items = await fn({ maxItems: 10 });
+                    allResults.push(...items);
+                    console.log(`[快讯] ${source.label}: ${items.length}条`);
+                }
+            } catch (e) {
+                console.error(`[快讯] ${source.label}失败:`, e.message);
+            }
+        }
+
+        // 入库
+        if (allResults.length > 0) {
+            const Stock = require('../models/Stock');
+            const stocks = await Stock.find({ isActive: true });
+            const saveResult = await processAndSave(allResults, stocks);
+            console.log(`[调度] 快讯采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库`);
+            return saveResult;
+        }
+
+        return { total: 0, inserted: 0 };
+    } catch (error) {
+        console.error('[调度] 快讯采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
+ * 任务执行器：深度类采集（基于源配置）
+ * 抓取正文，用于AI分析
+ */
+async function executeDeepContentScrapeTask() {
+    console.log('[调度] 开始深度类采集（抓取正文）');
+    try {
+        const deepConfig = sourceRegistry.deep;
+        const allResults = [];
+
+        // 只采集已准备好的源（已有正文）
+        for (const source of deepConfig.sources.ready) {
+            try {
+                const scraperModule = require(`./${source.module}`);
+                const fn = scraperModule[source.fn];
+                if (fn) {
+                    const items = await fn({ maxItems: 20 });
+                    allResults.push(...items);
+                    console.log(`[深度] ${source.label}: ${items.length}条`);
+                }
+            } catch (e) {
+                console.error(`[深度] ${source.label}失败:`, e.message);
+            }
+        }
+
+        // 入库
+        if (allResults.length > 0) {
+            const Stock = require('../models/Stock');
+            const stocks = await Stock.find({ isActive: true });
+            const saveResult = await processAndSave(allResults, stocks);
+            console.log(`[调度] 深度采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库`);
+            return saveResult;
+        }
+
+        return { total: 0, inserted: 0 };
     } catch (error) {
         console.error('[调度] 深度采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
+ * 任务执行器：定向采集（针对订阅股票）
+ * 使用11个定向源，为每只订阅股票采集专属新闻
+ */
+async function executeTargetedScrapeTask() {
+    console.log('[调度] 开始定向采集（订阅股票）');
+    try {
+        const collector = require('./stockNewsCollector');
+        const { getSubscriptionManager } = require('./subscriptionManager');
+        const subManager = getSubscriptionManager();
+        const allResults = [];
+
+        // 从subscriptionManager获取订阅股票
+        const subscriptions = subManager.getAll();
+        if (subscriptions.length === 0) {
+            console.log('[定向] 无订阅股票');
+            return { total: 0, inserted: 0 };
+        }
+        console.log(`[定向] 订阅股票: ${subscriptions.length}只`);
+
+        // 11个定向源函数名（第一阶段快讯源）
+        const targetedFunctions = [
+            'scrapeFutuForStock',
+            'scrapeGelonghuiForStock',
+            'scrapeAAStocksForStock',
+            'scrapeETNetForStock',
+            'scrapeYahooForStock',
+            'scrapeSinaForStock',
+            'scrapeEastmoneyForStock',
+            'scrapeTHSForStock',
+            'scrapeNBDForStock',
+            'scrapeJiemianForStock',
+            'scrapeKr36ForStock'
+        ];
+
+        // 为每只股票采集
+        for (const sub of subscriptions.slice(0, 3)) { // 限制前3只避免超时
+            console.log(`[定向] 采集 ${sub.stockCode} ${sub.stockName}...`);
+
+            for (const fnName of targetedFunctions) {
+                const fn = collector[fnName];
+                if (!fn) continue;
+
+                try {
+                    const items = await fn(sub.stockCode, sub.stockName, { maxItems: 3 });
+                    if (items && items.length > 0) {
+                        allResults.push(...items);
+                        console.log(`[定向] ${fnName.replace('scrape', '').replace('ForStock', '')}: ${items.length}条`);
+                    }
+                } catch (e) {
+                    // 静默失败，不打印每个错误
+                }
+            }
+        }
+
+        // 入库（定向采集跳过白名单过滤，因为已针对订阅股票）
+        if (allResults.length > 0) {
+            const saveResult = await processAndSave(allResults, subscriptions, { skipWhitelist: true });
+            console.log(`[调度] 定向采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库`);
+            return saveResult;
+        }
+
+        return { total: 0, inserted: 0 };
+    } catch (error) {
+        console.error('[调度] 定向采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+// ============================================================
+// 五任务系统 - 新增 (2026-01-05)
+// 基于代码验证：32个通用源 + 36个定向源
+// ============================================================
+
+/**
+ * 任务执行器：快速新闻源 (scrapeFastNews)
+ * 来源: 8个快讯通用源
+ * 白名单: 使用
+ * 频率: 每5分钟
+ */
+async function executeFastNewsTask() {
+    console.log('[调度] 开始快速新闻源采集（8个源）');
+    const startTime = Date.now();
+    try {
+        const allResults = [];
+
+        const fastSources = [
+            { name: 'aastocks', module: 'scrapers/aastocks', fn: 'scrapeAAStocksNews' },
+            { name: 'futu', module: 'scrapers/futu', fn: 'scrapeFutu' },
+            { name: 'gelonghui', module: 'scrapers/gelonghui', fn: 'scrapeGelonghui' },
+            { name: 'etnet', module: 'scrapers/etnet', fn: 'scrapeETNetNews' },
+            { name: 'yahoo', module: 'scrapers/yahoo', fn: 'scrapeYahooNews' },
+            { name: 'jin10', module: 'scrapers/jin10', fn: 'scrapeJin10' },
+            { name: 'globalMedia', module: 'scrapers/globalMedia', fn: 'scrapeGlobalMedia' },
+            { name: 'northbound', module: 'scrapers/northbound', fn: 'scrapeNorthboundFlow' }
+        ];
+
+        for (const source of fastSources) {
+            try {
+                const scraperModule = require(`./${source.module}`);
+                const fn = scraperModule[source.fn];
+                if (fn) {
+                    const items = await fn({ maxItems: 10 });
+                    if (items && items.length > 0) {
+                        allResults.push(...items);
+                        console.log(`[快速] ${source.name}: ${items.length}条`);
+                    }
+                }
+            } catch (e) {
+                console.error(`[快速] ${source.name}失败:`, e.message);
+            }
+        }
+
+        if (allResults.length > 0) {
+            const Stock = require('../models/Stock');
+            const stocks = await Stock.find({ isActive: true });
+            const saveResult = await processAndSave(allResults, stocks, { skipWhitelist: false });
+            const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+            console.log(`[调度] 快速源采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库, 耗时${duration}s`);
+            return { ...saveResult, total: allResults.length, duration: `${duration}s`, sources: 8 };
+        }
+        return { total: 0, inserted: 0 };
+    } catch (error) {
+        console.error('[调度] 快速源采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
+ * 任务执行器：通用新闻源 (scrapeGeneralNews)
+ * 来源: 24个通用源 (32个scrapers - 8个快速源)
+ * 白名单: 使用
+ * 频率: 每30分钟
+ */
+async function executeGeneralNewsTask() {
+    console.log('[调度] 开始通用新闻源采集（24个源）');
+    const startTime = Date.now();
+    try {
+        const allResults = [];
+        const fastSourceNames = ['aastocks', 'futu', 'gelonghui', 'etnet', 'yahoo', 'jin10', 'globalMedia', 'northbound'];
+
+        const headlineGeneral = (sourceRegistry.headline?.sources?.general || [])
+            .filter(s => !fastSourceNames.includes(s.name));
+        const deepReady = sourceRegistry.deep?.sources?.ready || [];
+        const generalSources = [...headlineGeneral, ...deepReady];
+        let successCount = 0;
+
+        for (const source of generalSources) {
+            try {
+                const scraperModule = require(`./${source.module}`);
+                const fn = scraperModule[source.fn];
+                if (fn) {
+                    const items = await fn({ maxItems: 10 });
+                    if (items && items.length > 0) {
+                        allResults.push(...items);
+                        successCount++;
+                        console.log(`[通用] ${source.label || source.name}: ${items.length}条`);
+                    }
+                }
+            } catch (e) { }
+        }
+
+        if (allResults.length > 0) {
+            const Stock = require('../models/Stock');
+            const stocks = await Stock.find({ isActive: true });
+            const saveResult = await processAndSave(allResults, stocks, { skipWhitelist: false });
+            const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+            console.log(`[调度] 通用源采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库, ${successCount}个源成功, 耗时${duration}s`);
+            return { ...saveResult, total: allResults.length, duration: `${duration}s`, sources: successCount };
+        }
+        return { total: 0, inserted: 0 };
+    } catch (error) {
+        console.error('[调度] 通用源采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
+ * 任务执行器：定向新闻源 (scrapeTargetedNews)
+ * 来源: stockNewsCollector中全部36个ForStock函数
+ * 白名单: 跳过 (100%入库)
+ * 频率: 每15分钟
+ * 
+ * 优化: 分批并发执行，每5个一批，避免浏览器池超时
+ */
+async function executeTargetedNewsTask() {
+    console.log('[调度] 开始定向新闻源采集（分批并发模式）');
+    const startTime = Date.now();
+    const BATCH_SIZE = 5; // 每批5个任务（匹配浏览器池大小）
+
+    try {
+        const collector = require('./stockNewsCollector');
+        const { getSubscriptionManager } = require('./subscriptionManager');
+        const subscriptions = getSubscriptionManager().getAll();
+
+        if (subscriptions.length === 0) {
+            console.log('[定向新闻] 无订阅股票');
+            return { total: 0, inserted: 0 };
+        }
+
+        const targetedFunctions = Object.keys(collector)
+            .filter(key => key.includes('ForStock') && typeof collector[key] === 'function');
+
+        console.log(`[定向新闻] ${subscriptions.length}只股票, ${targetedFunctions.length}个定向函数, 分批大小=${BATCH_SIZE}`);
+        const allResults = [];
+        let successCount = 0;
+
+        for (const sub of subscriptions) {
+            console.log(`[定向新闻] 采集 ${sub.stockCode} ${sub.stockName}...`);
+
+            // 分批执行
+            for (let i = 0; i < targetedFunctions.length; i += BATCH_SIZE) {
+                const batch = targetedFunctions.slice(i, i + BATCH_SIZE);
+
+                // 并发执行当前批次
+                const batchResults = await Promise.allSettled(
+                    batch.map(async fnName => {
+                        const fn = collector[fnName];
+                        if (!fn) return [];
+                        try {
+                            const items = await fn(sub.stockCode, sub.stockName, { maxItems: 5 });
+                            if (items && items.length > 0) {
+                                items.forEach(item => {
+                                    item.stockCode = item.stockCode || sub.stockCode;
+                                    item.stockName = item.stockName || sub.stockName;
+                                });
+                                return items;
+                            }
+                            return [];
+                        } catch (e) {
+                            return [];
+                        }
+                    })
+                );
+
+                // 收集结果
+                for (const result of batchResults) {
+                    if (result.status === 'fulfilled' && result.value.length > 0) {
+                        allResults.push(...result.value);
+                        successCount++;
+                    }
+                }
+
+                // 批次间休息1秒，让浏览器池恢复
+                if (i + BATCH_SIZE < targetedFunctions.length) {
+                    await new Promise(r => setTimeout(r, 1000));
+                }
+            }
+        }
+
+        if (allResults.length > 0) {
+            const saveResult = await processAndSave(allResults, subscriptions, { skipWhitelist: true });
+            const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+            console.log(`[调度] 定向新闻采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库, ${successCount}个源成功, 耗时${duration}s`);
+            return { ...saveResult, total: allResults.length, stocks: subscriptions.map(s => s.stockCode), sources: targetedFunctions.length, successCount, duration: `${duration}s` };
+        }
+        return { total: 0, inserted: 0 };
+    } catch (error) {
+        console.error('[调度] 定向新闻采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
+ * 任务执行器：定向财务源 (scrapeTargetedFinance)
+ * 来源: sinaFinance(财务数据) + ths(公告) + hkex(公告)
+ * 白名单: 跳过
+ * 频率: 每天2次 (9点/17点)
+ */
+async function executeTargetedFinanceTask() {
+    console.log('[调度] 开始定向财务源采集（财务+公告）');
+    const startTime = Date.now();
+    try {
+        const { getSubscriptionManager } = require('./subscriptionManager');
+        const subscriptions = getSubscriptionManager().getAll();
+        if (subscriptions.length === 0) {
+            console.log('[定向财务] 无订阅股票');
+            return { total: 0, inserted: 0 };
+        }
+
+        const allResults = [];
+
+        // 1. 新浪财经财务数据
+        try {
+            const sinaFinance = require('./scrapers/sinaFinance');
+            for (const sub of subscriptions) {
+                try {
+                    const data = await sinaFinance.scrapeStockFinance(sub.stockCode);
+                    if (data && data.success) {
+                        allResults.push({
+                            source: 'sinaFinance', sourceName: '新浪财经',
+                            title: `${sub.stockName}财务数据`, content: JSON.stringify(data),
+                            stockCode: sub.stockCode, stockName: sub.stockName, type: 'finance', crawlTime: new Date()
+                        });
+                        console.log(`[定向财务] 新浪 ${sub.stockCode}: 成功`);
+                    }
+                } catch (e) { }
+            }
+        } catch (e) { console.error('[定向财务] 新浪模块加载失败:', e.message); }
+
+        // 2. 同花顺公告
+        try {
+            const { scrapeTHSAnnouncements } = require('./scrapers/ths');
+            for (const sub of subscriptions) {
+                try {
+                    const items = await scrapeTHSAnnouncements(sub.stockCode, sub.stockName, { maxItems: 5 });
+                    if (items && items.length > 0) {
+                        allResults.push(...items);
+                        console.log(`[定向财务] 同花顺 ${sub.stockCode}: ${items.length}条`);
+                    }
+                } catch (e) { }
+            }
+        } catch (e) { console.error('[定向财务] 同花顺模块加载失败:', e.message); }
+
+        // 3. 披露易公告
+        try {
+            const collector = require('./stockNewsCollector');
+            const hkexFn = collector.scrapeHKEXNewsForStock || collector.scrapeHKEXForStock;
+            if (hkexFn) {
+                for (const sub of subscriptions) {
+                    try {
+                        const items = await hkexFn(sub.stockCode, sub.stockName, { maxItems: 5 });
+                        if (items && items.length > 0) {
+                            allResults.push(...items);
+                            console.log(`[定向财务] 披露易 ${sub.stockCode}: ${items.length}条`);
+                        }
+                    } catch (e) { }
+                }
+            }
+        } catch (e) { console.error('[定向财务] 披露易模块加载失败:', e.message); }
+
+        if (allResults.length > 0) {
+            const saveResult = await processAndSave(allResults, subscriptions, { skipWhitelist: true });
+            const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+            console.log(`[调度] 定向财务采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库, 耗时${duration}s`);
+            return { ...saveResult, total: allResults.length, stocks: subscriptions.map(s => s.stockCode), duration: `${duration}s` };
+        }
+        return { total: 0, inserted: 0 };
+    } catch (error) {
+        console.error('[调度] 定向财务采集失败:', error.message);
+        return { error: error.message };
+    }
+}
+
+/**
+ * 任务执行器：定向研报源 (scrapeTargetedReports)
+ * 来源: eastmoneyReport + yanbaoke + fxbaogao
+ * 白名单: 跳过
+ * 频率: 每周一次 (周一9点)
+ */
+async function executeTargetedReportsTask() {
+    console.log('[调度] 开始定向研报源采集');
+    const startTime = Date.now();
+    try {
+        const collector = require('./stockNewsCollector');
+        const { getSubscriptionManager } = require('./subscriptionManager');
+        const subscriptions = getSubscriptionManager().getAll();
+        if (subscriptions.length === 0) {
+            console.log('[定向研报] 无订阅股票');
+            return { total: 0, inserted: 0 };
+        }
+
+        const reportFunctions = ['scrapeEastmoneyReportForStock', 'scrapeYanbaokeForStock', 'scrapeFxbaogaoForStock'];
+        const allResults = [];
+
+        for (const sub of subscriptions) {
+            console.log(`[定向研报] 采集 ${sub.stockCode} ${sub.stockName}...`);
+            for (const fnName of reportFunctions) {
+                const fn = collector[fnName];
+                if (!fn) continue;
+                try {
+                    const items = await fn(sub.stockCode, sub.stockName, { maxItems: 3 });
+                    if (items && items.length > 0) {
+                        items.forEach(item => {
+                            item.type = 'report';
+                            item.stockCode = item.stockCode || sub.stockCode;
+                            item.stockName = item.stockName || sub.stockName;
+                        });
+                        allResults.push(...items);
+                        console.log(`[定向研报] ${fnName.replace('scrape', '').replace('ForStock', '')}: ${items.length}条`);
+                    }
+                } catch (e) { console.error(`[定向研报] ${fnName}失败:`, e.message); }
+            }
+        }
+
+        if (allResults.length > 0) {
+            const saveResult = await processAndSave(allResults, subscriptions, { skipWhitelist: true });
+            const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+            console.log(`[调度] 定向研报采集完成: ${allResults.length}条采集, ${saveResult.inserted}条入库, 耗时${duration}s`);
+            return { ...saveResult, total: allResults.length, stocks: subscriptions.map(s => s.stockCode), duration: `${duration}s` };
+        }
+        return { total: 0, inserted: 0 };
+    } catch (error) {
+        console.error('[调度] 定向研报采集失败:', error.message);
         return { error: error.message };
     }
 }
@@ -348,10 +899,32 @@ function initScheduler() {
         startTask('scrapeRealtime', currentConfig.scrapeRealtime.cron, executeRealtimeScrapeTask);
     }
 
-    // 深度采集
+    // 深度采集（快讯源）
     if (currentConfig.scrapeDeep.enabled) {
         startTask('scrapeDeep', currentConfig.scrapeDeep.cron, executeDeepScrapeTask);
     }
+
+    // 定向采集（订阅股票）- 每15分钟 [旧版保留兼容]
+    startTask('scrapeTargeted', '*/15 * * * *', executeTargetedScrapeTask);
+
+    // ============================================================
+    // 五任务系统 - 新增 (2026-01-05)
+    // ============================================================
+
+    // 快速新闻源 - 每5分钟
+    startTask('scrapeFastNews', '*/5 * * * *', executeFastNewsTask);
+
+    // 通用新闻源 - 每30分钟
+    startTask('scrapeGeneralNews', '*/30 * * * *', executeGeneralNewsTask);
+
+    // 定向新闻源 - 每15分钟
+    startTask('scrapeTargetedNews', '*/15 * * * *', executeTargetedNewsTask);
+
+    // 定向财务源 - 每天9点和17点
+    startTask('scrapeTargetedFinance', '0 9,17 * * *', executeTargetedFinanceTask);
+
+    // 定向研报源 - 每周一9点
+    startTask('scrapeTargetedReports', '0 9 * * 1', executeTargetedReportsTask);
 
     // 预警推送
     if (currentConfig.alerts.enabled) {
@@ -483,6 +1056,8 @@ async function triggerTask(taskId) {
             return executeRealtimeScrapeTask();
         case 'scrapeDeep':
             return executeDeepScrapeTask();
+        case 'scrapeTargeted':
+            return executeTargetedScrapeTask();
         case 'scrapeFull':
             return runFullScrape();
         case 'alerts':
@@ -497,6 +1072,17 @@ async function triggerTask(taskId) {
             return executePolicySentinelTask();
         case 'alternativeData':
             return executeAlternativeDataTask();
+        // 五任务系统 - 新增 (2026-01-05)
+        case 'scrapeFastNews':
+            return executeFastNewsTask();
+        case 'scrapeGeneralNews':
+            return executeGeneralNewsTask();
+        case 'scrapeTargetedNews':
+            return executeTargetedNewsTask();
+        case 'scrapeTargetedFinance':
+            return executeTargetedFinanceTask();
+        case 'scrapeTargetedReports':
+            return executeTargetedReportsTask();
         default:
             return { error: '未知任务' };
     }
@@ -522,5 +1108,12 @@ module.exports = {
     timesToCron,
 
     // 常量
-    DEFAULT_SCHEDULES
+    DEFAULT_SCHEDULES,
+
+    // 五任务系统执行器 - 新增 (2026-01-05)
+    executeFastNewsTask,
+    executeGeneralNewsTask,
+    executeTargetedNewsTask,
+    executeTargetedFinanceTask,
+    executeTargetedReportsTask
 };

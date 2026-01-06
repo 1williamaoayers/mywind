@@ -1,89 +1,47 @@
 /**
- * 富途牛牛社区抓取器 - 港美股情绪
+ * 富途爬虫 (Puppeteer版)
  */
 
-const axios = require('axios');
+const puppeteer = require('../../utils/puppeteerBase');
 
-// 抓取状态
-const futuStatus = {
-    isRunning: false,
-    lastFetchTime: null,
-    totalFetches: 0,
-    successCount: 0,
-    failCount: 0
-};
+const status = { lastFetchTime: null, successCount: 0, failCount: 0 };
 
-/**
- * 抓取富途牛牛社区热帖
- */
 async function scrapeFutu(options = {}) {
-    const maxItems = options.maxItems || 15;
-    const market = options.market || 'US'; // 'US' | 'HK'
-
-    console.log('[富途牛牛] 开始抓取社区热帖...');
-    futuStatus.isRunning = true;
-    futuStatus.totalFetches++;
-
+    const { maxItems = 30 } = options;
     const results = [];
+    const page = await puppeteer.createPage({ timeout: 45000 });
 
     try {
-        // 富途社区 API（公开）
-        const apiUrl = `https://www.futunn.com/quote-api/quote-api/interface/quote/get-news-list?market=${market}&page=1&page_size=20`;
+        console.log('[富途] Puppeteer采集...');
+        await puppeteer.gotoWithRetry(page, 'https://news.futunn.com/main');
+        await puppeteer.randomDelay(4000, 4500);
 
-        const response = await axios.get(apiUrl, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Referer': 'https://www.futunn.com/'
-            },
-            timeout: 15000
-        });
+        // 提取新闻 - 链接包含/post/，父元素是market-wrap
+        const items = await page.$$eval('a[href*="/post/"]', els =>
+            els.map(el => {
+                const text = el.textContent?.trim() || '';
+                return {
+                    title: text.split('\n')[0]?.trim() || '',  // 取第一行作为标题
+                    url: el.href || '',
+                    source: 'futu'
+                };
+            }).filter(item => item.title && item.title.length > 10 && item.title.length < 100)
+        );
 
-        if (response.data && response.data.data && response.data.data.list) {
-            const news = response.data.data.list;
-
-            for (let i = 0; i < Math.min(news.length, maxItems); i++) {
-                const item = news[i];
-
-                results.push({
-                    source: 'futu',
-                    sourceName: '富途牛牛',
-                    dimension: 'social',
-                    title: item.title || '',
-                    content: item.abstract || item.summary || '',
-                    url: item.url || '',
-                    publishTime: item.publish_time ? new Date(item.publish_time * 1000) : new Date(),
-                    category: market === 'US' ? '美股' : '港股'
-                });
-            }
-        }
-
-        futuStatus.successCount++;
-        console.log(`[富途牛牛] 抓取完成: ${results.length} 条`);
-
+        results.push(...items.slice(0, maxItems));
+        status.successCount++;
+        console.log(`[富途] 采集成功: ${results.length} 条`);
     } catch (error) {
-        futuStatus.failCount++;
-        console.error('[富途牛牛] 抓取失败:', error.message);
+        status.failCount++;
+        console.error('[富途] 采集失败:', error.message);
     } finally {
-        futuStatus.isRunning = false;
-        futuStatus.lastFetchTime = new Date();
+        await puppeteer.closePage(page);
     }
 
+    status.lastFetchTime = new Date();
     return results;
 }
 
-/**
- * 获取状态
- */
-function getFutuStatus() {
-    return {
-        ...futuStatus,
-        lastFetchTimeStr: futuStatus.lastFetchTime
-            ? futuStatus.lastFetchTime.toLocaleString('zh-CN')
-            : '从未运行'
-    };
-}
+function getFutuStatus() { return { ...status, method: 'Puppeteer' }; }
 
-module.exports = {
-    scrapeFutu,
-    getFutuStatus
-};
+module.exports = { scrapeFutu, getFutuStatus };

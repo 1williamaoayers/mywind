@@ -49,7 +49,7 @@ async function scrapeWechatSearch(options = {}) {
         const StealthPlugin = require('puppeteer-extra-plugin-stealth');
         puppeteer.use(StealthPlugin());
 
-        const { createStealthPage, humanScroll, randomDelay } = require('../utils/humanBehavior');
+        const { createStealthPage, humanScroll, randomDelay } = require('../../utils/humanBehavior');
 
         const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
 
@@ -158,7 +158,7 @@ async function monitorBrokerAccounts(accounts = DEFAULT_ACCOUNTS, maxItemsPerAcc
             allResults.push(...results);
 
             // 每个账号间隔
-            const { randomDelay } = require('../utils/humanBehavior');
+            const { randomDelay } = require('../../utils/humanBehavior');
             await randomDelay(5000, 10000);
         } catch (error) {
             console.error(`[微信搜一搜] ${account} 采集失败:`, error.message);

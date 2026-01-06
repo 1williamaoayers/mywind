@@ -1,0 +1,2492 @@
+====================================================
+同花顺港股12标签完整采集数据
+采集时间: 2026-01-02
+股票: 京东集团、小米集团、中国联塑、禾赛
+====================================================
+
+####################################################
+# 京东集团 (HK9618)
+####################################################
+
+----------------------------------------------------
+【首页概览】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 四 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+你 局 花 硕 [][] [mm C i2 %
+mm ， rm mm mm om om mm ， mm om cm rom mm
+mm ，- 回回
+DO00-SW 114.6¢ 会 3.00 Dol112.300 ”On0111.600 ”001.620 [1110.045
+d 2.69% ol14.800 (11112.300 ”nn141.810 nz.240
+HK9618
+Don0rnnnnn  (0003652.940 ”rn03652.940 ”0D0D)011.216 ”CDD01.443
+[in cm rm mm mm mm mm mm rom om mm om
+mm mm mm ro om om
+| mm | « ©« «
+10:22 [114.600 (-114.002 [15:3.000 [2.69% [-1650 [-16.9
+mm 四 m, 1022 E HO00 Hiz e Bomo ineo 2.97% | DoomnnnnmlsrnnmD
+TD 办 Develz00000n0nnnnnnm
+DID  @s9 _amd | 一 Dononnnnnonononnnnnnm
+DODsw 114.40 251% 由 Do
+Do-w 146.20 238% 113257| 上 as
+nm 13.29 1.84%
+DDDD 397 153% | mm
+DDDD 069 1.47%
+DOW 104.80 145% 111600 0.00% ， DIDDDDDn095105885
+DDDs 43.04 0.09%
+S=s) mo 060  0.00%
+L_S) oonomnnonnnonomm
+i — iso Lem
+| |
+B0000
+1082870930  10:30 12:0013:00  14:00 16:20”77" oo oo
+130
+DD00 DD00
+如
+DD00 DD00
+lil w |mm m
+B O00000 | = #iE B0000 m>
+Da v Dononnnnnonnm nn02020-06-18 DonMax smart Limited
+mm rm 四 Do Drjidcom Donns70895
+rn 。 37.68 9225% ， Co- Donnomm -nm -om ohkD
+mm oo 7917% 一
+mm 34s 2374% B0000 m>  B0000 oo>
+0 。 0.69 18.97% — 加
+mm os9 lsal8% 000000020260"0000"000 01/02 07:225 ”0D000D00000D0D00OOO0DOOO0D0000 - 0 12-11 00:00
+nm oa45 1811% ，002026001010000 OOOMALL 000000000  03/01 20:48 2025 000000000 11-13 00:00
+nm 9%70 16.67%  O000O000 2026000003C00000000 o1/01 19:222 ”0D00000000000000 11-13 00:00
+mm 。 008 1667% DOOOO000 O0000 DO0000 00000 | 002025 ol/o1 19:02 0000000 10-30 00:00
+Do 3 1542% 202600000000000 01/0117:27 0000 - 00000cCECONOMY AGUD0D00000 09-01 00:00
+DuonnnD 。 090 13.92%
+2026000000000000000000 01/0116:47  2025000000000000 14 00:00
+B0000 一
+日 D00D/000 m |[m | m| m wm>
+no 31.88m
+onon 31.8800 四 m 0 mm | cmneo | mm om om
+Do00 7.810 20862 DODD00DA 175.88 HKD 100.00 0000 2026-10-30 2026-10-26
+Do0 243.6900 21040 。 OnnDA 17598 HKD 100.00 。 nn 2026-10.23  2026-1016
+ono 9568.010 21032 。 nnDA 17598 HKD 10000 。 nn 2026-10.23  2026-1016
+Dono -0.590 21073 。 nnDA 17598 HKD 10000 。 nn 2026-10.23  2026-1016
+DODO000 72.760 21088 DODD00DA 175.98 HKD 100.00 0000 2026-10-23 2026-10-16
+OOnnon 9.48%
+B0000 m>
+中 mn mm mm om Do om
+1 ”mm 四 m 一 一 2025-12-24
+2 om m © 150.58 m 2025-12-21
+3 mm m © 131.00 m 2025-12-16
+4 ”mm 四 中 173.32 m 2025-12-08
+5 om m © 150.05 m 2025-12-04
+B0000 m>
+om mm ”oo Dom
+600 15000
+as | iseeas
+al 国 ,| ,oo| sm
+- HB | Ki
+200 179.88 5000
+” 日 H | 国 | 国 | 国 |
+上 四面 面 面 面 面 醒 抽 和
+202500D 202500 202500D 202400 20240D0 202500D 20250D 2025000 202400 20240D
+和 ii
+mr | on | mmm | mm | om | om | om | om | oo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+Doonnnnnnonnonnnonn0
+----------------------------------------------------
+【公】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 四 m amv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+Gamzem [1[] [mm C i2 %
+mm ， rm mm mm om om mm ， mm om cm rom mm
+mm ，- 忆 癌
+DO00-SW 114.6¢ 会 3.00 Dol112.300 ”On0111.600 ”001.620 [1110.045
+d 2.69% (I7114.800 [(1112.300 ”0nnn141.810 nz.240
+HK9618
+Don0rnnnnn  (0003652.940 ”rn03652.940 ”0D0D)011.216 ”CDD01.443
+| mm | ii cm nm mm mm rm mm mm om mm om
+om
+GEHEMFL0 会 可 明 法 会 新 体验 Donom Bon
+Don-sw ro  EGE oo om om om om
+09618 0000 0000 0000 0000 0000 0000 AHDD0
+mm om
+y 0000
+Don00000000000 Dono0000
+DooDjd.com, Inc. ooooo000000 - 0000 - 00000
+Do (2006-11-06 non-
+DongjD.com,Inc.000'0000000000000000000000000000000000000'000000'00000000000000000'00'00000000000000000000000
+000000000
+00mom Dono-- nn00570895
+000000-0000000000000000000(0000 oooon00000000000000000000Maples and 0000l120310
+吕 ) Calder (Hong Kong) LLP
+0 0086-010-89126805;86-0400- |
+6065-500 0 m- 0  [ir@jd.com;service@jd.com
+Don0000000000000000000000000110180A0200
+On
+000000000000000000000000000wwwjd.comO0000“0000"000000000000000000O0OO00000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+0000000
+D000000 1 0000 1 0000 1 00001 0000
+Doomnonnmnnnonnnonnnonrnnnornnnnnnnnonnnonnnnonnnornnnnnnnnornnnnnonnnnnonnnonrnnnornnonnnnnnrnnonnnnononnnrrnnorm
+DonnononnoonnnonononoOnnornnonDnnoDoonnnnoonnnornnnnnoonornnononononnnonnnnnonornnonDonDonnnDDODnoonnornnonm
+DoorDnnnrnonornnonnoon0nnnonDnnrnonornnoD
+和 ii
+mr | on | mmm | mm | om | om | om | om | oo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+Doonnnnnnonnonnnonn0
+----------------------------------------------------
+【股本结构】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 加 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwUliloffog1l
+mmMwwUliloffog1l
+mmMwWHUilofiflOS1l
+mmMwwUliloffog1l
+mmMwNLLiT9fifLOS1
+mmMwwUliloffog1l
+你 局 花 硕 [][] [Er C i:
+mm ， ro om om om oo rm ，mm om om om om
+nm DDORTs0D01114.13 -0.11% 0DD0Dl1000009931.38 -0.09% 习 癌
+D000-SW 会 3.00 Do112.300 ”nn111.600 001.770 000.049
+114.6( 便 :6o% Do114.800 ”nn112.300 “0DD00155.240 DD02.240
+HK9618
+DDO00 DO00D 。 00003652.940 。” 0003652.940 。 0DD(D)011.196 。 0D001.443
+rm ”ro 和 ua cm oo mm cm mm mm om oo om
+Do oo om om
+y 00000
+Do
+mm 2025-04-17 2024-04-18 2023-04-20 2022-04-28 2021-04-16 2021-04-16
+0 3187.55 3183.43 3179.67 3159.31 3117.97 3103.50
+Do 3187.55 3183.43 3179.67 3159.31 3117.97 3103.50
+[iui} 一 一 一 一 一 一
+Do 2024-12-31 2024-03-31 2022-12-31 2021-12-31 2021-02-28 2020-12-31
+y 000000
+om DonD) Do mm
+2025-04-17 3187.55 00000000 2024-12-31
+2024-04-18 3183.43 00000000 2024-03-31
+2023-04-20 3179.67 00000000 2022-12-31
+2022-04-28 3159.31 00000000 2021-12-31
+2021-04-16 3117.97 - 2021-02-28
+2021-04-16 3103.50 20191231-20201231 [J0000 DI000 0000000 000000000000 2020-12-31
+2020-07-12 3129.79 0000000 2020-07-15
+2020-06-17 3109.88 000000 2020-06-18
+DroooomnoonooOnD00DDDO0ODOOOOODOOODnOnDDDOODDDOOODDDODDOOODDODOODO0OODO0ODDOnnDDOnODDDDOODOOODDOODODOOOODOOOODOODDnOnnDn0D
+Do | oo | om | om | om | oo | on | om | oo | oo
+Copyright©Hithink RoyalFlush Information Network Co. Ltd.
+----------------------------------------------------
+【业务概要】
+----------------------------------------------------
+本 局 花 顺 财经 港股 m oo D [1] m m o om m m om 0 0
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIil0fiflo&1
+mmMwWLIil0fiflo&1
+mmMwWLII0AfI0&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+
+Gimem [中
+0om on 0om DO D000 Do0 Do oooo 0D000 Do0 DoD0 oom
+0om 一 四 | 加 |
+DO00-SW 114 AAA Dol112.300 ”mn0111.600 ”Dn001.770 D00.049
+2.69% Do114.800 ”D00112.300 ”DOD00155.240 D02.240
+HK9618
+00000 000000 DD003652.940 ”00D003652.940 ”00D(D)011.235 ”DO001.443
+mn
+Do
+D000
+7
+D000:
+JD.com,Inc.D00'000000000000000000000000000000000000U'DOO0000'00000000000000000'00'O000000000000000000000
+DO00000000
+0000c:
+(00020240000000002.604000014.9%{]20250000000002.991000420000002025000000202400000000000010.5%0000000
+30.8%0
+DO000000000
+DO000
+202509080000000011000000000U0000000000U0000U0000U0000U0000U0000U000O0U0000U0000U0000U000O0U0000U0000000
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+(000000000000000000000
+20250905000000000000/OFASHIONOO00000/DFASHION O0000000000000000000000000000000000000000000000
+JDFASHION0000000000000000000000000000000000000000000000/OFASHIONOO00000000000000000000
+000000MALLO0000000000000000000000000000MALLO00000000200000000000000100000°000000000000000° 00000000
+000002025090190000000000000000000000MALLO000000000000000000202600000000000000000000000000000
+-00000
+2025018[18000000000000000000000005000000000000000000000000° 000000000000005000000000000000000000000000
+00000000001000000000000000000000000000000000000000000000
+2025019(0]19000000000000000000000000007 37-8008CFO0000000000000000000000000000000000°00=000°00000000000
+000000000000000000000000000000000000000=00000=00000000000000000000
+oooov
+DOODD000DD0000D0000D0000000ODD00ODD000DD0000D00000000O0000OD000OD000OD000OD0000O0000OD00UOD00OOD000OD000OD000OD000OD000OD0000000
+Do0 DoD0 | 0 Do0 DoD0 0om Do00 UD0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+000000000000000000000
+----------------------------------------------------
+【分红派息】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMWWLIIORAIO&1
+mmMWWLIIORAIO&1
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+
+Gamzem [1[] [Er C i:
+mm ， mm om om om om mm ， mm om com mm om
+om DD0D22500050339.48 -0.37% DDDDn0D4257.72 1.03% DO0nn000013267.48 0.20% 四 同
+D000-SW 3.00 Do112.300 ”nn111.600 ”On001.780 000.049
+AGOT RE mola4.800 nnll2.300 ”nnn156.0o0 02.240
+HK9618
+DDO0D DO00D 。 00003652.940 。 00D003652.940 。 DDD(D)011.235 。 [D001.443
+mm mm mm om [essll mm mm mm mm mm mm om
+om om
+y 0000
+Ionm
+mm m om om m m mm
+m ， 呈
+2025-03-06 00o.500 2025-04-07 2025-04-23 ~ - 中 ooo0 0
+2024-03-06 00o.3800 2024-04-03 2024-04-23 一 - 中 oo 0
+2023-03-09 00o.3100 2023-04-04 2023-04-27 一 - 中 oo 0
+2022-05-04 000.6300 2022-05-19 2022-06-08 一 - 中 oo 0
+y 0000000
+Do
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【高管介绍】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+Gemrem [1]
+0 Do om om om 000 Do 000 0 Oo oo 00
+0 一 Gil
+-SW 3.00 [00112.300 ”00111.600 ”On0001.780 Dn0o.049
+ooog 114.6( 会 2.69% Dol14.800 [11112.300 ”nn0156.000 D02.240
+HK9618
+DDo00DDD0n0 。” DD003652.940 。” DDD003652.940 ”0DD(D)011.216 ”DOD01.443
+-
+Do
+炙 mm
+D110 DODD00000000000000000000000000000000000000000000000
+no0 On000000 0000020o7-01-o1 0
+05300 0D0- 0D000-
+
+DOD0000000D0O00D0O0O00O0O00O0000000202204000020040000ODOODODOODODOOOODOODODOODODCCTVOOOOD00000"201100
+000000" 000000000201500000* 0050000000" 00000000000000000000000 Health International Inc.OHKEX066180000 Logistics0
+Inc.OHKEX026180000DDDO0DD0000199600000ODDOOODO00000202201203100ODOODODOODOOOODOOOODODESGOOO000D
+
+吕 0DD00000000 000002023-05-11 0
+04900 0D0- 0D000-
+0DD00000001977010000000DO0O0DOOOODOOOOODOOOODOO00D00002020060020230500DODOODDDO0D000201800DDOOODOOOO0D
+DOD00000O00D0O0OD0OOOO0OOOOOOOOOOOOOOOOOOOOOOOOOOO0U20000DOOOODOOOODOOOODOOOODOOOODOOOOODOOOODOOOODOOOOD0OO
+DOD00000000000
+Caroline om 0D0002021-06-01 D
+Scheufele 0es 000- Doooo-
+
+Caroline scheufele002021060000jd.Com, Inc.DD0DDscheufele0DD0OODD000D003500DDOOODDOOODDOOODDOOODDOODDDO0DD0D
+0DD0000000D00000000019850000scheufele00ODODOODODOODOOOODOOOODOOOODOOOODOOOODOOOODO000Scheufele000DODOODO0O0
+DDhappy Diamonds00000000000000000Happy SportsU0000Haute Joaillerie Red Carpet[JAnimal World000Scheufele000000000
+DOD00D0O00D0O0ODOOOOO0OOOOOOOOOOOOOO0O000199800O0DOOOODOOOODODOOOOOOODOOOODOOO0DDscheufele0O0OOODOOOODOOOD
+0DD00D0000D0000D0000AMFARODJose Carreras00D0D00D201000OODDDOOODOOOODOOOOOOOOOODOOOO0000Scheufele00O00O0O000
+Jd.com, Inc.D00000000000000000000000000Fairmined0000000scheufele000201400000Fashion 4 Development[JF4D[JJJBRAVO
+0D0"0000000"000201900000D0000D0000D00000scheufele00O00OODOODDDOOODDOOOODOOOODOODDDOODDDOODDO0000202101200
+DOD00000000000000000
+
+吕 Do00 0DD0002024-08-01 D
+04900 0D0- 0D000-
+0D0020240800DDDO0DDOOOOOOOODOOOOD0001500DOOOODOOO0D00201000DDDOOOOOOOOOOOOOOOOOOODOODODO0D0000British
+Land000DDOO0DOOO0DOOO0DOOO0DD000OD000002018030020220300DAdmire Elite.Ltd00000020220600D00DDDOODOD0ODOD00DD
+DOD00D0000D0O00D0OOOO0OOOOOOOOODOOOOOOOOODO0DEMBADOOODOOOOODOOOODOOOODOOOODOOOODOOOODOOOOD000000020240080
+0DD00000000000000000000000000
+no0 Do00 000002024-08-01 [0)
+04400 0D0- 0D000-
+0DD000002019040000DDOO0DOD'OOOOOOD'DO000000020210200000DDDDODDOOODDOOODDOOODDOOODDOOODDOOODDOOODDO000D0
+DOOD0O0DD000DD000DD000DD000DD00000000000000000000000000000000000000000000000000000000000000000000D0000OD0000D0O0OD0OOOD0O00D00
+DOD0 Do | 0 | Do oomn Do | 0000 Do0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+DOOOD0000D0000D000000
+----------------------------------------------------
+【新闻公告】
+----------------------------------------------------
+从 同花顺 网 经 港股 © © © 四 四 四 四 加 m m m m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+Gamzem [1[] [Er C i:
+mm ， rm om rm om om mm ， rm om cm mm om
+nm DD0022500050339.48 -0.37% DOnnnD4259.04 1.06% DonDnnn13267.48 0.20% 习 问
+DO00-SW 114.4¢ 会 2.80 Dol112.300 ”mn0111.600 ”001.8o0 Dn0o.050
+251% (I7114.800 ”nn112.300 ”0nnn157.870 oz.240
+HK9618
+DDDnDDDDnnD 。 0003646.560 。 DrDD03646.560 。 DDD(D)D11.216 。 CDD01.441
+mm mm mm mm om om 本 是 rm om om om om
+no。 oo
+y 0000
+000000000000000000000000000000 - 00000000000000000000000000000
+0000000000000000
+2025 000000000
+0DD000000
+DD000-D0000CECONOMY AG0000000000
+2025000000000000
+2025-08.14
+0000000
+0000 - 000CECONOMY000000000000000000000
+00000000
+2025000000000
+0000000000
+0000000
+2024 0000
+002024012031000000
+iii
+ro | nmmo | nm | mm | omo | nmm | oom | co | ommo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【财务分析】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMWWLIIORAIO&1
+mmMWWLIIORAIO&1
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+
+Gamzem [1[] [mm C i2 %
+mm 00 om om om om mm ， mm om com mm om
+mm DD0D22500050339.48 -0.37% DonnnnD4259.04 1.06% Doonnonnn13267.48 0.20% 习 癌
+DO00-SW 2.80 nol12.300 ”0n0111.600 On001.800 0n0o.050
+114.4( 会 2.51% Do0114.800 ”On0112.300 ”0n00157.870 Do2.240
+HK9618
+DonD On0D 。 00003646.560 。 000003646.560 。 000O)011.216 。 [001.441
+mm mm mm mm om mm ro faall mm om mm om
+mm
+y 0000
+咖 DODDD mm ~
+尝 0000 om
+® 00000 o
+& 0m .
+一 50
+11588.190
+揭 00000 9568.010
+大 0
+一 目下
+而 [|
+& mm 1 5
+Da 2025-09-30 2025-06-30 2025-03-31 2024-12-31 2024-09-30 2024-06-30
+Doom 12-31 12-31 12-31 12-31 12-31 12-31
+mm om om om om om om
+mm 一 一 一 moon 一 一
+mm
+mm 9568.010 6577.420 3010820 11588.190 8118.330 5514.460
+non 223.440 170.680 108.900 413.590 315.050 197.740
+m 1549.620 1044.880 478.480 1838.680 1307.510 857.080
+Doooto) 215 2.53 3.99 4.25 4.70 4.40
+mm
+mm 7135.290 7069.390 6778.620 6982.340 6435.590 6516.360
+mm 3792.640 3940.330 3572.300 3866.980 3111.020 3222.010
+Don 3342.650 3129.060 3206.320 3115.360 3324.570 3294.350
+Donooo) 9.63 7.51 4.64 17.28 13.78 8.96
+Doooto) 57.34 57.95 54.46 55.13 53.89 55.81
+mm
+Donomm 7135.290 7069.390 6778.620 6982.340 6435.590 6516.360
+mm 4091.090 4096.500 3691.910 3849.370 3468.140 3636.860
+mm 3044.200 2972.890 3086.710 3132.970 2967.450 2879.500
+ai 7.81 5.95 3.76 13.83 10.44 6.44
+ai 7.39 5.68 3.59 13.43 10.19 6.34
+Do 30017 206.35 94.46 363.54 255.02 173.22
+Doom 72.76 71.26 73.51 75.09 71.81 69.35
+Doom 一 一 一 74.64 一 一
+Do -0.59 1.93 573 18.23 10.43 12.38
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+Donoooooonoononoom
+----------------------------------------------------
+【股东持股】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMWWLIIORAIO&1
+mmMWWLIIORAIO&1
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+
+Gamzem [1[] [Er C i:
+mm ， mm om om om om mm ， mm om com mm om
+mm ，- 回回
+D000-SW 会 2.90 nol12.300 ”0n0111.600 On001.800 0n0o.050
+114.5( 当 :6owx noaa4.800 nnll2.300 ”nnn158.1o0 02.240
+HK9618
+CDDO0D DO00D 。 0D003649.750 。” 00D003649.750 。 DDD(D)011.225 。 [0001.442
+mm mm mm mm om mm mm om fheall 00 mm om
+mm com
+y 0000
+2025-02-28 2024-03-31 2022-12-31 2021-12-31 2020-12-31 2020-06-18
+mm on DOD) Doto) DODOD) mm
+Max Smart Limited om 32860.53 10.31 m oo0
+BlackRock, Inc. BlackRock, Inc 14972.25 4.70 m oo0
+Fortune Rising Holdings Limited om 1685.30 0.53 &  -6829 oo0
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【经营分析】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMWWLIIORAIO&1
+mmMWWLIIORAIO&1
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+
+Gamzem [1[] [Er C i:
+mm ， mm om om om om mm ， mm om com mm om
+om DD0D22500050339.48 -0.37% DDDDn0D4259.04 1.06% DO0nn000013267.48 0.20% 回回
+D000-SW 114.5( 会 2.90 nol12.300 ”0n0111.600 On001.800 0n0o.050
+2.60% 0n0114.800 ”0n0112.300 ”0DD00158.100 Do2.240
+HK9618
+CDDO0D DO00D 。 0D003649.750 。” 00D003649.750 。 DDD(D)011.225 。 [0001.442
+mm mm mm mm om mm mm om om 和 mm om
+Do oo
+y 0000
+DonojlD.com,Inc.000'0000000000000000000000000000000000000'000000'00000000000000000'00'00000000000000000000000
+000000000
+y 000000
+2025-09-30 ~
+Y .
+一 |
+[ ]
+2025-09-30 2025-06-30 2025-03-31 Donononnnm
+0000 oo
+0 (000D) (9)
+0000 2505.770 83.79
+0000 550.840 18.42
+0 155.920 5.21
+0 -221.940 -7.42
+0 2990.590 100
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【关联】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 加 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwUliloffog1l
+mmMwwUliloffog1l
+mmMwWHUilofiflOS1l
+mmMwwUliloffog1l
+mmMwNLLiT9fifLOS1
+mmMwwUliloffog1l
+你 局 花 硕 [][] [Er C i:
+mm ， ro om om om oo rm ，mm om om om om
+nm ，- gg
+D000-SW 会 2.90 nol12.300 ”0n0111.600 On001.800 0n0o.050
+114.5( 当 :6owx moll4.800 ”rnnl12.300 ”nnn158.230 02.240
+HK9618
+CDDO0D DO00D 。 0D003649.750 。” 00D003649.750 。 DDD(D)011.225 。 [0001.442
+mm rm mm om om mm cm om om oo 车 上
+四 “0
+4
+0
+m m m mm DOD) Doom 0
+m m
+20862  [OOOOODA  OOO0 ，0000  175.8800  2026-10-30 2026-10-30 2026-10-26 2026-10-30
+21032  [OOOOODA ， 0000 ，0000  175.9800 2026-10-23 2026-10-23 2026-10-16 2026-10-23
+21040  [OOOOODA ， 0000 ，0000  175.9800  2026-10-23 2026-10-23 2026-10-16 2026-10-23
+21073  [OOOOODA ， 0000 ，0000  175.9800 2026-10-23 2026-10-23 2026-10-16 2026-10-23
+21088  [OOOOODA ， 0000 ，0000  175.9800 2026-10-23 2026-10-23 2026-10-16 2026-10-23
+21095  [OOOOODA ， 0000 ，0000  175.9800  2026-10-23 2026-10-23 2026-10-16 2026-10-23
+21758  [OOOOODA ， 0000 ，0000  175.9800 2026-10-23 2026-10-23 2026-10-16 2026-10-23
+21235  [OOOOODA ， 0000 ，0000  183.3300  2026-09-30 2026-09-30 2026-09-24 2026-09-30
+21453  [OOOOODA ， 0000 ，0000  183.4300  2026-09-23 2026-09-23 2026-09-17 2026-09-23
+21549  [OOOOODA  OOOO0 ，0000  183.4300  2026-09-23 2026-09-23 2026-09-17 2026-09-23
+1
+y 000
+Do
+m m m | om mm m mm Do m
+m m
+09618 [OO0-SW 00 [OO00 500.0000 —144.0000 ， 141.5000 ， 2025-06-02 ”-- ， 2025-09-25  2028-12-29
+09618 [OO0-SW 00 ，0000 500.0000 ， 145.5000 ， 143.0000 ， 2025-10-03 ”一 一 2028-12-29
+09618 [OO0-SW 00 0000 500.0000 ， 167.5000 ， 165.0000 ， 2025-02-25  - ， 2025-02-26  2028-12-28
+09618 [OO0-SW 00 ，0000 500.0000 ，177.5000 ， 175.0000 ， 2025-03-18 ，-- ， 2025-03-18  2028-12-28
+09618 [OO0-SW 00 0000 500.0000 ， 180.5000 ， 178.0000 ， 2025-03-25 ”一 一 2028-12-28
+09618 [OO0-SW 00 ，0000 500.0000 ，152.5000 ， 150.0000 ， 2025-04-10 ”一 一 2028-12-28
+09618 [OO0-SW 00 0000 100.0000 ， 125.5000 ， 123.0000 ， 2025-09-02 ”-- ， 2025-09-03  2028-12-28
+09618 [OO0-SW 00 ，0000 500.0000 ， 144.5000 ， 142.0000  2025-04-25 ~- ， 2025-05-14  2028-12-27
+09618 [OO0-SW 00 0000 500.0000 165.5000 ， 163.0000 ， 2025-05-19 ”一 一 2028-12-27
+09618 ，0000-sSwW 00 ，0000 100.0000 ，132.5000 ， 130.0000 ， 2025-09-01 ，-- ， 2025-09-10 。 2028-12-27
+1
+DroooomnoonooOnD00DDDO0ODOOOOODOOODnOnDDDOODDDOOODDDODDOOODDODOODO0OODO0ODDOnnDDOnODDDDOODOOODDOODODOOOODOOOODOODDnOnnDn0D
+Do | oo | om | om | om | oo | on | om | oo | oo
+Copyright©Hithink RoyalFlush Information Network Co. Ltd.
+----------------------------------------------------
+【投资评级】
+----------------------------------------------------
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwLliiofnog1l
+mmMwwLliiofnog1l
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+雁 司 花 硕 [
+mm ， mm om om om om mm ， mm om com mm om
+om 0D0003968.84 0.09% 0DDD00026095.04 1.81% DD0n00029106.06 0.49% 四 月
+D000-SW 114.5( 会 2.90 nol12.300 ”0n0111.600 On001.800 0n0o.050
+HK9618 2.60% 0n0114.800 ”0n0112.300 0D00158.230 Dn02.240
+DonD 000  (0003649.750 。” 000003649.750 000O)011.225 。 0001.442
+|
+mm
+y 0000
+m om om Doom DOOD) momo
+2025-12-24 oo m m 一 -
+2025-12-21 oo m m 150.58 m
+2025-12-16 oo m m 131.00 m
+2025-12-08 oo m m 173.32 m
+2025-12-04 oo m m 150.05 m
+2025-11-22 oo m m 124.00 m
+2025-11-22 oo m m 一 -
+2025-11-18 oo m 一 一 一
+2025-11-15 oo m m 一 -
+2025-11-15 oo m m 178.00 m
+2025-11-15 000000 m m 179.61 m
+2025-11-14 oo m m 136.50 m
+2025-11-14 000000 m 一 - 一
+2025-11-14 oo oo m 一 一
+2025-10-14 OO00(Hk) m m 192.65 m
+2025-08-22 oo m m 一 -
+2025-08-21 oo m m 167.00 m
+2025-08-17 000000 m m 167.00 m
+2025-08-15 oo m m 一 -
+2025-05-14 oo oo m 一 一
+2025-03-14 oo oo m 一 一
+2025-03-09 oo m m 201.00 m
+2025-03-08 oo m m 202.00 m
+2024-12-11 oo m m 一 -
+2024-11-15 oo m m 一 -
+2024-03-07 oo m m 122.53 m
+2024-01-26 oo m m 131.00 m
+2023-11-19 oo m 一 一 一
+2npana-m mnnn mn mm 2n7 nn mn
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+####################################################
+# 小米集团 (HK1810)
+####################################################
+
+----------------------------------------------------
+【首页概览】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 四 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+你 局 花 硕 [][] [mm C i2 %
+
+mm ， rm mm mm om om mm ， mm om cm rom mm
+
+mm ，- 回回
+
+DO000-W 40 20 会 "0 039.400 ”nn39.300 。 Dn007.440 nno.072
+
+.20 会 ?2zow 040.380 。 [nn39.220 。 Dnn01861.930 [D02.952
+HK1810
+non 。 nnnn10470.990 ”OnnnD10470.990 。 nnDOD)n20.563 ”00003.614
+[in cm rm mm mm mm mm mm rom om mm om
+mm mm mm ro om om
+| mm | « ©« «
+T0:30 [3-40.200 [139.965 [T30.900 [10:2.20% [F2 17 [F84.&
+
+mm 四 四 | |4oszo2 E 加 2.85% 。 nnnnnnnmls0rDnnD
+DO 。 35.06 4.22% 人 4 Develz000000n0nnnonnm
+DT  2.60% f Dononnnnnonononnnnnnm
+DO-w 4034 265%
+nm 507 242% 39860 1 aa
+
+nm 022 046% |
+
+aa ozz aoox 用 La
+
+nm 237 000% |
+DUO000 ”0.19 0.00% 39.300" 0.00% DD0000000095105885
+
+nm 055 000%
+
+nm 083 000%
+
+38.740 -1.42%
+B0000
+1800930  1030 12:0013:00  14:00 1650785 oo oo
+1660
+0000 0000
+840
+0000 0000
+由 I 用 20 0000 0000
+日 DO0000 习 别 新 B0000 m>
+mo DODDsmart Mobile Holdings
+5 moon Don02013-07-09 9
+Limited
+
+mm nm m
+
+mn。 37.44 90.82% ，， DDD002000000 DDDDDwwwmicom Donn49o21
+
+mn oo9 8750% Do Donononnn -00D000 - DOOnno mhkD
+
+Un 356 2806% 一 一
+
+ma oa 1sa  BO00D m> B000 上 >
+nn ”0.24 17.65% 本
+
+man 070 1l667z% 0DOOYu700000D0D00n0020260000 01/021005 000000 12-31 00:00
+om oo0s 16.67% ，，0000000000000000000000000 010209:40 000000 12-29 00:00
+
+mm e31 15.42% 0D0000000“000“0 o1/0208:54 0000 12-28 00:00
+om 9%38 15.15% | OO00000000 01/02 08:48 ”0DD000 12-24 00:00
+Do 923 1472% 20250000001400050000000000000000 oo1 22:25 000000 12-23 00:00
+
+B0000 000012000000000000000000000000 01/0120:25 000000 12-22 00:00
+Do 260.470 B 0000/000 m |[m | m| m m>
+On 260.4700
+nn 1.370 m 中 om mm | omeo | mm om mm
+on 350.2300 18975 。 [nrDc 60.88 HKD 5000 。 rm 20261230  2026-12-23
+nn 3403.70m0 13039 。 DOA 3710 HKD 5000 。 rm 2026-.12.24  2026-12-18
+Don 1.290 13186 。 DODDDA 3715 HKD 5000 。 rm 2026-.12.24  2026-12-18
+Don 1o.2o0 13598 。 [nnrne 52.22 HKD 5000 。 rm 20261224 。。 2026-12-18
+DoDD 15.46% 14658 。 IUDDDDDA 60.93  HKD s000 rm 2026-.12-22 2026-12-16
+B0000 m>
+m mm on Do om nm om
+1 mm m m - - 2025-12-19
+2 mm m - 56.21 - 2025-12-16
+3 ”mm m m - B 2025-12-16
+4 mm m m - - 2025-12-09
+5 mm m m - - 2025-12-04
+B0000 m>
+om mm ”oo Dom
+Da
+0
+口 属国
+二 - 国 |
+Hi E EBREERME REEEN
+0 0
+202500D 202500 202500D 202400 20240D0 20250D0 20250D 2025000 202400 20240D
+和 ii
+mr | on | mmm | mm | om | om | om | om | oo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+Doonnnnnnonnonnnonn0
+----------------------------------------------------
+【公】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+Gamzem [1[] [mm C i2 %
+mm 00 om om om om mm ， mm om com mm om
+om DDDn03968.84 0.09% DOD00026055.75 1.66% DDnnnnn29122.85 0.55% 回回
+0000-W 0.90 039.400 ”5n039.300 。 [nn07.440 nno.072
+
+40.20 会 2.29% Dn040.380 。 [nn039.220 。 [nn01861.930 02.952
+HK1810
+non 。 nnnn10470.990 ”OnnnD10470.990 。 nnDOD)n20.563 ”00003.614
+| mm | [ui cm om mm mm mm mm mm mm mm om
+mm
+y 0000
+
+onooo0000 moooo000
+
+Do0Dxiaomi Corporation cooo00000 - 000000 - 0000000
+
+Dono02010-01-05 IDD-
+
+Don00000000000000000000000000loT0000000000000000000000000000000000000000
+
+00mo0 DOODOD- mon049021
+
+000000000000000 Don000000000 0000120310
+
+0  [0400-100-5678 0 [0086-010-60606666-1101 0 m-
+
+Don0000000000000000
+
+Do
+
+00000000000000000000loT00000000000000000000000000000000000000000000000000AloTU000000000000000000000
+
+000000000000001e T000000000000000000000000000000000000000000000000000'e T000000000000000000000000000EvV00000
+
+00000000000000000000000000000000000000000
+ii
+
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【股本结构】
+----------------------------------------------------
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwLliiofnog1l
+mmMwwLliiofnog1l
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+雁 司 花 硕 [
+mm ， mm om om om om mm ， mm om com mm om
+mm ，- 四 加
+1- 0n039.400 。 0n039.300 。 On007.620 0n00.073
+中 1 40.16 会 2 [I[140.380 ”0n039.220 。 Dn001905.530 0n02.952
+Donono0 。 onn010460.570 ”On00010460.570 。 00D(D)020.573 ”nn03.611
+醒
+mm om oo om
+y 00000
+Doom
+om 2025-12-31 2025-12-29 2025-12-24 2025-12-23 2025-12-22 2025-12-19
+om 26047.24 26046.49 26046.10 26046.09 26045.76 26045.38
+mo 26047.24 26046.49 26046.10 26046.09 26045.76 26045.38
+om 一 一 一 一 一 一
+Do 2025-12-31 2025-12-29 2025-12-24 2025-12-23 2025-12-22 2025-12-19
+y 000000
+om DonD) mm om
+2025-12-31  26047.24 oO0000 2025-12-31
+2025-12-29  26046.49 oO0000 2025-12-29
+2025-12-24  26046.10 oO0000 2025-12-24
+2025-12-23  26046.09 oO0000 2025-12-23
+2025-12-22  26045.76 oO0000 2025-12-22
+2025-12-19  26045.38 oO0000 2025-12-19
+2025-12-18  26045.38 oO0000 2025-12-18
+2025-12-16  26045.30 oO0000 2025-12-16
+2025-12-15  26045.27 oO0000 2025-12-15
+2025-12-11  26045.23 oO0000 2025-12-11
+2025-12-10  26044.73 oO0000 2025-12-10
+2025-12-09  26044.72 oO0000 2025-12-09
+2025-12-08  26044.71 oO0000 2025-12-08
+2025-12-04  26044.66 oO0000 2025-12-04
+2025-12-03  26044.59 oO0000 2025-12-03
+2025-12-02  26044.58 oO0000 2025-12-02
+2025-12-01  26044.44 oO0000 2025-12-01
+2025-11-28  26044.33 oO0000 2025-11-28
+2025-11-26  26044.03 oO0000 2025-11-26
+2025-11-25  26043.95 oO0000 2025-11-25
+2025-11-21  26043.33 oO0000 2025-11-21
+2025-11-20 26043.21 nmnnmn 2025-11-20
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【业务概要】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIil0fiflo&1
+mmMwWLIil0fiflo&1
+mmMwWLII0AfI0&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+
+Gimem [中
+0om on 0om DO D000 Do0 Do oooo 0D000 Do0 DoD0 oom
+nm DD0D22500050339.48 -0.37% DonnnnD4258.78 1.06% Donnn0013267.48 0.20% 回回
+DO000-W 40 16 会 0.86 Dnn39.400  [(11139.300  [III17.62[1 [00.073
+. 2.19% D040.380 D039.220 Don01905.530 D02.952
+HK1810
+00000 00000 DDD010460.570  [00010460.570  O00(0)020.573  [(0003.611
+mn
+Do
+D000
+7
+D000:
+0D000000000000000000000000loTOO00000000000000000000000000000000000000
+0000c:
+20250000000000000000°0000° 0000000000000000002025000000000000000001.131000000022-3%0
+00000002025000000000°00x AleT* 0000000084100000001-6%0000'0000000A|00000°000000002900000000000000
+199.2%(0000000000000000113000000000000080-9%0
+(00000000000
+000000°000000'00000020250000000000000000043.300000000°.5%000°0000000000000mdia(2020250000000000000
+000000000000001.3.6%0002 10000000000000000000000000002025090000000000003000000000741.700000008.2%0002025
+(090300000AleTOOO000e TOON000000000000000000000010000001,035.5000000020.2%({1202500000000000108,796(000000
+0D00
+DO0000000'000000
+DO00000000000000000000000000020250000000000000000091000000052.1%02025000000000000000000023500000
+2025090300000000000000000024,87100
+0D0000000000002025090000000xiaomi-MiMo-Audio0000000000000000000DICL(In-ContextLearning)0000000000000000
+0000'00'000000000000000000000000000000000000000000000000000000000000000000000000000xiaomi-MiMo-Audio0000
+000000000000(VL)000(Audio)0000000000000000000000000000020250110000000000000000XxiaomiMiloco000
+XiaomiLocalCopilotD000000000000000000000000000000000000000000000000000000000000000000000000000000
+XiaomiMiMo-VL-Miloco0000000000000000'00+00+00'OO00000000000000
+oooov
+DOODD000DD0000D0000D0000000ODD00ODD000DD0000D00000000O0000OD000OD000OD000OD0000O0000OD00UOD00OOD000OD000OD000OD000OD000OD0000000
+Do0 DoD0 | 0 Do0 DoD0 0om Do00 UD0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+000000000000000000000
+----------------------------------------------------
+【分红派息】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 四 m amv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+& 司 花 硕 [1[] [mm C i2 %
+mm ， rm mm mm om om mm ， mm om cm rom mm
+mm ，- 癌 同
+0000-W 40.14 会 0.84 0DD039.400 。 5039.300 。 [nn07.660 nno.074
+° 2.14% 040.380 。 5n039.220 。 [nnn01914.550 02.952
+HK1810
+Don 。 nnn010455.360 。 0n0nD10455.360 。 0DD(OD)020.552 ”0n003.609
+mm rm mm oo 和 iu 几 cm mm om mm mm mm om
+Do om
+0000
+Dom
+om 中 om mm m m mm
+m m
+2025-11-18 000 一 一 一 一 DO00(0D) o 0
+2025-11-18 000 一 一 一 一 000 品 0
+2025-08-19 000 一 一 一 一 oo 品 0
+2025-03-18 0 一 一 一 一 品 o 0
+2024-11-18 000 一 一 一 一 000 品 0
+2024-11-18 000 一 一 一 一 DO00(0D) o 0
+2024.08.21 0 - -~ - - om 四 0
+2024-03-19 000 一 一 一 一 oo 品 0
+2023-08-29 0 一 一 一 一 品 o 0
+2023-03-24 0 一 一 一 一 品 o 0
+2022-08-19 0 一 一 一 一 品 o 0
+2022-03-22 0 一 一 一 一 品 o 0
+2021-08-25 0 一 一 一 一 品 o 0
+2021-03-24 0 一 一 一 一 品 o 0
+2020-08-26 0 一 一 一 一 品 o 0
+2020-.03-31 0 一 一 一 一 品 o 0
+2019-08-20 0 一 一 一 一 品 o 0
+2019-03-19 0 一 一 一 一 品 o 0
+2018-08-22 0 一 一 一 一 品 o 0
+0000000
+om
+和 ii
+mr | on | mmm | mm | om | om | om | om | oo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【高管介绍】
+----------------------------------------------------
+从 同花顺 网 经 港股 © © © 四 四 四 四 加 m m m m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+@agrem [][]
+mm ， rm mm mm om om mm rm om om om om
+-一 Co aa rntocanatans nrrentnaca nanane S 辐
+DO000-W 40.14 会 0.84 nn39.400 。 5n039.300 。 [nn07.660 nno.074
+o 2.14% no4o.380  (1139.220 。 [nnn1914.550 02.952
+HK1810
+Donn00 。 0D00010455.360 ”0D00D10455.360 ”0DDODID- 。 00003.609
+-
+mm
+y 0000
+m280 ooomooomooomooomOooDOoonOoononoDnonoonn
+oo 00000000000000 000002010-05-03 0
+05700 000- 00000-
+0D00000000000000019690120000000000199200000000000000000000000000000000000199800000000000000200701200
+0D00000000000000000020080800000000000000002011070500000000000000000000000000000000000000000000000
+吕 0D0000000 0D0002o19-10-25 0
+05800 000- 00000-
+0D00000000000000000000000000000000000000000000000000020100000000000200600201000Google Inc 000000000
+199500200600Microsoft Corporation 000000200300200600Microsoft(China) Limited 0000000000000000001993050000ADP
+Inc.00000000000000000000000000002002000000000000000000200200200500000000000002005002008000000000000000000
+0D000000000000000000199007000000000000000000199206000Drexel University 000000002019010025000000000000002019
+0110290000000000000
+D0 0000000000 000002021-03-24 00
+05300 000- 00000-
+000001973000000000000000000199607000000000000000000200102000000000000000000000201004000000000000Art
+Center College of Design00000000002001040020030120000000000000000000000000000000000000000002003012002007090
+0D00000000000000000Concept Design00002010040000000000000000000000000000000000000020150300201508000000000
+0020190110000000000000000000202001200202404000000000000
+D0 00000 000002010-05-03 0
+05300 000- 00000-
+0D00000000000000000000000000000020140120000000000000002007060000000000000Morningside Venture Capital
+Limited MVCLOU000002018080000Evolution Capital Management Limited JECMLOO000000000200706000000000000000000000
+0D00000000000MVCLOECMLO00000000000000000000000000000000000000020080600000000000YY,Inc.00000UoYY Inc.00000
+0D0000000000000000000000000000200509002020040000000000Xunlei Limited000000000000000000000000000000000000
+19930700000000000000000000020000400000000000O0O00O0OOOO0O00000000000000201501000100000Horizon Robotics0000
+吕
+DO00 0000000 000002018-06-25 00
+06s00 000100.300 00000-
+0000020180602500000000000000000000000000000002014070000Rokid Corporation Ltd000000002014070000000000000
+0D00000000000000000000000000201101200201207000000000000000000000020070400201109000000000000000000000000
+iii
+ro | nmmo | nm | mm | omo | nmm | oom | co | ommo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+rnoononoononoononoom
+----------------------------------------------------
+【新闻公告】
+----------------------------------------------------
+从 同花顺 网 经 港股 © © © 四 四 四 四 加 m m m m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+Gamzem [1[] [Er C i:
+mm ， rm om rm om om mm ， rm om cm mm om
+mm - 癌 同
+0000-W 40.16 会 0.86 039.400 ”5n039.300 。 [nn07.720 nno.074
+o 2.19% no4o.380  (1139.220 。” [nnn1929.670 02.952
+HK1810
+Don 。 0nn010460.570 ”0n0nD10460.570 ”0DDOD)020.471 。 Dn003.611
+mm mm mm mm om om 本 是 rm om om om om
+no。 oo
+y 0000
+
+000000
+
+000000
+
+0000
+
+0DD0000
+
+2025-12-24
+
+000000
+
+Bb9998
+
+000000
+
+000000
+
+000000
+
+000000
+
+000000
+
+000000
+
+000000
+
+000000
+iii
+
+ro | nmmo | nm | mm | omo | nmm | oom | co | ommo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【财务分析】
+----------------------------------------------------
+本 局 花 顺 财经 港股 m oo D [1] m m o om m m om 0 0
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIil0fiflo&1
+mmMwWLIil0fiflo&1
+mmMwWLLI0fiflO&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+
+Garem [1]
+0om on 0om DO D000 Do0 Do oooo 0D000 Do0 DoD0 oom
+0om DD0022500050339.48 -0.37% DD000004258.78 1.06% DDD0000D0013267.48 0.20% 习 癌
+DOD0-W 40 16 会 0.86 Dnn39.400 ”0n039.300 ”Do07.720 D0o.074
+“ 2.19% D040.380 D039.220 Do01929.670 D02.952
+HK1810
+00000 00000 DDD010460.570  [00010460.570  O00(0)020.583  [003.611
+m
+Do
+yoee
+m DOD0000 Do 加
+党 0D00 > 0
+® [oooo
+& 000 Po  E 21
+& oom B  — ed
+一 是 一 -看 一 — 下 一生 一
+。 画
+& m 站 | 5
+DO 2025-09-30 2025-06-30 2025-03-31 2024-12-31 2024-09-30 2024-06-30
+Doo0 12-31 12-31 12-31 12-31 12-31 12-31
+Do D00 D00 D00 D00 D00 D00
+Do 一 一 一 00000000 一 一
+Do
+里 志 耐 一 冯 而 一 运 而 一 商 而 -到 而 -而
+这 EeeiEreeiiEmeeeE
+m 774.430 515.070 254.060 765.600 541.050 352.240
+DDO00(9) 12.44 12.07 11.77 7.61 7.18 7.09
+Do
+= T M —TR——
+= HIEEEEYE
+= 和
+000000(%) 13.22 9.04 4.56 12.53 8.26 5.38
+DDO00(9) 47.18 47.49 46.70 53.07 49.33 49.38
+Do
+霹 击 一 二 剖 - 十 辣 一 而 到 一 动 硬 - 运 而
+= IENENEEEEEEE
+= 区 和
+Do 1.37 0.90 0.44 0.95 0.59 0.37
+Do 1.33 0.87 0.42 0.93 0.57 0.36
+Do 13.08 8.76 4.29 14.58 10.29 6.57
+Doo0 10.20 9.73 9.24 了 7.52 7.10 6.90
+Doo0 10.20 9.73 9.24 了 7.52 7.10 6.90
+Doo0 1.29 1.08 0.17 1.57 0.62 0.10
+DOODD000DD0000D0000D0000000ODD00ODD000DD0000D00000000O0000OD000OD000OD000OD0000O0000OD00UOD00OOD000OD000OD000OD000OD000OD0000000
+Do0 DoD0 | 0 Do0 DoD0 0om Do00 UD0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+000000000000000000000
+----------------------------------------------------
+【股东持股】
+----------------------------------------------------
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwLliiofnog1l
+mmMwwLliiofnog1l
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+雁 司 花 硕 [
+mm ， mm om om om om mm ， mm om com mm om
+mm ，- 四 加
+0000-W 40.18 个 0n039.400 。 0n039.300 。 On007.730 0n00.074
+“ 2.24% Dn040.380 。 0n039.220 。 Dnn01932.640 0n02.952
+HK1810
+Don oo0 。 onn010465.780 ”On00010465.780 ”00D(D)020.583 ”0003.613
+画
+mm com
+y 0000
+2025-06-30 2024-12-31 2024-06-30 2023-12-31 2023-06-30 2022-12-31 2020630  )
+oo mm DooD) Oo。 noD) mm
+Smart Mobile Holdings Limited oo 590271.30 2274 m oo0
+Apex Star LLC oo 215544.78 8.31 [un) 000
+BlackRock, Inc. BlackRock, Inc. 109612.61 4.22 m oo0
+TMT General Partner Ltd. oo 18446.64 0.71 m oo0
+Lofty Power Intemational Limited oo 13587.19 0.52 m oo0
+Apex starFTLLC oo 9343.83 0.36 m oo
+Team Guide Limited oo 9224.50 0.36 m oo0
+Smart player Limited oo 5922.16 0.23 m oo0
+Bin Lin and Daisy Liu Family Foundation oo 5068.66 0.20 m oo0
+m oo 3034.75 0.12 m oo0
+加 o 1000.00 0.04 加 000
+Momingside China TMT Fund Il, LP oo 0.0007 0.0000 m oo0
+y 0000
+m Do DoooOD) DorooD) Doooto) m
+2025-11-24 m 个 260.00 199363.15 9.26 m
+2025-11-24 m 个 260.00 199363.15 9.26 m
+2025-04-03 om 个 0.46 0.80 0.00 m
+2025-04-02 0 个 0.34 0.34 000 m
+2025-03-31 Parkway Global Holdings Limited oo 189452.77 8.85 加
+2025-03-31 Smart Mobile Holdings Limited oo 183530.61 8.58 加
+2025-03-31 Sunrise Vision Holdings Limited oo 189452.77 8.85 加
+2025-03-31 m oo 198677.28 9.28 m
+2025-03-31 m oo 198677.28 9.28 m
+2025-03.27 Parkway Global Holdings Limited +  -80000.00 189452.77 9.20 m
+1
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【经营分析】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+你 局 花 硕 [][] [mm C i2 %
+mm 00 om om om om mm ， mm om com mm om
+om DD0D22500050339.48 -0.37% DDDDn0D4256.49 1.00% DO0nn000013267.48 0.20% 癌 同
+0000-W 40.18 会 0.88 039.400 ”5n039.300 。 [nn07.730 nno.074
+“ 2.24% Dn040.380 。 0n039.220 。 Dnn01932.640 0n02.952
+HK1810
+Donono0 。 omn010465.780 ”On00010465.780 。 00D(D)020.512 ”0n003.613
+mm mm mm mm om mm mm om om 和 mm om
+Do oo
+y 0000
+Don00000000000000000000000000loT0000000000000000000000000000000000000000
+Doom 00000000000
+y 000000
+2025-09-30 ~
+Do
+[ ]
+国 io
+[ ]
+r &
+2025-09-30 2025-06-30 2025-03-31 Donononnnm
+0000 oo
+Do (000D) (96)
+0000 459.690 40.64
+mo 00000000000 290.100 25.65
+1oTO000000 275.52[] 24.36
+00000 93.800 8.29
+oo 12.09] 1.07
+000 1131.210 100
+0000 730.580 64.58
+0000
+0D0000 400.620 35.42
+m 1131.210 100
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【关联】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 加 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwUliloffog1l
+mmMwwUliloffog1l
+mmMwWHUilofiflOS1l
+mmMwwUliloffog1l
+mmMwNLLiT9fifLOS1
+mmMwwUliloffog1l
+你 局 花 硕 [][] [Er C i:
+mm ， ro om om om oo rm ，mm om om om om
+nm ，- gg
+0000-W 会 0.92 0n039.400 。 0n039.300 。 0n007.840 0n0o.075
+40.22 2.34% DD04o.380 ”0n039.220 。 On001959.660 0n02.952
+HK1810
+Don0 DDD00 。 0Dn010476.200 。DD00010476.200 ”0DD(D)020.573 ”On003.616
+mm rm mm om om mm cm om om oo 车 上
+四 “0
+4
+0
+m m m ， mm oo) Co 0
+m m
+22795  [OOODODA ， 0000 ，0000  41.8800  2027-12-29 2027-12-29 一 2027-12-29
+18975 。 OO00000c ， 0000 ，0000 ， 60.8800  2026-12-30 2026-12-30 2026-12-23 2026-12-30
+21485 。 DOO0O00A ， 0000 ，0000 ， 54.8800  2026-12-30 2026-12-30 2026-12-23 2026-12-30
+21510 ， 00O0O00A 0000 ，0000 ， 53.8800  2026-12-30 2026-12-30 2026-12-23 2026-12-30
+13039 。 OO00000A ， 0000 ，0000 ， 37.1000  2026-12-24 2026-12-24 2026-12-18 2026-12-24
+13186  OOOOOODA ~ 0000 ，0000  37.1500  2026-12-24 2026-12-24 2026-12-18 2026-12-24
+13598 。 OO00000B  OOOO ，0000  52.2200  2026-12-24 2026-12-24 2026-12-18 2026-12-24
+14658  (OOOOODA ， 0000 ，0000  60.9300  2026-12-22 2026-12-22 2026-12-16 2026-12-22
+14806 ， OOOOOODA ~ 0000 ，0000  60.9300  2026-12-22 2026-12-22 2026-12-16 2026-12-22
+15079  OOODOOOC ， 0000 ，0000  60.9300  2026-12-22 2026-12-22 2026-12-16 2026-12-22
+1
+y 000
+Doom
+m m m | om nm 0 0 Do m
+m m
+01810 [UOW [0 0OO00 100.0000 ，45.4000 ~45.0000  2025-02-10 ，--  2025:02-17  2029-01-30
+01810 [UOW [0 0000 100.0000 ~ 53.4000  53.0000 ， 2025-02-12 ，--  2025:02-25  2029-01-30
+01810 [OOW [0 0OO00 100.0000 ， 44.4000 ~ 44.0000  2025-02-14 ，--  2025:02-14  2029-01-30
+01810 [OOW [0 0OO00 100.0000 — 56.4000  56.0000 ， 2025-02-21 ，--  2025-02-26  2029-01-30
+01810 [OOW [0 0OO00 100.0000 ~ 60.4000 ~ 60.0000  2025-02-21 ，--  2025-06-27  2029-01-30
+01810 [UOW [0 0OO00 100.0000 ~ 52.4000 ~ 52.0000 ， 2025-02-12 ，-- ， 2025-02-24  2029-01-29
+01810 [UOW [0 0OO00 100.0000 —55.4000 55.0000  2025-02-14 ，--  2025-02-26  2029-01-25
+01810 [OOW [0 0000 100.0000 ~ 50.4000  50.0000 ， 2025-02-13 ，--  2025:02-20  2029-01-19
+01810 [UOW [0 0000 100.0000 ~ 70.4000 ~ 70.0000  2025-03-03  - 一 2028-12-29
+01810 [OOW [0 0000 100.0000 ，55.4000 ，55.0000 ， 2025-03-13 ，-- ， 2025-03-17  2028-12-29
+1
+DroooomnoonooOnD00DDDO0ODOOOOODOOODnOnDDDOODDDOOODDDODDOOODDODOODO0OODO0ODDOnnDDOnODDDDOODOOODDOODODOOOODOOOODOODDnOnnDn0D
+Do | oo | om | om | om | oo | on | om | oo | oo
+Copyright©Hithink RoyalFlush Information Network Co. Ltd.
+----------------------------------------------------
+【投资评级】
+----------------------------------------------------
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwWLlilofno&1l
+mmMwwWLlilofno&1l
+mmMwWLLI0fiflO&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+Caaem [][]
+0om mo mm mm om Do Do nm om mm oo om
+nm DD0D22500050339.48 -0.37% DonnnnD4256.49 1.00% Donnn0013267.48 0.20% 回回
+DO000-W 40.22 会 0.92 0n039.400 ”mn039.300 ”On007.840 Dn0o.075
+HK1810 . 2.34% DD040.380 DD039.220 DD001959.660 DD02.952
+00000 00000 DDD010476.200 ”DO00010476.200 ”00D(D)020.573  (003.616
+|
+Do
+y 0000
+oo Do DO 0000000 DOD) DO
+2025-12-19 0ooo D0 oo - -
+2025-12-16 Doo000 m 一 56.21 一
+2025-12-16 00oo D0 oo - 一
+2025-12-09 0ooo D0 oo - -
+2025-12-04 000000 D0 oo - 一
+2025-12-01 000000 o oo 51.10 oo
+2025-11-27 0ooo D0 oo - -
+2025-11-25 D000(0D) o oo 55.00 oo
+2025-11-25 00oo D0 oo - 一
+2025-11-25 0ooo D0 oo 55.86 oo
+2025-11-24 00oo D0 oo - 一
+2025-11-24 000000 o oo 50.20 oo
+2025-11-23 0ooo D0 oo - -
+2025-11-20 000000 o oo 50.00 oo
+2025-11-20 00000000 o oo 61.00 oo
+2025-11-20 0ooooo D0 oo 57.50 oo
+2025-11-20 0ooo D0 oo 52.00 oo
+2025-11-20 00oo D0 oo - 一
+2025-11-20 0ooo D0 oo - -
+2025-11-19 Do0 m oo 53.80 m
+2025-11-19 Do0 m oo 55.31 m
+2025-11-19 0ooo D0 oo - -
+2025-11-19 00oo D0 oo - 一
+2025-11-19 00oo D0 oo - 一
+2025-11-19 0ooooo D0 oo 53.50 oo
+2025-10-31 0ooo D0 oo 75.00 oo
+2025-09-26 [OO00(HK) m oo 65.40 m
+2025-09-18 Do0 m 一 ~ 一
+DOODD000DD0000D0000D0000000ODD00ODD000DD0000D00000000O0000OD000OD000OD000OD0000O0000OD00UOD00OOD000OD000OD000OD000OD000OD0000000
+Do0 DoD0 | 0 Do0 DoD0 0om Do00 UD0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+####################################################
+# 中国联塑 (HK2128)
+####################################################
+
+----------------------------------------------------
+【首页概览】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 男 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwWLlilofno&1l
+mmMwwWLlilofno&1l
+mmMwWLLI0fiflO&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+@mrem [[] [mm C i%. 7:
+0om mo mm mm om Do Do nm om mm oo om
+mm ，- 加 加
+gooo 4.57 $27 0D004.660 D004.640 Do0378.860 D00.027
+“ -1.51% DD04.660 0DD04.540 Do082.800 DD02.586
+HK2128
+Doo0oDo0 ”Do00141.780 ”0D000141.780 ”DOO(D)06.180 ”0D000.532
+Do DoD0 DO D000 DO Do0 UD0 Do oom oooo Do omn
+Do oo om oo 0 0
+DO om oa mn:
+[一 训 一 一 一
+D 上 0 4.740 E o E E 0 2.16% Do0000000001500D0000DD
+Do0 8.40 16.67% DDIevel200000000D0000000
+Dm 了 4 DODo00000000000000000000
+DDDO(OD) 2.38 1.28% mm
+DoD0 22.24 0.72% 4.690 1.08%
+DOOD00 1.56 0.65%
+0 La
+DoD0 18.05 0.17%
+DoD0 0.20 ”0.00% 44. oo 0.00% DDnnnnnnn095105885
+DoD0 0.15 0.009%
+DoD0 0.20 ”0.00%
+4.590 LU -1.08%
+LPnl 一
+LU 册 80000
+| |, 10%
+- 54009:50 10:30 12:00/13:00 14:00 16:10° 和 ooo0 ooo0
+180
+000o0 000o0
+90
+000o0 000o0
+| | ， I 0 0000 on00
+B 000000 | = 出 新 B0000 m>
+Do v O0000000000000000 [000]02010-06-23 DDO0DNew Fortune Star Limited
+Do ooo om (HI02000.0000 DDDD0wwwlessocom DD00020800
+Do 0.09 87.50% Do 0000000000 -00 - 0000 00000HKD
+[DOD 3666 87.04% ”一 -一
+mm oa aacsx% 60000 m> 60000 >
+Do 3.61 29.86%
+num o26  25.00% 0000I000000000000000000000000000 。 12/22 907:44 ”002025012031000000000000000000 12-31 00:00
+DO 0.71 1833% 0000000000000000000 12/1920:15 000000 一 000000 12-19 00:00
+DO 0.15 18.11% DO000"0000"000000000000000 12/18 11 002025011030000000000000000000 12-01 00:00
+CD 840 16.67% 0000000000000000000000 12/1717:33 00000000000 11-20 00:00
+DO 0.08  16.67% 000000000000000000000000000 12/09 18:31  [J02025[10031000000000000000000 10-31 00:00
+DD00D ”0.38 15.15% F—
+00000000000000000000000000000 12/0812:13  [02025[9[30000000000000000000 9-30 00:00
+B0000 一
+B 0000VOOD m m>
+Do0 31.02000
+Donon 31.0200 m m om mo Doso) oom mn Do
+DDo00 0.340 11554_1 00000000 8.00 HKD 10.00 Do0 2012-10-04 2012-09-26
+DD00 9.3500 13128_1 00000000 6.88 HKD 10.00 Do0 2012-09-17 2012-09-11
+00000 124.7500 11758_1 00000000 9.00 HKD 1.00 Do0 2011-11-28 2011-11-22
+000000 -0.110
+nan 7.840 60ooo0 m>
+DODO0000 4.34%
+m oon 0om Do0 DO Do0 DoD0
+1 D000 om D 5.30 om 2025-10-20
+2 0000 om D0 一 一 2025-09-07
+3 D000 om 一 一 一 2025-09-04
+4 0000 om D0 7.80 om 2025-09-03
+5 0000 om o 6.35 om 2025-09-02
+B0000 m>
+000 mm ”oo Do
+3 加
+2 |
+| ax
+2  Eh
+“er ETEE
+"上 站- 古国 F F1
+: =muiel EEEEE
+四 B H B § 下 和
+202500 202400 202400 202300 202300 202500 202400 202400 202300 202300
+DOODD000DD0000D0000D0000000ODD00ODD000DD0000D00000000O0000OD000OD000OD000OD0000O0000OD00UOD00OOD000OD000OD000OD000OD000OD0000000
+Do0 DoD0 | 0 Do DoD0 0om Oomo UD0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+000000000000000000000
+----------------------------------------------------
+【公】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 四 m amv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+& 司 花 硕 [1[] [mm C i2 %
+mm ， rm mm mm om om mm ， mm om cm rom mm
+nn DDDRrsDDn01114.13 -0.11%6 OnDl10oonn09931.38 -0.09% 癌 同
+-0.07 (I74.660  [(I714.640 。 00378.860 Do.027
+D0m 4.57 量 :15lw 0DD04.660 。 0n04.540 。 Dnn082.8o0 0DD02.586
+HK2128
+non0oo00 。 0nn0141.780 。” 00000141.780 。 DOO)06.180 00000.532
+| mm | ii cm nm mm mm rm mm mm om mm om
+mm
+y 0000
+Don0000000000000 Don0000
+DO0DChina Lesso Group Holdings Limited oomo0000 -00- 0000
+Do 02009-11-05 DIDDhttps://wwwlesso.com
+Don0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00mom ooom-- onrm20800
+000000000000 Don000'00000000 0000120310
+0 0400-1682-128 0 加 86-0757-23888555 0 m-
+Don00000000000000000000
+On
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+0D0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+和 ii
+mr | on | mmm | mm | om | om | om | om | oo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【股本结构】
+----------------------------------------------------
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwLliiofnog1l
+mmMwwLliiofnog1l
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+雁 司 花 硕 [
+mm ， mm om om om om mm ， mm om com mm om
+mm ，- 四 加
+- Dn04.660  [([4.640 。 Onn378.860 0n0o.027
+H QI 8 457 量 ae 0n04.660 。 004.540  [(I[1182.800 0n02.586
+CDon0 000 。 Don0141.780 ”0DD000141.780 。 DOO(D)06.180 。 00D00.532
+醒
+mm om oo om
+y 00000
+Doom
+om 2016-04-11 2014-06-20 2014-06-19 2014-06-18 2014-06-12 2014-06-04
+om 3102.42 3110.26 3108.52 3106.52 3104.05 3101.94
+mo 3102.42 3110.26 3108.52 3106.52 3104.05 3101.94
+om 一 一 一 一 一 一
+Do 2016-04-11 2014-06-20 2014-06-19 2014-06-18 2014-06-12 2014-06-04
+y 000000
+om DonD) mm om
+2016-04-11 3102.42 oO0000 2016-04-11
+2014-06-20 3110.26 oo 2014-06-20
+2014-06-19 3108.52 oo 2014-06-19
+2014-06-18 3106.52 oo 2014-06-18
+2014-06-12 3104.05 oo 2014-06-12
+2014-06-04 3101.94 oo 2014-06-04
+2014-06-03 3100.22 oo 2014-06-03
+2014-05-22 3096.18 oo 2014-05-22
+2014-05-21 3091.90 oo 2014-05-21
+2014-05-20 3091.78 oo 2014-05-20
+2014-05-19 3090.95 oo 2014-05-19
+2014-05-15 3090.49 oo 2014-05-15
+2014-05-02 3089.50 oo 2014-04-30
+2014-04-24 3088.89 oo 2014-04-24
+2014-04-22 3088.16 oo 2014-04-22
+2014-04-15 3088.04 oo 2014-04-15
+2014-04-01 3086.30 oo 2014-03-31
+2014-03-28 3085.76 oo 2014-03-28
+2014-03-03 3081.40 oo 2014-02-28
+2014-02-04 3080.23 oo 2014-01-31
+2014-01-02 3075.73 oo 2013-12-31
+2013-12-03 3070.45 nmmn 2013-12-03
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【业务概要】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 男 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwWLlilofno&1l
+mmMwwWLlilofno&1l
+mmMwWLII0AfI0&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+Gimem [中
+0om on 0om DO D000 Do0 Do oooo 0D000 Do0 DoD0 oom
+nm DD0D22500050339.48 -0.37% DonnnnD4257.84 1.04% Donnn0013267.48 0.20% 回回
+gooo 4.57 县 -0.07 0D004.660 DD04.640 Do0378.860 D00.027
+“ -1.51% DD04.660 0DD04.540 Do082.800 D02.586
+HK2128
+00000 00000 0000141.780 ”DO000141.780  (O0(0)06.180 ”0DD000.532
+mn
+Do
+D000
+7
+D000:
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+0000c:
+0000000000000000124.75000202400000000135.640000
+00000000
+20250000000000000'00000000000000°00000000°000000000000000000000° 0000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000
+000000'00000000000°0000000000000000000000000000000000000000000000000000000000
+00000000000°00° 00000000000000000000000000000000000000000000000
+(00202506030000000000000000000000000000000003,061002024000002,891000
+000000000000000000000046-3%(20240000044.7%00000000000053.7%020240000055-3%00
+DO000
+202500000000000000000000000000000000000000000000000000000000000002024000000000000000000000000000000
+000000000000000000000000000000000000000000000000000
+00000000000020250000000000(GPP)I0005. 3%000000000000000000000000000000000000000000000000000000000
+20250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002025000
+000000000000004-6%0000000000000002-8%0000000000000000000
+000000000000000° 00000000000000000000000000000000000000000000000000000000000000000000000000000000000
+0000000
+oooov
+DOODD000DD0000D0000D0000000ODD00ODD000DD0000D00000000O0000OD000OD000OD000OD0000O0000OD00UOD00OOD000OD000OD000OD000OD000OD0000000
+Do0 DoD0 | 0 Do0 DoD0 0om Do00 UD0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+000000000000000000000
+----------------------------------------------------
+【分红派息】
+----------------------------------------------------
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwWLlilofno&1l
+mmMwwWLlilofno&1l
+mmMwWLLI0fiflO&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+Caaem [][]
+0om on 0om DO D000 Do0 Do oooo 0D000 Do0 DoD0 oom
+mm - 回回
+机
+mn 457 是
+HK2128
+00000 00000 0000141.780 ”DO000141.780  (O0(0)06.180 ”0DD000.532
+m
+Do  0000000
+y oooo
+oon m ooo Do DT om o oon
+om m
+2025-08-29  [O00 一 一 一 一 oo oo o
+2025-03-28 000.200 2025-06-16 2025-07-09 2025-06-18 2025-06-20 DO D000 0
+2024-08-29 “000 一 一 一 一 oo oo o
+2024-03-28 000.200 2024-06-28 2024-07-18 2024-07-03 2024-07-05 DO D000 0
+2023-08-28 ”0D00 一 一 一 一 oo oo o
+2023-03-20 000.300 2023-05-15 2023-05-25 2023-05-17 2023-05-19 DO D000 0
+2022-08-29 “000 一 一 一 一 oo oo o
+2022-03-28 002600 2022-07-04 2022-07-22 2022-07-06 2022-07-08 DO D000 0
+2021-08-27 0D01200 2021-09-27 2021-11-18 2021-09-29 2021-10-04 DO D000 0
+2021-03-29 0D0000.380 2021-06-21 2021-07-19 2021-06-23 2021-06-25 DO D000 0
+2020-08-25 0D01200 2020-09-14 2020-09-28 2020-09-16 2020-09-18 DO D000 0
+2020-03-27 002800 2020-05-27 2020-06-11 2020-05-29 2020-06-02 DO D000 0
+2019-08-26 0D01200 2019-09-06 2019-09-23 2019-09-10 2019-09-12 DO D000 0
+2019-03-26 0D02000 2019-05-30 2019-06-17 2019-06-03 2019-06-05 DO D000 0
+2018-08-28 0D00.100 2018-09-12 2018-09-28 2018-09-14 2018-09-18 DO D000 0
+2018-03-19 0D01800 2018-05-29 2018-06-13 2018-05-31 2018-06-04 DO D000 0
+2017-08-21 “000 一 一 一 一 oo oo o
+2017-03-06 001500 2017-05-23 2017-06-08 2017-05-25 2017-05-29 DO D000 0
+2016-08-23 000 一 一 一 一 oo oo o
+2016-03-18 0D01300 2016-05-17 2016-05-27 2016-05-19 2016-05-23 DO D000 0
+2015-08-17 000 一 一 一 一 oo oo o
+2015-03-16 0D01300 2015-05-19 2015-06-01 2015-05-21 2015-05-26 DO D000 0
+2014-08-18 ”0D00 一 一 一 一 oo oo o
+2014-03-17 0D01200 2014-06-05 2014-06-20 2014-06-09 2014-06-11 DO D000 0
+2013-08-19 ”000 一 一 一 一 oo oo o
+2013-03-18 0D01200 2013-06-05 2013-06-20 2013-06-07 2013-06-11 DO D000 0
+2012-08-20 ”0D00 一 一 一 一 oo oo o
+2012-03-16 nnl2nn 2012-06-05 2012-06-20 2012-06-07 2012-06-12 m nnnn n
+DOODD000DD0000D0000D0000000ODD00ODD000DD0000D00000000O0000OD000OD000OD000OD0000O0000OD00UOD00OOD000OD000OD000OD000OD000OD0000000
+Do0 DoD0 | 0 Do0 DoD0 0om Do00 UD0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【高管介绍】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIil0fiflo&1
+mmMwWLIil0fiflo&1
+mmMwWLLI0fiflO&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+
+@mrem [[]
+0 Do om om om 000 Do 000 0 Oo oo 00
+nm DD0D22500050339.48 -0.37% DonnnnD4257.84 1.04% Donnn0013267.48 0.20% 回回
+0U000 4.57 县 -0.07 DD04.660 D004.640 DD00378.860 DD00.027
+“ -1.51% DD04.660 0DD04.540 Do082.800 DD02.586
+HK2128
+Don0oDno0 。” DD00141.780 ”0D000141.780 ”DOD0(D)06.180 。” D0000.532
+-
+Do
+炙 mm
+D170 DODD00000000000000000000000000000000000000000000000
+no0 0D00000000 000002009-11-05 上
+063 000238.700 0DD000-
+0D000000000000000000000000000O0OO0O0O00000000D0DOOOOOOO0O0OO0D0DODOOOOOOOOOOO0OOOD0DODDD0OOOO0O000200
+0D000000000000000000000000000O0OO0O0O00000000D00OOOOOOOOO0OO000DODDODOOOOOOOOOOOOOODODDODODOOOOOOOOO00000
+DOD000000000000000000000000002010005014000D0DODOOOOOOOOOOO0DO0D0D0000000020120030160DDDODOOOOOOOOO0O00000
+0D0020220080300000000D0000000O0O0000000
+no0 0D0000000 000002010-02-27 上
+054 000550.500 0DD000-
+0D000019720000000000000000000000020100202700000O0OO0O00O0DDDODOOOOOOOOO0O000000D0D000O0OOOO0O0000000
+DOD0000000000000000000D/00D/O00000000D000O0OOOO0O000000980000000002023050D0D0OOOOOO0O000002010005014000000
+DOD00000000000000000000000000202500302800000D0DD00OOOOOO0O000000000
+no0 0D000000 000002010-02-27 上
+060 0D0240.4o0 0DD000-
+DOD000000000000000000000000000O0OOOO0O00000000D00DODOOOOOOO0O0 000000D00D00000000023000O0OOOO0OOO00000D
+0OD000000000000000000000000000O0OOOO0O00000000DO0OODOOOOOOOOOOOODODDODODOOOOOOOOOOOOOOODODODODOO0
+no 0D000000 0D0002010-02-27 吕
+059 000238.700 0DD000-
+DOD000000000000000000000000000O0O00O0O000000D0DOD0OOOOOO0O0O00D0DODDOOOOOOOO00020000OOOOUOOODODODD00O0
+DOD00000000000000000000000000000000O0O00000000D000000000000000
+no0 0D000000 000002010-02-27 上
+059 0D0240.4o0 0DD000-
+DOD000000000000000000000000000O0OO0O0O00000000DODOOOOOOO0O0OO0D0DODDOOOOOO00020000OOOOOOOOOODODODDOOO0
+DOD000000000000000000000000000000000000000000000
+no 0D000000 0D0002010-02-27 吕
+058 加 000238.700 0DD000-
+DOD00000000000000000000000000000O00O0O00000000D0DOOOOOOO0O0000D0D0DD00OOOO0O00270000OOOOUOOODODODDO0O0
+0D000000000000000000000000000O0OO0O0O00000000D00OOOOOOOOO0OO000DODDODOOOOOOOOOOOOOODODDODODOOOOOOOOO00000
+0OD000000000000000000000000000O0OOOO0O00000000DOOOOOOOOOOOOOOOOODODDODODODOOOOOOOOOOOODDODODODOOOO0
+DOOD0O0DD000DD000DD000DD000DD00000000000000000000000000000000000000000000000000000000000000000000D0000OD0000D0O0OD0OOOD0O00D00
+DOD0 Do | 0 | Do oomn Do | 0000 Do0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+DOOOD0000D0000D000000
+----------------------------------------------------
+【新闻公告】
+----------------------------------------------------
+从 同花顺 网 经 港股 © © © 四 四 四 四 加 m m m m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+Gamzem [1[] [Er C i:
+mm ， rm om rm om om mm ， rm om cm mm om
+mm - 四 癌
+0ooo -0.07 no4.660  (74.640 。 nn379.310 Do.027
+4.57 量 15lw 04.660 。 0004.540 。 DD0082.900 0DD02.586
+HK2128
+non 。 mn0141.780 ”nmnn0141.780 ”On0D)06.165 0000.532
+mm mm mm mm om om 本 是 rm om om om om
+no。 oo
+y 0000
+002025012031000000000000000000
+000000 一 000000
+002025011030000000000000000000
+00000000000
+0D2025010031000000000000000000
+00202509030000000000000000000
+00000000000000000—0000202500000
+0000000000000000—0000202500000
+[0002025
+00202508031000000000000000000
+000000000
+00000000
+0020250603000000000000
+0D0000000
+iii
+ro | nmmo | nm | mm | omo | nmm | oom | co | ommo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【财务分析】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 男 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwLliiofnog1l
+mmMwwLliiofnog1l
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+Gamzem [1[] [mm C i2 %
+mm 00 om om om om mm ， mm om com mm om
+om DORTs0D01114.13 -0.11% DODloon009931.38 -0.09% 回 同
+DO000 -0.07 Dn04.660 。 004.640 。 On0379.310 0n0o.027
+4.57 最 15lw Dn04.660 。 0n04.540 。 DOD0082.900 0DD02.586
+HK2128
+nan0oo00 。 0nn0141.780 。 00000141.780 。 DOO)06.165 00000.532
+mm mm mm mm om mm ro faall mm om mm om
+mm
+y 0000
+咖 DODDD mm ~
+“% 0000 nn
+® 00000 o
+& I0 308.680
+0
+揭 00000
+一 2
+0
+& om 1 5
+Da 2025-06-30 2024-12-31 2024-06-30 2023-12-31 2023-06-30 2022-12-31
+Doom 12-31 12-31 12-31 12-31 12-31 12-31
+mm om om om om om om
+mm 一 moon 一 moon 一 moon
+mm
+mm 124.750 270.260 135.640 308.680 152.970 307.670
+non 10.460 16.840 10.430 23.680 14.940 25.210
+m 35.140 72.930 37.280 81.210 42.590 82.410
+Doooto) 10.25 7.47 9.33 7.57 10.09 10.13
+mm
+mm 568.980 583.290 595.930 600.310 618.280 590.040
+mm 186.250 197.150 215.650 208.140 233.040 239.930
+Don 382.730 386.140 380.280 392.170 385.230 350.110
+Donooo) 4.30 7.06 4.47 10.08 6.59 11.54
+Doooto) 56.43 58.14 59.91 59.50 62.07 61.63
+mm
+Donomm 568.980 583.290 595.930 600.310 618.280 590.040
+mm 321.050 339.140 357.030 357.200 383.760 363.630
+mm 247.930 244.150 238.890 243.110 234.520 226.410
+ai 0.34 0.55 0.34 077 0.49 0.82
+ai 0.34 0.55 0.34 077 0.49 0.82
+Do 4.02 8.71 4.37 9.95 4.93 9.92
+Doom 7.84 7.69 7.52 7.58 7.30 7.02
+Doom 7.79 7.64 7.48 7.53 7.26 6.98
+Do -0.11 121 0.20 216 0.43 1.47
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+Donoooooonoononoom
+----------------------------------------------------
+【股东持股】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 加 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwUliloffog1l
+mmMwwUliloffog1l
+mmMwWHUilofiflOS1l
+mmMwwUliloffog1l
+mmMwNLLiT9fifLOS1
+mmMwwUliloffog1l
+你 局 花 硕 [][] [Er C i:
+mm ， ro om om om oo rm ，mm om om om om
+nm ，- 四 加
+0000 4.57 -0.07 0n04.660  (I[4.640 。 0n00379.310 DD0o.027
+4 -1.51% 0n04.660  [(I[4.540 。 0D0082.900 0n02.586
+HK2128
+CDon0 000 。 0n00141.780 ”0DD000141.780 。 DOO(D)06.193 ”00000.532
+mm rm mm om om mm cm ro 有 有 omm mo om
+mm om
+y 0000
+2025-06-30 2024-12-31 2024-06-30 2023-12-31 2023-06-30 2022-12-31 2020630  )
+Do om om Oon0(9o) DonooD) Do
+New Fortune Star Limited 000 214248.50 69.06 m 000
+Zhan Hua Limited 000 9665.41 3.12 m oo
+om 0 604.20 0.19 四 0
+om 0 230.80 0.07 四 0
+mm 000 192.70 0.06 oo 000
+mm 0 3.00 0.0010 oo 000
+y 0000
+m om DonooD) DootoD) On00D(9o) m
+2025-07-07 000 个 15.00 18.00 001 ， 吕
+2025-06-17 000 个 8128.61 10269.61 3.31 00
+2025-06-11 000 个 26.50 2141.00 0.69 00
+2025-06-10 000 个 611.00 2114.50 0.68 上
+2025-06-09 000 个 161.00 1503.50 0.48 上
+2025-06-06 000 个 100.20 1342.50 0.43 上
+2025-06-05 000 个 251.80 1242.30 040 。 喇
+2025-06-04 000 个 154.90 990.50 032 品
+2025-06-03 000 个 173.70 835.60 027 上
+2025-06-02 000 个 57.70 661.90 021 吕
+1
+DroooomnoonooOnD00DDDO0ODOOOOODOOODnOnDDDOODDDOOODDDODDOOODDODOODO0OODO0ODDOnnDDOnODDDDOODOOODDOODODOOOODOOOODOODDnOnnDn0D
+Do | oo | om | om | om | oo | on | om | oo | oo
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【经营分析】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 四 m amv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+你 局 花 硕 [][] [mm C i2 %
+mm ， rm mm mm om om mm ， mm om cm rom mm
+nn DDDn03968.84 0.09% Donnnn26108.65 1.86% DDnnnnn29213.15 0.86% 癌 同
+0ooo -0.07 04.660 。 504.640 。 0nnn379.310 Do.027
+4.57 量 :15lw 0DD04.660 。 0n04.540 。 Dnn082.9o0 Dn02.586
+HK2128
+Donoronnon ”onnn141.780 ”00n141.780  (IO(O6.193 ”0n0o.532
+mm mm mm mm mm om mm om om 和 ml mo om
+om om
+y 0000
+Don0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+y 000000
+2025-0630 -
+[ ]
+号
+[ ]
+[]
+[]
+2025-06-30 2024-12-31 2024-06-30 onnnnnnnnD
+0000 oo
+0 (0D0D) (96)
+0o0o 117.40] 94.11
+00000000000 2.960 2.37
+oo OO0000000000000000 1.650 1.33
+0000000000000 1.590 1.28
+00000000000 0.900 0.72
+000000000 0.210 0.17
+oo0000 446.000 0.04
+0oo 124.750 100
+o 123.440 98.95
+(0D) 60.470 48.47
+0000 (000D) 62.970 50.48
+0o0o 14.28[] 11.45
+o -12.970 -10.39
+jui] 124.750 100
+和 ii
+mr | on | mmm | mm | om | om | om | om | oo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【关联】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 加 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwUliloffog1l
+mmMwwUliloffog1l
+mmMwWHUilofiflOS1l
+mmMwwUliloffog1l
+mmMwNLLiT9fifLOS1
+mmMwwUliloffog1l
+Gamzem [1[] [Er C i:
+mm ， ro om om om oo rm ，mm om om om om
+nm ，- gg
+DO000 -0.07 Dn04.660 。 004.640 。 On0379.310 0n0o.027
+4.57 县 -1.51% DD04.660 。 0004.540 。 DD0082.900 DD02.586
+HK2128
+CDon0 000 。 0n00141.780 ”0DD000141.780 。 DD0(D)06.153 00000.532
+mm rm mm om om mm cm om om oo 车 上
+四 “0
+4
+m
+m m m | om oo nm [iui}
+m m
+11554 1 ， OO000000 ，0000 ， 0000  8.0000  2012-10-04 2012-10-04 2012-09-26 2012-10-04
+13128 .1  [O00O0O0 ，0o00 ，0000  6.8800  2012-09-17 2012-09-17 2012-09-11 2012-09-17
+11758 .1 ， OO0000000 ，0000 ，0000 ，9.0000 ， 2011-11-28 2011-11-28 2011-11-22 2011-11-28
+y 000
+Do
+DroooomnoonooOnD00DDDO0ODOOOOODOOODnOnDDDOODDDOOODDDODDOOODDODOODO0OODO0ODDOnnDDOnODDDDOODOOODDOODODOOOODOOOODOODDnOnnDn0D
+Do | oo | om | om | om | oo | on | om | oo | oo
+Copyright©Hithink RoyalFlush Information Network Co. Ltd.
+----------------------------------------------------
+【投资评级】
+----------------------------------------------------
+@arem [
+mm ， mm om om om om mm ， mm om com mm om
+om DDORTs0D01114.13 -0.11% 0DD0Dl1000009931.38 -0.09% 癌 同
+[0 457 是， 时 2 于 村 m
+HK2128
+Don 。 onn0141.780  (OOO041780 。 DD0O)06.153 。 00000.532
+|
+mm
+y 0000
+m mm on ni] om oo
+2025-10-20 0000 m o 5.30 m
+2025-09-07 oo 四 四 - -
+2025-09-04 0000 m 一 一 -
+2025-09-03 0000 m o 7.80 m
+2025-09-02 DODOO(HK) m o 6.35 m
+2025-09-02 0000 m o 6.35 m
+2025-04-13 oo 四 四 - -
+2025-04-03 0000 m o 4.86 m
+2024-09-09 oo 四 四 - -
+2024-04-26 oo 四 四 - -
+2024-04-21 0000 m o 3.97 m
+2023-08-29 0000 m o 5.60 m
+2023-04-02 oo 四 四 - -
+2022-04-25 0000 m 一 一 -
+2022-03-30 0000 m —~ ~ 一
+2021-03-30 0000 m o 24.13 m
+2021-01-12 0000 m o 16.95 m
+2019-08-27 oo000 m 一 9.10 -
+2019-06-06 OO00(OD) [un) 吕 6.20 oo
+2019-05-27 0000 m 一 一 -
+2017-04-05 0000 m 一 7.22 -
+2017-03-08 0000 m o 7.80 m
+2016-09-12 0000 m 一 一 -
+2016-08-25 0000 m 一 6.30 -
+2016-08-24 0000 m o 5.80 m
+2016-08-24 JPOO0000 m o 7.70 m
+2016-01-08 0000 m o 7.75 m
+2015-09-23 0000 m o 7.90 m
+2ns-nn-17 rmnnnm mn mn an mn
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwLliiofnog1l
+mmMwwLliiofnog1l
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwUilofflogl
+####################################################
+# 禾赛 (HK2525)
+####################################################
+
+----------------------------------------------------
+【首页概览】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 男 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+你 局 花 硕 [][] [mm C i2 %
+0 Do om om om 000 Do 000 0 Oo oo 00
+mm ，- 加 加
+DO0-W 179.9¢ 会 2.00 Do178.100 ”0n0177.900 ”DD002174.510 Dn0o.078
+1.12% [0181.000 ”0D00175.600 ”DO00012.130 D03.035
+HK2525
+DDon0oDD00 。” DD00280.900 ”0D000280.900 。”DD0(D)068.282 ”00002.912
+aa DO mm mm nm mm oo om 0 om 0 Oo
+Do oo mm oo 0 0
+| mm | | DO om oa mn:
+T0:48 00179.900 (LF175.236 072.000 DO3L 12% 05520 [55 了
+DD 中 上 181.192 严 E E E E E g 1.85% 000000000001 50000000700
+DOO0000 0.22 11.68% | DDlevel20000000DD000D000
+0 八 CDonoonnnnonnonnnnnnnnn0
+5 421.40 4.20% IA Do
+IOw 2272 3.84% 179546 | baw
+DDD0mD 5.15 3.629% | 内 1
+Y
+mm 755 sae | 1 am |
+DD00 ”616.50 2.92% |
+四  11210 2.84% 177.900| 0.00% | DDDDDDD00095105885
+Do 7.41 277% 山
+Do 。 1314 270% |
+176254| 093%
+0000
+45086550 1030 12:0013:00  14:00 16:20-9 om om
+20
+om oo
+10
+om oo
+可 h | ° mm oo
+£000000 |R 84 80000 m>
+Do v 0000oooon 000002025-09-16 DDODDFermat Star Limited
+mm mm m DD00020.0000 DODD0www.hesaitech.com DD0001024
+DO 36.70 87.45% Do 0000000000 - 0000 - 00000000 (O0000HKD
+0D0D  009 85.42% 一
+mm 3s9。 2014%  BO00D m> B000 >
+DDDODD0 0.26 ”25.00%
+mm o072 2000  DONOOOODOODOCES 2026 01/0207:33 (1)D000DDDDDOD(2)00000D000 12:24 00:00
+aa ss0 1806%  0000002025 000000 160 00000 5 0000 ©1/0111:07  (0000000000 1224.00:00
+ram 。 os0 17.es% ， DO0000202500000016000 ouol1038 DODODOO0OOOO0O0D0ODODDDODD0000  12-0400:00
+bm oo15 17.32% ， 0D0000202500000016o00 ouol lo13 0000 11-12 00:00
+mm "0 1557% ， 2025000000OOOO0O0O000D DO0D000000 。 12118:53 。 000000202509030000000O0O0000 111100:00
+DDD 035  1452% 本 加
+DOD(HsAlLUs)003% D0020350DDDDDDD00  12/202312 ”DOOOOOOODOODODODOODDODOOOOOO00 。。 11-05 00:00
+0000 一 一
+日 DD0D/000 m>
+DD00 1.5600
+000000 1.5600 Do
+Do00 2.120
+DD00 2.8300 B0000 ay>
+00000 20.2700
+Dono - m oomn Do Do 0 Do Do
+DD0000 56.620 1 Do 加 一 235.93 一 2025-12-22
+O000000 4.43% 2 Do0 加 一 182.50 一 2025-11-24
+3 Do 加 一 一 一 2025-11-24
+4 Do 加 一 247.60 一 2025-11-16
+5 Do 加 一 一 一 2025-11-14
+2000 m>
+000 mm ”oo Do
+本
+“El >
+20
+2
+| 一 | 一 和
+(E- BALE E B
+RE
+。 四 面 本 本 面 面 面
+2025000 2025000 202400 2024000 2024000 2025000 2025000 202400 2024000 2024000
+DOOD0O0DD000DD000DD000DD000DD00000000000000000000000000000000000000000000000000000000000000000000D0000OD0000D0O0OD0OOOD0O00D00
+Do | 00000 | Do | Do | Do | 0 | 0 | Co | 0 | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+000N00000000000000000
+----------------------------------------------------
+【公】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 四 m amv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+Gamzem [1[] [mm C i2 %
+mm ， rm mm mm om om mm ， mm om cm rom mm
+nn DD0022500050339.48 -0.37% nnnD4254.39 0.95% Dononnn13267.48 0.20% 习 问
+DO0-W 179.9¢ 会 2.00 Do178.100 ”0n0177.900 ”DD002174.510 Dn0o.078
+1.12% (117181.000 ”nn175.600 ”nnn12.130 Da.035
+HK2525
+Don0oo00 。 0n00280.900 。” 00000280.900 。 0DD0O)068.282 ”00002.912
+| mm | ii cm nm mm mm rm mm mm om mm om
+mm
+y 0000
+Doo000 oooo000
+Doesai Group Donoo0000 - 0000 - 00000000
+Do 02021-04-21 DDDDDhttps://www hesaitech.com
+Don0000000000000000000000
+00mom onom- Don1024
+000o00'0000000000000000000(0000 ”Cooo00000000000(OD)O0000000000000(0D)00
+0000120310
+0D) 000000
+0 0086-0400-8051233 0 加- 0 Dir@hesaitech.com
+Don0000000000006580A0100
+On
+00000000000000000000LiDAR0000000000000000000000000000000000000000000000000ATUOOETUOOFTOO00000000000000
+00000000ADAS00000000000000000000000000000000000000000
+和 ii
+mr | on | mmm | mm | om | om | om | om | oo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【股本结构】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMWWLIIORAIO&1
+mmMWWLIIORAIO&1
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+
+Gamzem [1[] [Er C i:
+mm ， mm om om om om mm ， mm om com mm om
+mm ，- 四 加
+DO-W 2.00 Dn0178.100 ”0n0177.900 0DD002284.610 Doo.082
+179.9( 会 1.12% (T11181.000 ”mn0175.600 。 D0012.740 (1113.035
+HK2525
+OOOOO00 。 0n00280.900 。” 00000280.900 。 0DD0O)068.282 ”00002.912
+mm ”ro 和 ua cm om mm mm mm mm mm om om
+mm om oo om
+y 00000
+Doom
+om 2025-09-16 2025-09-15 2025-09-05
+om 156.14 153.21 133.66
+mo 156.14 153.21 一
+om 一 一 一
+Do 2025-09-19 2025-09-16 2025-09-05
+y 000000
+om DonD) mm om
+2025-09-16 156.14 [0000000 2025-09-19
+2025-09-15 153.21 oO0000 2025-09-16
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【业务概要】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 男 m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwwWLlilofno&1l
+mmMwwWLlilofno&1l
+mmMwWLII0AfI0&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+Gimem [中
+0om on 0om DO D000 Do0 Do oooo 0D000 Do0 DoD0 oom
+nm DD0D22500050339.48 -0.37% DonnD4254.39 0.95% Donnn0013267.48 0.20% 回回
+-W 2.00 [0178.100 ”0D00177.900 ”0D0002284.610 Do00.082
+四 179.9( 会 112% molsl.ooo ”rnnl75.600 ”nnnl2.740 mna.oas
+HK2525
+00000 00000 0000280.900 ”DOD00280.900 ”DOD0(D)068.282  [0002.912
+mn
+Do
+D000
+7
+D000:
+DO0000000000000000000
+0000c:
+20250000000000000795.-40000111.7000000020240000000539-40000047-5%[1202500000000000000790-10000111.000
+(0000020240000000503-10000057-0%000000000000000000000000ADAS 000000000000000002025000000000000005-3000
+[00.700000002024000000036.30000085-4%000000000000000000000
+00000000
+000000000000000000000° 000000000000000000000000000000000000000000000000000000000000000000000000000000
+8[00000046%00000000001-50000000002-4000ADAS000000000000000000000000000ADAS{[2026000000000000000
+100%[0000000000000000000000000000000000w3000000000000000000000000000000000ETX0000000000000000000000000
+00000000000000000000000FT™ 000000000L30000003060000000000000000500(01,0000000000000000000000000000000000
+000000000000000000000000000000000000Metienal 00000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000°'00000000000000'00000000000
+0000000000000000000ARAS 000000000000000000000000000000000000000047%00007950000112000000
+000°000000000000000000000000000000000042%00000000000000023%000000000A/0000000000000000000000000000
+0ooooo
+DO000
+D00020250000000000000001,00000001400000000001,20000001690000000000000393067%0
+oooov
+DOODD000DD0000D0000D0000000ODD00ODD000DD0000D00000000O0000OD000OD000OD000OD0000O0000OD00UOD00OOD000OD000OD000OD000OD000OD0000000
+Do0 DoD0 | 0 Do0 DoD0 0om Do00 UD0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+000000000000000000000
+----------------------------------------------------
+【分红派息】
+----------------------------------------------------
+从 同花顺 网 经 港股 © © © 四 四 四 四 加 m m m m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+Gamzem [1[] [Er C i:
+mm ， rm om rm om om mm ， rm om cm mm om
+mm - 四 癌
+DO0-W 2.00 Do178.100 ”0n0177.900 ”DDn02286.410 [00o.082
+179.9( 会 112% nl81.000 ”0nn175.600 ”nn012.750 0D03.035
+HK2525
+non0 。 nnn0280.900 ”nnnn0280.900 ”DO)068.282 。 nn0D2.912
+mm mm rm om GEl mm mm mm om mm om om
+Do oo
+y 0000
+mm
+y 0000000
+mm
+iii
+ro | nmmo | nm | mm | omo | nmm | oom | co | ommo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【高管介绍】
+----------------------------------------------------
+从 同花顺 网 经 港股 © © © 四 四 四 四 加 m m m m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+Carmren []
+mm ， rm om rm om om mm ， rm om cm mm om
+nm DORTSODD1114.13 -0.11% nnmDl0onn09931.38 -0.09% 癌 同
+-W 2.00 (00178.100 000177.900 [1]]2286.41(] DD00.082
+加 179.9( 会 112% naslooo rn0175.600 nmnl2.750 nna.oas
+HK2525
+non0 。 nnn0280.900 ”nnnn0280.900 ”DO)068.282 。 nn0D2.912
+-
+mm
+y 0000
+De0 ooomooomooomooomOooDOoonOoononoDnonoonn
+DO00 0D00000000000000 000002025-09-16 00
+03900 000307.800 00000-
+000000000000000000000Hesai Group00000000Hesai GroupD0D000000000000HesaiD00LiD00020130020140000000000000
+0D000Li00020090000000000000000020090000000000000000000000020130000000000000000000000000000000000LiO000000
+0000000000000“3900000400"0MIT0000“20200035000000"000000002021000000000202509016000000000000000
+000 0000000000 000002021-04-21 DO
+04000 000292.300 00000-
+0D00Hesai Group00000000Hesai GroupD000000DHesai GroupO000000000000000Hesai000Xxiang0000201100201400Apple0
+QiPhone0000000000xiang000200700000000000000000Xiang0000000000000200900201100000000000000000000000
+000 00000000000000000 000002021-04-21 0D0
+03500 000293.900 00000-
+0DD00020170110000Hesai GroupDU000000U000UYang0002014012000Hesai Group0UUU0Hesai Group0D000000000Hesai Group0D0
+Yang0002012010002014070000000000000000000201409002014012000000000000UYang000201200000000000000000002025
+090160000000000000000
+D0 0000000000 000002021-04-21 0D0
+04100 000291.700 00000-
+0000019850600000000000000000020070000000000000000000000000020090000000000000000000000020130000000000
+0D0000000000000000000000000PhDMinor00201401002014060000000000000000020140700201401000000000000Academic
+Staff-Research,Physical Science Research Associate020140100000000000000000000000000000000000000000000201501200
+201802000000000000000000000000000000000000000
+D0 0000000 000002025-09-08 0
+0565300 000- 00000-
+0000019630700000000000000000000000000020090500201201200000000000000000000020130100201701200000000000
+00000000201407000000000000000000000201701200202301200000000000000000000000000000000000000000000000000000
+0D0000000000000000000000000000000000000000202500900800000000000000000
+吕 Oo0000 [00002023-02-01 00
+05200 000140.800 00000-
+0D002023020000Hesai Group000000202206000zhang0000swire Pacific LimitedU00000000000000190000000000swire
+iii
+ro | nmmo | nm | mm | omo | nmm | oom | co | ommo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+rnoononoononoononoom
+----------------------------------------------------
+【新闻公告】
+----------------------------------------------------
+从 同花顺 网 经 港股 © © © 四 四 四 四 加 m m m m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+Gamzem [1[] [Er C i:
+mm ， rm om rm om om mm ， rm om cm mm om
+mm - 四 癌
+DO0-W 180 0( 会 320 Do178.100 ”0n0177.900 ”DDn02292.170 [00o.082
+1.18% 0181.000 0n0175.600 ”0nn012.790 nna.035
+HK2525
+non 。 nn0281.060 ”nmnn0281.060 ”On0)068.282 。 nn0D2.913
+mm mm mm mm om om 本 是 rm om om om om
+no。 oo
+y 0000
+00000000000
+2025-12-24
+(1)00000000000(2)000000000
+20251224
+000000000000000000000000000000
+202512.08
+0ooo
+0000002025090300000000000000
+9B9999999999999999999999999999
+000000000
+2025-10.24
+000000000000000
+00000000000000000000000000000
+000000
+0D0000000
+0D0000000000
+00000
+00000000000
+iii
+ro | nmmo | nm | mm | omo | nmm | oom | co | ommo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【财务分析】
+----------------------------------------------------
+本 局 花 顺 财经 港股 m oo D [1] m m o om m m om 0 0
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIil0fiflo&1
+mmMwWLIil0fiflo&1
+mmMwWLLI0fiflO&1
+mmMwWLIil0fiflo&1
+mmMwWL1110F1f1081
+mmMwWLIil0fiflo&1
+
+区
+D0D on 0om DO D000 Do0 Do oooo 0D000 Do0 DoD0 oom
+0om DD0022500050339.48 -0.37% D0000004257.14 1.02% D00000000D13267.48 0.20% 习 癌
+D0-W TEA noa7s.loo noa77.9oo nunzz9z.170 nno.osz
+HK2525 1.18% Do0181.000 ”0D00175.600 ”DOD0012.790 D03.035
+00000 00000 0000281.060 ”DODD00281.060 ”DOD0(D)068.282  [0002.913
+m
+Do
+roo —
+m DOD0000 Do 加
+党 0D00 > 0
+® [oooo
+攻 ”  e
+& om 20.270 20.770
+5 00000 0
+AE—E PETTE
+& m 站 [| - 5
+DO 2025-09-30 2025-03-31 2024-12-31 2024-09-30 2024-03-31 2023-12-31
+Doo0 12-31 12-31 12-31 12-31 12-31 12-31
+Do D00 D00 D00 D00 D00 D00
+Do 一 00000000 00000000 一 一 00000000
+Do
+曾 win . 于 s s wm
+= EEC 本 本 on 本
+吕 5 2 5 Ga 1 5
+DDO00(9) 15.31 -3.35 -4.87 -18.33 -29.70 -25.32
+Do
+加 运 运 wom 天 - - 二
+加 f wes wo
+Doo0 13.880 12.710 13.070 - - 12.650
+CO0000(%) 3.20 -0.41 -2.60 一 一 -1232
+DDO00(9) 18.99 26.60 34.36 - - 31.79
+Do
+Con 109.130 58.270 59.900 一 一 56.630
+加 二 2 - - im
+加 本 wn 3 - - 5
+Do 2.12 -0.13 -0.79 -1.94 -0.84 -3.81
+Do 2.01 -0.13 -0.79 -1.94 -0.84 -3.81
+Do 12.98 3.97 15.84 10.65 2.82 14.78
+Do 56.62 32.36 29.98 一 一 30.41
+Do 56.17 31.69 29.54 一 一 3010
+Doo0 - -1.94 0.48 - -2.58 0.45
+DOODD000DD0000D0000D0000000ODD00ODD000DD0000D00000000O0000OD000OD000OD000OD0000O0000OD00UOD00OOD000OD000OD000OD000OD000OD0000000
+Do0 DoD0 | 0 Do0 DoD0 0om Do00 UD0 no | 0
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+000000000000000000000
+----------------------------------------------------
+【股东持股】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+& 司 花 硕 [1[] [mm C i2 %
+mm 00 om om om om mm ， mm om com mm om
+mm ，- 回回
+DO0-W 2.00 Do178.100 ”0n0177.900 ”DDn02322.410 [110.083
+179.9( 会 1.12% (T11181.000 ”mn0175.600 。 D0012.950 0DD03.035
+HK2525
+Don0oo00 。 0n00280.900 。” 00000280.900 。 0DD0O)068.282 ”00002.912
+mm mm mm mm om mm mm om fheall 00 mm om
+mm com
+y 0000
+2025-09-16
+Do on DooD) DOD0tb) DOD) mm
+Fermat Star Limited 0D00000000000000 922.86 6.02 m 000
+Galbadia Limited 0D00000000000000 905.56 5.91 m 000
+ALB| Limited 0000000000000000 887.96 5.80 [un) 000
+0 D00 12.26 0.08 oo 000
+y 0000
+ooomoo ，omm
+m om mn 后 中
+2025-12- Deutsche Bank Aktiengesellschaft (Incorporated in the Federal Republic of
+15 Germany & members' liability is limited) 人 3000 | 8482.87 | 65.69| 加
+2025-12- Deutsche Bank Aktiengesellschaft (Incorporated in the Federal Republic of
+15 Germany & members' liability is limited) 人 ?000 834088| 6459| 加
+2025-12- Deutsche Bank Aktiengesellschaft (Incorporated in the Federal Republic of
+09 Germany & members' liability is limited) 437.00 | 8368.03| 64.80| 加
+2025-12- Deutsche Bank Aktiengesellschaft (Incorporated in the Federal Republic of
+09 Germany & members' liability is limited) 4 37.00 | 8251.04| 63.89| 加
+2025-11- Deutsche Bank Aktiengesellschaft (Incorporated in the Federal Republic of 二
+24 Germany & members' liability is limited) -125.65 | 8472.93| 55.61 四
+2025-11- Deutsche Bank Aktiengesellschaft (Incorporated in the Federal Republic of 二
+24 Germany & members' liability is limited) -125.65 | 8369.94 | 5481 四
+2025-11- Deutsche Bank Aktiengesellschaft (Incorporated in the Federal Republic of
+20 Germany & members' liability is limited) 45258 | 860058| 66.60| 加
+2025-11- Deutsche Bank Aktiengesellschaft (Incorporated in the Federal Republic of
+20 Germany & members' liability is limited) 4 5258 | 849759| 65.80| 加
+0 Morgan Stanley 全 37.20 660.19 5.11 [
+2025-11- Deutsche Bank Aktiengesellschaft (Incorporated in the Federal Republic of
+12 Germany & members' liability is limited) 4 4251|875410| 67.79| 加
+1
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【经营分析】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMWWLIIORAIO&1
+mmMWWLIIORAIO&1
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+
+你 局 花 硕 [][] [Er C i:
+mm ， mm om om om om mm ， mm om com mm om
+om DDORTs0D01114.13 -0.11% 0DD0Dl1000009931.38 -0.09% 回回
+DO-W 179.9( 会 2.00 Dn0178.100 ”0n0177.900 ”0DD002322.410 Doo.083
+“ 1.12% Dn0181.000 ”0n0175.600 0DD0012.950 0n03.035
+HK2525
+CDon0 000 。 0n00280.900  [OO0280.900 。 DD0(D)068.282 。 00002.912
+mm mm mm mm om mm mm om om 和 mm om
+Do oo
+y 0000
+Don0000000000000000000000
+y 000000
+20250331 ~
+| [ ]
+2025-03-31 2024-12-31 2024-03-31 Donononnnm
+0000 oo
+0 (000D) (%)
+oo00 5.110 97.21
+(00000D) 5.080 96.74
+DO (000D) 248.000 0.47
+oo00 0.150 2.79
+(000000000000) 0.130 2.41
+(DO00D) 200.000 0.38
+0 5.250 100
+oo00 4.230 80.58
+o 0.670 12.83
+0000
+o 0.180 3.48
+oo00 0.160 3.12
+m 5.250 100
+ii
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【关联】
+----------------------------------------------------
+从 同花顺 网 经 港股 © © © 四 四 四 四 加 m m m m omv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMwWLIIOfiflo&1
+mmMwWLIIOfiflo&1
+mmMwWLII0ffO&1
+mmMwWLIIOfiflo&1
+mmMvL1110F1f1081
+mmMwWLIIOfiflo&1
+
+Gamzem [1[] [Er C i:
+mm ， rm om rm om om mm ， rm om cm mm om
+mm - 四 癌
+DO0-W 2.00 Do178.100 ”0n0177.900 ”DDn02323.840 [110.083
+179.9( 会 112% ol81.000 ”0nn175.600 ”nn12.960 0D03.035
+HK2525
+Do 。 Dnnn280.900 ”0Dn0n280.900 。 DD0O)068.282 ”0n002.912
+mm mm mm mm om mm mm mm om om 和 上
+m “0
+4
+mm
+y 000
+mm
+iii
+ro | nmmo | nm | mm | omo | nmm | oom | co | ommo | om
+Copyright ©Hithink RoyalFlush Information Network Co.Ltd
+----------------------------------------------------
+【投资评级】
+----------------------------------------------------
+同花顺 网 经 港股 四 © © © © 四 四 T m 加 m m mv
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word
+mmMWWLIIORAIO&1
+mmMWWLIIORAIO&1
+mmMwWLLIORfIOR 1
+mmMWWLIIORAIO&1
+mnhhWLLiTgfifLOS1
+mmMwwLliiofnog1l
+
+Gamzem [1[] [Er C i:
+mm ， mm om om om om mm ， mm om com mm om
+om DDORTs0D01114.13 -0.11% 0DD0Dl1000009931.38 -0.09% 回回
+DO-W 2.00 Dn0178.100 ”0n0177.900 ”0DD002323.840 Doo.083
+179.9( 会 1.12% (T11181.000 ”mn0175.600 (T11112.960 DD03.035
+HK2525
+CDon0 000 。 0n00280.900  [OO0280.900 。 DD0(D)068.282 。 00002.912
+mm mm mm mm om mm mm om om om oo [eesal |
+mm
+y 0000
+m oo om Do moD) oo
+
+2025-12-22 oo00 m 一 235.93 -
+2025-11-24 oo00 m 一 一 -
+2025-11-16 oo00 m 一 247.60 -
+2025-11-14 oo00 m 一 - 二-
+2025-11-13 000000 m oo 269.66 m
+2025-11-12 oo00 m 一 一 -
+
+ii
+
+mo | om | om | om | om | mm | om | cm | om | om
+Copyright©Hithink RoyalFlush Information Network Co.Ltd
+===== 采集完成 =====

@@ -35,7 +35,7 @@ async function scrapeYanbaoke(options = {}) {
         const StealthPlugin = require('puppeteer-extra-plugin-stealth');
         puppeteer.use(StealthPlugin());
 
-        const { createStealthPage, humanScroll, randomDelay, humanClickElement } = require('../utils/humanBehavior');
+        const { createStealthPage, humanScroll, randomDelay, humanClickElement } = require('../../utils/humanBehavior');
 
         const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || undefined;
 
