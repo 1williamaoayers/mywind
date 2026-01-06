@@ -1,0 +1,57 @@
+name: Build and Push MyWind Docker Image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Dockerfile.mywind'
+      - 'run_aktools.py'
+      - '.github/workflows/build-mywind.yml'
+  workflow_dispatch:  # 允许手动触发
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository_owner }}/mywind-aktools
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔐 Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📝 Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix={{branch}}-
+
+      - name: 🏗️ Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.mywind
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: ✅ Build Complete
+        run: |
+          echo "🎉 MyWind Docker镜像构建成功！"
+          echo "📦 镜像地址: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          echo "🔗 查看镜像: https://github.com/${{ github.repository }}/pkgs/container/mywind-aktools"
