@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  tradingagents:
+    image: ghcr.io/1williamaoayers/tradingagents-arm32:latest
+    container_name: tradingagents
+    ports:
+      - "8501:8501"
+    environment:
+      - MYWIND_API_URL=http://YOUR_MYWIND_IP:8888/api/public
+      - TZ=Asia/Shanghai
+    restart: unless-stopped

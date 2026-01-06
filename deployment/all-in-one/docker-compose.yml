@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mywind:
+    image: ghcr.io/1williamaoayers/mywind-aktools:latest
+    container_name: mywind
+    ports:
+      - "8888:8888"
+    environment:
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    networks:
+      - mywind-net
+
+  tradingagents:
+    image: ghcr.io/1williamaoayers/tradingagents-arm32:latest
+    container_name: tradingagents
+    ports:
+      - "8501:8501"
+    environment:
+      - MYWIND_API_URL=http://mywind:8888/api/public
+      - TZ=Asia/Shanghai
+    depends_on:
+      mywind:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - mywind-net
+
+networks:
+  mywind-net:
+    driver: bridge
