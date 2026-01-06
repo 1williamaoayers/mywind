@@ -1,175 +1,186 @@
-# 🚀 MyWind AI 投研助手
+# MyWind - AkShare Data API Service
 
-> 你的私人"万得"终端。**全网矩阵式采集** → **DeepSeek AI 深度分析** → **飞书彩色卡片实时预警**。
+> 基于AKTools的AkShare数据HTTP API服务，为TradingAgents提供253个金融数据接口
 
-![架构](https://img.shields.io/badge/架构-amd64%20|%20arm64-blue)
-![Docker](https://img.shields.io/badge/Docker-Ready-green)
-![Chrome](https://img.shields.io/badge/Chrome-预装-orange)
-
----
-
-## ✨ 功能特性
-
-| 功能 | 说明 |
-|------|------|
-| 📰 **多源深度采集** | 东方财富、新浪财经、同花顺等主流财经网站 |
-| 👁️ **视觉采集 (OCR)** | Puppeteer + Tesseract.js 识别今日头条推荐流 |
-| 🔍 **搜索引擎增强** | 百度/Bing 搜索采集，绕过直接访问限制 |
-| 🔐 **账号保险箱** | AES-256 加密托管第三方平台账号 |
-| 🤖 **AI 研报生成** | DeepSeek/GPT 自动生成投资研报 |
-| 📱 **飞书推送** | 三级预警彩色卡片实时通知 |
-| ⏰ **定时调度** | 可配置的自动采集、研报生成任务 |
-| 🖥️ **Web 控制台** | 可视化管理界面 |
+[![Build MyWind](https://github.com/1williamaoayers/mywind/actions/workflows/build-mywind.yml/badge.svg)](https://github.com/1williamaoayers/mywind/actions/workflows/build-mywind.yml)
+[![Docker Image](https://ghcr-badge.egpl.dev/1williamaoayers/mywind-aktools/latest_tag?trim=major&label=latest)](https://github.com/1williamaoayers/mywind/pkgs/container/mywind-aktools)
 
 ---
 
-## 💻 最低配置
+## 🎯 项目简介
 
-| 项目 | 要求 |
-|------|------|
-| CPU | 1 核 |
-| 内存 | 1G + 2G Swap |
-| 架构 | amd64 或 arm64 |
-| Docker | 20.10+ |
+MyWind是一个**零代码封装**的AkShare数据服务，通过官方AKTools工具提供HTTP API访问253个AkShare金融数据接口。
 
-> 💡 1核1G 机器可以运行所有功能，视觉采集会稍慢
+### 核心优势
+
+- ✅ **零维护成本** - 使用官方AKTools，自动跟随AkShare更新
+- ✅ **开箱即用** - Docker一键部署，5分钟启动
+- ✅ **253个接口** - 覆盖A股、港股、美股、宏观数据
+- ✅ **生产就绪** - 健康检查、自动重启、日志管理
 
 ---
 
-## ⚡ 快速部署
+## 🚀 快速开始
 
-### 方式一：体验版（不保存数据）
+### 单机部署（推荐）
+
+适合个人使用、快速体验：
 
 ```bash
-docker run -d --name mywind-ai -p 8088:8088 \
-  -e AI_API_KEY=你的DeepSeek_Key \
-  -e FEISHU_WEBHOOK=你的飞书Webhook \
-  --restart always \
-  ghcr.io/1williamaoayers/mywind:latest
+# 1. 下载部署包
+cd deployment/all-in-one
+
+# 2. 启动服务
+./start.sh  # Linux/Mac
+# 或
+start.bat   # Windows
+
+# 3. 访问服务
+# TradingAgents: http://localhost:8501
+# API文档: http://localhost:8888/docs
 ```
 
-### 方式二：正式版（推荐）
+### 分离部署
 
+适合VPS/云服务器 + 多客户端场景：
+
+**服务端（VPS）**:
 ```bash
-mkdir -p ~/mywind && cd ~/mywind && cat > docker-compose.yml << 'EOF'
-services:
-  mongo:
-    image: mongo:7
-    container_name: mywind-mongo
-    restart: always
-    volumes:
-      - mongo_data:/data/db
-
-  app:
-    image: ghcr.io/1williamaoayers/mywind:latest
-    container_name: mywind-app
-    restart: always
-    ports:
-      - "8088:8088"
-    environment:
-      - NODE_ENV=production
-      - MONGO_URI=mongodb://mongo:27017/private_wind
-      - AI_API_KEY=你的DeepSeek_Key
-      - AI_API_BASE=https://api.deepseek.com/v1
-      - FEISHU_WEBHOOK=你的飞书Webhook
-    depends_on:
-      - mongo
-
-volumes:
-  mongo_data:
-EOF
-
-docker compose up -d && echo "✅ 启动成功！打开 http://localhost:8088"
+cd deployment/server
+./install.sh
 ```
 
----
-
-## 🌐 访问控制台
-
-启动后打开：**http://服务器IP:8088**
-
-控制台功能：
-- 📊 数据可视化图表
-- 🔐 账号保险箱管理
-- 👁️ 视觉采集监控
-- ⏰ 调度任务配置
-- 📨 飞书推送测试
-
----
-
-## 📋 环境变量
-
-| 变量名 | 必填 | 说明 |
-|--------|------|------|
-| `AI_API_KEY` | ✅ | DeepSeek API Key |
-| `FEISHU_WEBHOOK` | ✅ | 飞书 Flow Webhook 地址 |
-| `AI_API_BASE` | ❌ | API 地址 (默认: deepseek) |
-| `AI_MODEL` | ❌ | 模型名称 (默认: deepseek-chat) |
-| `ENCRYPTION_KEY` | ❌ | 账号加密密钥 (可选) |
-
----
-
-## 🔧 定时任务
-
-| 任务 | 频率 | 说明 |
-|------|------|------|
-| 实时采集 | 每 5 分钟 | 抓取最新资讯 |
-| 深度采集 | 每 30 分钟 | 深度内容挖掘 |
-| 搜索引擎 | 每 30 分钟 | 百度/Bing 增强 |
-| 视觉采集 | 每天 4 次 | 今日头条 OCR (06:00/12:00/18:00/00:00) |
-| AI 研报 | 每天 08:30 | 自动生成研报 |
-| 预警推送 | 每 2 分钟 | 处理待推送预警 |
-
----
-
-## 🛠️ API 接口
-
-| 接口 | 说明 |
-|------|------|
-| `GET /api/news` | 获取新闻列表 |
-| `GET /api/stocks` | 获取股票列表 |
-| `POST /api/visual/toutiao` | 触发视觉采集 |
-| `GET /api/accounts` | 获取托管账号 |
-| `GET /health` | 健康检查 |
-
-完整 API 文档请访问控制台。
-
----
-
-## 🧹 卸载
-
+**客户端（本地/NAS）**:
 ```bash
-cd ~/mywind
-docker compose down -v
-docker rmi ghcr.io/1williamaoayers/mywind:latest mongo:7
+cd deployment/client
+./install.sh
+```
+
+详细文档：[部署指南](deployment/)
+
+---
+
+## 📦 部署方案
+
+| 方案 | 适用场景 | 文档 |
+|------|---------|------|
+| All-in-One | 个人PC、单台VPS | [README](deployment/all-in-one/README.md) |
+| Server | VPS/云服务器 | [README](deployment/server/README.md) |
+| Client | 本地PC/NAS/树莓派 | [README](deployment/client/README.md) |
+
+---
+
+## 🏗️ 架构说明
+
+### All-in-One架构
+```
+┌─────────────────────────────┐
+│  Single Machine             │
+│  ┌───────────────────────┐  │
+│  │  TradingAgents        │  │
+│  │  (AI Investment)      │  │
+│  └──────────┬────────────┘  │
+│             │ HTTP          │
+│             ▼               │
+│  ┌───────────────────────┐  │
+│  │  MyWind (AKTools)     │  │
+│  │  253 Data APIs        │  │
+│  └───────────────────────┘  │
+└─────────────────────────────┘
+```
+
+### 分离架构
+```
+┌──────────────┐    ┌──────────────┐
+│  Client 1    │    │  Client 2    │
+│ TradingAgent │    │ TradingAgent │
+└──────┬───────┘    └──────┬───────┘
+       │ HTTP              │ HTTP
+       └───────┬───────────┘
+               ▼
+    ┌──────────────────┐
+    │  MyWind Server   │
+    │  (VPS/Cloud)     │
+    │  Public API      │
+    └──────────────────┘
 ```
 
 ---
 
-## ❓ 常见问题
+## 📊 数据接口
 
-**Q: 端口被占用？**
-```bash
-# 改用其他端口，如 9088
-ports:
-  - "9088:8088"
-```
+MyWind提供的253个接口涵盖：
 
-**Q: 查看日志？**
-```bash
-docker logs -f mywind-app
-```
+| 类别 | 接口数量 | 说明 |
+|------|---------|------|
+| 市场行情 | 60 | 实时行情、历史数据、指数 |
+| 新闻资讯 | 37 | 快讯、公告、研报 |
+| 基本面 | 60 | 财报、估值、分红 |
+| 社交媒体 | 10 | 舆情、热度 |
+| 风险宏观 | 86 | 宏观数据、风险指标 |
 
-**Q: 视觉采集很慢？**
-> 1核1G 机器视觉采集需要 2-3 分钟，这是正常的
-
-**Q: 更新到最新版？**
-```bash
-docker compose pull && docker compose up -d
-```
+完整接口列表：[API文档](http://localhost:8888/docs)（启动后访问）
 
 ---
 
-## 📄 License
+## 🔧 技术栈
 
-MIT © 2024
+- **核心**: AKTools 0.0.90 + AkShare 1.18.7
+- **Web框架**: FastAPI + Uvicorn
+- **容器**: Docker + Docker Compose
+- **CI/CD**: GitHub Actions
+- **镜像仓库**: GitHub Container Registry (ghcr.io)
+
+---
+
+## 📚 相关项目
+
+- **TradingAgents** - AI多智能体投资决策系统
+  - 仓库: [TradingAgents-arm32](https://github.com/1williamaoayers/TradingAgents-arm32)
+  - 说明: MyWind的主要客户端，提供5个AI分析师
+
+- **AKTools** - 官方HTTP API工具
+  - 仓库: [akfamily/aktools](https://github.com/akfamily/aktools)
+  - 说明: MyWind基于此工具构建
+
+- **AkShare** - 开源金融数据接口库
+  - 仓库: [akfamily/akshare](https://github.com/akfamily/akshare)
+  - 说明: 数据源
+
+---
+
+## 🤝 贡献指南
+
+欢迎贡献！请查看 [贡献指南](CONTRIBUTING.md)
+
+**常见贡献方式**:
+- 🐛 报告bug
+- 💡 提出新功能建议
+- 📖 改进文档
+- 🔧 提交代码
+
+---
+
+## 📄 许可证
+
+MIT License - 详见 [LICENSE](LICENSE)
+
+---
+
+## 🆘 获取帮助
+
+- 📚 [完整文档](docs/)
+- 🐛 [报告问题](https://github.com/1williamaoayers/mywind/issues)
+- 💬 [讨论区](https://github.com/1williamaoayers/mywind/discussions)
+
+---
+
+## ⭐ Star History
+
+如果这个项目对你有帮助，请给个Star！
+
+[![Star History Chart](https://api.star-history.com/svg?repos=1williamaoayers/mywind&type=Date)](https://star-history.com/#1williamaoayers/mywind&Date)
+
+---
+
+**Made with ❤️ by William Aoayers**
