@@ -7,6 +7,6 @@ services:
     ports:
       - "8501:8501"
     environment:
-      - MYWIND_API_URL=http://YOUR_MYWIND_IP:8888/api/public
+      - MYWIND_API_URL=http://YOUR_MYWIND_IP:8080/api/public
       - TZ=Asia/Shanghai
     restart: unless-stopped

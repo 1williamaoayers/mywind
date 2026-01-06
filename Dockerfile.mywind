@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 LABEL maintainer="William Aoayers"
 LABEL description="MyWind AKTools - AkShare HTTP API Service"
-LABEL version="1.0.0"
+LABEL version="1.0.1"
 
 WORKDIR /app
 
@@ -11,28 +11,15 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends curl && \
     rm -rf /var/lib/apt/lists/*
 
-# 安装Python包
-RUN pip install --no-cache-dir \
-    aktools==0.0.90 \
-    akshare==1.18.7 \
-    uvicorn==0.27.0
+# 安装Python包（使用官方推荐方式）
+RUN pip install --no-cache-dir aktools --upgrade -i https://pypi.org/simple
 
-# 创建非root用户
-RUN useradd -m -u 1000 mywind && \
-    chown -R mywind:mywind /app
-
-# 复制启动脚本
-COPY run_aktools.py .
-
-# 切换到非root用户
-USER mywind
-
-# 暴露端口
-EXPOSE 8888
+# 暴露端口（aktools默认8080）
+EXPOSE 8080
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:8888/ || exit 1
+  CMD curl -f http://localhost:8080/ || exit 1
 
-# 启动命令
-CMD ["python", "run_aktools.py"]
+# 启动命令（官方推荐方式）
+CMD ["python", "-m", "aktools"]
