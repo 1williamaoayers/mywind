@@ -1,4 +1,4 @@
-# MyWind & TradingAgents 分离部署方案
+# MyWind & dTraingAgents 分离部署方案
 
 > **方案类型**: 分布式架构 (推荐生产环境)  
 > **核心思想**: MyWind作为中心化数据服务，TradingAgents作为分布式客户端  
